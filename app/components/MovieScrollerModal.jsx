@@ -5,11 +5,11 @@ import { Close, StarHalf, Favorite, FavoriteBorder } from "@mui/icons-material"
 import '../../assets/css/scrollbar.css'
 import { useState } from "react";
 import SimilarMovieGrid from "./SimilarMovieGrid";
-import Reviews from "./Reviews";
+import ReviewList from "./ReviewList";
 
-export default function MovieScrollerModal({src, alt, title, overview, rating, votecount, releasedate, onClose, genre}){
+export default function MovieScrollerModal({id, src, alt, title, overview, rating, votecount, releasedate, onClose, genre, favorite, visible}){
 
-    const [isFavorited, setIsFavorited]= useState()
+    const [isFavorited, setIsFavorited]= useState(favorite)
     const [similarOrReviews, setSimilarOrReviews]= useState(false)
 
     const titleLength = title.length;
@@ -20,16 +20,21 @@ export default function MovieScrollerModal({src, alt, title, overview, rating, v
             return "bottom-16"; 
         }
     };
+
+    const handleChildElementClick = (e) => {
+        e.stopPropagation()
+     }
+  
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-40">
-            <div className="bg-gray-900 h-screen w-[50rem] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar">
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-40" onClick={() =>visible()}>
+            <div className="bg-gray-900 h-screen w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar" onClick={(e) => handleChildElementClick(e)}>
                 <div className="relative w-full h-1/2 hover:opacity-90 hover:cursor-pointer">
                     <img
                         src={src} 
                         alt={alt}
                         className="rounded-t-lg h-full object-cover w-full" 
                     />
-                    <Close onClick={onClose} className="absolute left-5 top-5 text-gray-300 hover:text-white z-50 bg-gray-900 bg-opacity-80 rounded-xl hover:cursor-pointer hover:bg-opacity-70" />
+                    <Close onClick={onClose} className=" text-4xl absolute text-slate-100 left-5 top-5  hover:text-slate-400 z-50 bg-gray-900 bg-opacity-80 rounded-full hover:cursor-pointer hover:bg-opacity-70" />
                     <div className={`flex justify-between items-center relative ${getTitleStyle()} bg-gray-900 bg-opacity-40 px-5 pb-5`}>
                         <div className="flex items-center gap-2">
                             <h3 className="text-6xl">{title}</h3>
@@ -72,11 +77,11 @@ export default function MovieScrollerModal({src, alt, title, overview, rating, v
                     </div>
                     <div className="flex flex-col items-center text-center">
                         <div className="flex gap-10 mr-12">
-                            <h3 className={similarOrReviews ? "hover:text-green-600 hover:underline hover:cursor-pointer" : "text-green-600"} onClick={() => setSimilarOrReviews(false)}>Similar Movies</h3>
-                            <h3 className={!similarOrReviews ? "hover:text-green-600 hover:underline hover:cursor-pointer" : "text-green-600"} onClick={() => setSimilarOrReviews(true)}>Reviews</h3>
+                            <h3 className={similarOrReviews ? "hover:text-green-600  hover:cursor-pointer" : "text-green-600 underline"} onClick={() => setSimilarOrReviews(false)}>Similar Movies</h3>
+                            <h3 className={!similarOrReviews ? "hover:text-green-600  hover:cursor-pointer" : "text-green-600 underline"} onClick={() => setSimilarOrReviews(true)}>Reviews</h3>
                         </div>
                         {
-                            !similarOrReviews ? <SimilarMovieGrid /> : <Reviews />
+                            !similarOrReviews ? <SimilarMovieGrid genre={genre}/> : <ReviewList movie_id={id}/>
                         }
                         
                     </div>

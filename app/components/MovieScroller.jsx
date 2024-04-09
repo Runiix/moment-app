@@ -6,15 +6,16 @@ import '../../assets/css/scrollbar.css'
 import { supabase } from "../utils/supabaseClient";
 
 
-export default function MovieScroller({scrollertitle, category}){
+export default function MovieScroller({scrollertitle, category, isfavorite, favoritetype}){
 
     const [movieList, setMovieList]= useState(null);
+    const [currentUser, setCurrentUser]= useState(null)
 
-/* 
-      const getMovie= async () =>{
-        const totalPages= 50;
+
+/*       const getMovie= async () =>{
+        const totalPages= 38;
         const requests= []
-        for( let page=1; page <= totalPages; page++){
+        for( let page=38; page <= totalPages; page++){
             requests
                 .push(fetch(`https://api.themoviedb.org/3/discover/movie?api_key=77ea84f8c960e9d8d7e658a914bd428b&include_adult=false&include_video=false&language=en-US&page=${page}&vote_count.gte=200&sort_by=vote_count.desc`)
                 .then(res => res.json()))
@@ -78,15 +79,44 @@ export default function MovieScroller({scrollertitle, category}){
 
     const getMovieFromDB = async () =>{
         try{
-            const {data, error} = await supabase.from('Movies').select('*').contains('genre_ids', [category]);
-            if(error){
-                console.error('Error Getting movies from DB: ', error)
+            if(!isfavorite){
+                const {data, error} = await supabase.from('Movies').select('*').contains('genre_ids', [category]);
+                if(error){
+                    console.error('Error Getting movies from DB: ', error)
+                }
+                else{
+                    const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
+                    const selectedMovies = shuffledMovies.slice(0, 20);
+                    setMovieList(selectedMovies);
+                } 
             }
             else{
-                const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
-                const selectedMovies = shuffledMovies.slice(0, 20);
-                setMovieList(selectedMovies);
-            } 
+                const { data: user, error } = await supabase.auth.getUser();
+                if(error) console.error("error getting user", error)
+                const { data: favoritesData, error: favoritesError } = await supabase
+                    .from('favorites')
+                    .select('movie_title')
+                    .match({user_id: user.user.id, type: favoritetype})
+                    
+    
+                if (favoritesError) return favoritesError;
+                else {
+                    const favoriteTitles = favoritesData.map(favorite => favorite.movie_title.trim());
+    
+                    const { data, error } = await supabase
+                        .from('Movies')
+                        .select('*')
+                        .in('title', favoriteTitles)
+                        if(error){
+                            console.error('Error Getting movies from DB: ', error)
+                        }
+                        else{
+                            const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
+                            const selectedMovies = shuffledMovies.slice(0, 20);
+                            setMovieList(selectedMovies);
+                        } 
+                }
+            }
         }catch(error){
             console.error('Error getting data from DB:', error)
         }
@@ -97,18 +127,34 @@ export default function MovieScroller({scrollertitle, category}){
     useEffect(()=> {
             getMovieFromDB();
             console.log(movieList)
-        }, [])        
+        }, [])     
+
+    useEffect(() =>{
+        const fetchUser = async () => {
+            const { data: user, error } = await supabase.auth.getUser();
+            if (error) {
+                console.error('Error fetching user:', error.message);
+            } else {       
+                return user
+            }
+        };
+        fetchUser().then(u => {
+            setCurrentUser(u);            
+        });
+    }, [])   
    
     return(
         <div className="flex flex-col ">
-            <h2 className="mt-40 ml-2 rounded-lg hover:bg-opacity-30 text-center hover:cursor-pointer hover:text-green-600 hover:underline hover:bg-gray-900 p-0">{scrollertitle}</h2>
+            <h2 className="mt-40 ml-8 rounded-lg hover:bg-opacity-30 text-center hover:cursor-pointer hover:text-green-600 hover:underline hover:bg-gray-900 p-0">{scrollertitle}</h2>
            {
                 movieList !== null &&
-                <div className="w-[97vw] my-44 absolute overflow-x-scroll overflow-y-hidden scroll-smooth hide-scrollbar hover:first:ml-10">
-                    <div className="flex gap-5">
+                <div className="w-[96vw] pl-6 xl:pl-8 pb-2 my-44 absolute overflow-x-scroll overflow-y-hidden scroll-smooth hide-scrollbar hover:first:ml-10">
+                    <div className="flex gap-5 ">
                     {movieList.map((movie, index) => (
                         <MovieScrollerImage
                             key={index}
+                            id={movie.id}
+                            u={currentUser}
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                             title={movie.title}
@@ -117,6 +163,9 @@ export default function MovieScroller({scrollertitle, category}){
                             votecount={movie.vote_count}
                             releasedate={movie.release_date}
                             genre={movie.genre_ids}
+                            isFirst={index === 0}
+                            isfavorite={isfavorite}
+                            favoritetype={favoritetype}
                         />
                     ))}
                     </div>     

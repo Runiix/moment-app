@@ -6,8 +6,7 @@ import { revalidatePath } from "next/cache";
  
 export async function addOrRemoveFromFavorites(formData){
     const movieTitle= formData.get('title')
-    const isFavorited= formData.get('isFavorited')
-    const favoriteType= formData.get('favoriteType')
+    const isOnWatchList= formData.get('isOnWatchList')
     const cookieStore= cookies();
 
     const supabase= createServerClient(
@@ -33,20 +32,20 @@ export async function addOrRemoveFromFavorites(formData){
     if(!user){
         return{success: false, error: 'User is not authenticated!'}
     }
-    console.log( movieTitle, user.id, "isFavorited:", isFavorited , "Type", favoriteType)
+    console.log( movieTitle, user.id, "isOnWatchlist:", isOnWatchList)
 
-    if(isFavorited === 'true'){
-        console.log( movieTitle, user.id, "isFavorited:", isFavorited , "Type", favoriteType)
+    if(isOnWatchList === 'true'){
+        console.log( movieTitle, user.id, "isOnWatchlist:", isOnWatchList)
         const {error} = await supabase
-        .from('favorites')
-        .insert({ user_id: user.id, movie_title: movieTitle, type: favoriteType });        
+        .from('watchlist')
+        .insert({ user_id: user.id, movie_title: movieTitle});        
         if (error) {
             console.log("error inserting Movie", error)
         }
     }else {
-        console.log("removed", isFavorited)
+        console.log("removed", isOnWatchList)
         const {error}= await supabase 
-            .from('favorites')
+            .from('watchlist')
             .delete()
             .match({user_id: user.id, movie_title: movieTitle})
 

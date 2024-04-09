@@ -1,55 +1,64 @@
 'use client'
 
-import { Favorite, StarHalf } from "@mui/icons-material";
+import { AddCircleOutline, CheckCircle, Favorite, HeartBroken, HeartBrokenOutlined, StarHalf } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MovieScrollerModal from "./MovieScrollerModal";
 import { supabase } from "../utils/supabaseClient";
+import { addOrRemoveFromFavorites } from "../actions/addOrRemoveFromFavorites";
 
 
-export default function MovieScrollerImage({ src, src2, title, overview, rating, votecount, releasedate, genre}){
+export default function MovieScrollerImage({u, id, src, src2, title, overview, rating, votecount, releasedate, genre, isFirst, modal= false, isfavorite=false, favoritetype= 0 }){
 
 
-    const [isFavorited, setIsFavorited]= useState(false);
-    const [showModal, setShowModal]= useState();
+    const [isFavorited, setIsFavorited]= useState(isfavorite);
+    const [favoriteType, setFavoriteType]= useState(favoritetype)
+    const [showModal, setShowModal]= useState(modal);
+    const [currentUser, setCurrentUser]= useState(u);
 
-    async function addOrRemoveFromFavorites(){
-     
-        const {data: {user}}= await supabase.auth.getUser();
-    
-        if(!user){
-            return{success: false, error: 'User is not authenticated!'}
-        }
-        if(isFavorited=== 'true'){
-            const {error}= await supabase 
-                .from('Favorites')
-                .delete()
-                .match({user_id: user.id, title: title})
-    
-            if(error){
-                return{success: false, error}
+
+
+    const checkForFavorite= async (u) =>{
+        try{
+            const { data: favoritesData, error: favoritesError } = await supabase
+            .from('favorites')
+            .select('movie_title, type')
+            .eq('user_id', u.user.id);
+            if(favoritesError) return favoritesError;
+            for(let i=0; i<favoritesData.length; i++){
+                if(title===favoritesData[i].movie_title){
+                setIsFavorited(true)
+                setFavoriteType(favoritesData[i].type)
+                }
             }
-        }else{
-            console.log(user.id, title)
-            const {error}= await supabase
-                .from('Favorites')
-                .insert({user_id: user.id, title: title})
-    
-            if(error){
-                return {success: false, error}
-            }
+        }catch(error){
+            console.error("error getting data", error)
         }
-
-        return {success: true}
     }
+    useEffect(() =>{
+        if(u){
+            setCurrentUser(u);
+            checkForFavorite(u);
+        }
 
+    }, [])
 
     function toggleModal(){
         setShowModal(!showModal)
     }
 
+    function handleFavorite(t){
+        setIsFavorited(!isFavorited)
+        if(isFavorited){
+            setFavoriteType(0)
+        }else{
+            setFavoriteType(t)
+        }
+    }
+
+
     return(
-        <div >
+        <div>
             <div className="group flex py-5">
                 <img 
                     src={src}
@@ -61,51 +70,55 @@ export default function MovieScrollerImage({ src, src2, title, overview, rating,
                     w-44
                     min-w-44
                     cursor-pointer 
-                    transition 
-                    duartion 
+                    transition-all 
+                    duartion-500 
                     shadow-xl 
                     group-hover:opacity-90 
                     sm:group-hover:opacity-0
                     delay-200
-                    origin-center
-                    z-2"
+                    "
+
                 />
                 <div 
-                    className="
-                    transition
-                    duration-300
-                    delay-300
+                    className={`
                     absolute
-                    group-hover:first:p-20
                     w-64 
                     flex
-                    invisible
-                    group-hover:scale-110
+                    visible
+                    sm:invisible
+                    transition-all
+                    scale-100
+                    sm:scale-0
+                    opacity-100
+                    sm:opacity-0
+                    delay-300
+                    duration-500
+                    group:scale-100
+                    group-hover:scale-[1.15]
                     group-hover:opacity-100
                     group-hover:visible
-                    z-10
+                    group-hover:translate-y-1
+                    ${isFirst ? 'group-hover:translate-x-28' : ''}
+                    z-2
                     hover:cursor-pointer
-                    " 
-                    
+                    `}
+                    onClick={() => setShowModal(true)}
                 >
                     <img 
                         src={src}
-                        alt="Movie Scroller Image"
+                        alt={`${title} Poster`}
                         className="
                         cursor-pointer
                         object-cover
-                        transition
-                        duration
+                        transition-all
                         relative
                         right-24
                         shadow-xl
                         h-64
                         w-44
                         min-w-44
-                        rounded-l-md
-                        
+                        rounded-l-md                        
                         " 
-                        onClick={() => setShowModal(true)}
                     />
                     <div
                         className="
@@ -116,8 +129,6 @@ export default function MovieScrollerImage({ src, src2, title, overview, rating,
                         min-w-52
                         relative
                         right-24
-                        transition
-                        duration-300
                         shadow-md
                         rounded-r-md">
                             <div className="p-4">
@@ -126,27 +137,72 @@ export default function MovieScrollerImage({ src, src2, title, overview, rating,
                                         <h3 className="text-xl">{title}</h3>
                                         <p className="text-[8px]">{overview}</p>
                                     </div>
-                                    <div className="flex gap-24 absolute bottom-2">
+                                    <div className="flex gap-12 absolute bottom-2">
                                             
                                         <div className="flex text-xl items-center">
                                                 <StarHalf />
                                                 <p>{rating}</p>
                                         </div>
+                                        <div className="flex items-center">
                                         <form 
+                                                id="favoriteForm"
                                                 action={addOrRemoveFromFavorites}
-                                                onSubmit={() =>setIsFavorited(!isFavorited)}
-                                                className=""
-                                            >
-
+                                                >
                                             <input type="hidden" name="title" value={title}/>
                                             <input type="hidden" name="isFavorited" value={isFavorited}/>
-                                            <button
+                                            <input type="hidden" name="favoriteType" value={favoriteType}/>
+
+                                            {
+                                                (favoriteType === 1 || isFavorited === false) &&
+                                                <button
                                                 type="submit"
                                                 className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
-                                            >
-                                                {isFavorited ? <Favorite className="text-green-600"/> : <FavoriteBorder />}
-                                            </button>
+                                                onClick={() =>handleFavorite(1)}
+                                                >
+                                                    {favoriteType=== 1 ? <Favorite className="text-green-600"/> : <FavoriteBorder />}
+                                                </button>
+                                            }
                                         </form>
+                                        <form 
+                                                id="favoriteForm"
+                                                action={addOrRemoveFromFavorites}
+                                            >
+                                            <input type="hidden" name="title" value={title}/>
+                                            <input type="hidden" name="isFavorited" value={isFavorited}/>
+                                            <input type="hidden" name="favoriteType" value={favoriteType}/>
+
+                                            {
+                                                (favoriteType === 2 || isFavorited === false) &&
+                                                <button
+                                                type="submit"
+                                                className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
+                                                onClick={() => handleFavorite(2)}
+                                                >
+                                            
+                                                    {favoriteType=== 2 ? <HeartBroken className="text-red-600"/> : <HeartBrokenOutlined />}
+                                                </button>
+                                            }
+                                        </form>
+                                        <form 
+                                                id="favoriteForm"
+                                                action={addOrRemoveFromFavorites}
+                                            >
+                                            <input type="hidden" name="title" value={title}/>
+                                            <input type="hidden" name="isFavorited" value={isFavorited}/>
+                                            <input type="hidden" name="favoriteType" value={favoriteType}/>
+
+                                            {
+                                                (favoriteType === 3 || isFavorited === false) &&
+                                                <button
+                                                type="submit"
+                                                className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
+                                                onClick={() =>handleFavorite(3)}
+                                                >
+                                                    {favoriteType=== 3 ? <CheckCircle className="text-green-600"/> : <AddCircleOutline />}
+                                                </button>
+                                            }
+                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -155,6 +211,7 @@ export default function MovieScrollerImage({ src, src2, title, overview, rating,
             </div> 
             {
              showModal && <MovieScrollerModal 
+                            id={id}
                             src={src2}
                             alt={title} 
                             title={title} 
@@ -163,7 +220,9 @@ export default function MovieScrollerImage({ src, src2, title, overview, rating,
                             votecount={votecount} 
                             releasedate={releasedate} 
                             genre= {genre}
-                            onClose={toggleModal} />
+                            onClose={toggleModal} 
+                            favorite={isFavorited}
+                            visible= {toggleModal}/>
             }
         </div>
     )

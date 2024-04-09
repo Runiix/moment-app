@@ -26,7 +26,7 @@ export default function LandingPage(){
 
       <div className="h-screen flex flex-col items-center justify-center text-center z-50">
         <h1 className="text-7xl mb-10">Explore The World of Entertainment!</h1>
-        <p className="mb-10">Watch movies and Tv-shows and share your opinions with others</p>
+        <p className="mb-10">Watch your favorite Movies and share your opinions with others</p>
         <Link 
           href="/loginpage" 
           className="bg-green-600 text-zinc-900 py-5 px-20 text-2xl rounded-2xl hover:text-slate-100 hover:bg-green-700"
@@ -43,7 +43,7 @@ export default function LandingPage(){
 
       <div className="flex flex-col items-center justify-center w-full max-w-screen px-5 text-slate-100 bg-gray-950">
         <div className="flex gap-20 p-44 w-full border-b-4 border-gray-900" >
-          <h2 className="text-5xl w-1/2 text-center">Explore a big variety of Movies and Tv Shows!</h2>
+          <h2 className="text-5xl w-1/2 text-center">Explore over 2000 Movies!</h2>
           <a href="https://wallpapers.com/background/movie-poster-background-p5qblffj7cvswl5g.html" className="w-1/2 h-auto hover:cursor-pointer">
             <Image 
             className="rounded-full object-cover  shadow-inner border"

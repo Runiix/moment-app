@@ -84,14 +84,14 @@ const signUpMessage = <p>Email sent! Check your email to confirm Sign Up</p>
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 border border-slate-300 text-lg hover:border-slate-100 "
+                    className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 border bg-opacity-80 border-slate-300 text-lg hover:border-slate-100 "
                     />
                     <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 border border-slate-300 text-lg hover:border-slate-100 "
+                    className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 bg-opacity-80 border border-slate-300 text-lg hover:border-slate-100 "
                     />
                     <button
                     type="submit"

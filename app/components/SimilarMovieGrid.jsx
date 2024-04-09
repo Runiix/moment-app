@@ -45,10 +45,10 @@ export default function SimilarMovieGrid({genre}){
 
     return(
         
-        <div className=" w-full text-center items-center">
+        <div className=" w-full">
             {
                 movieList !== null &&
-                    <div className=" grid grid-cols-4 gap-5">
+                    <div className=" grid grid-cols-3 gap-4 ">
                         {movieScrollerImages}
                     </div>     
             }

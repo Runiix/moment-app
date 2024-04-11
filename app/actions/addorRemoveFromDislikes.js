@@ -4,9 +4,9 @@ import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { revalidatePath } from "next/cache";
  
-export async function addOrRemoveFromWatchlist(formData){
+export async function addOrRemoveFromDislikes(formData){
     const movieTitle= formData.get('title')
-    const isOnWatchList= formData.get('isOnWatchlist')
+    const isDisliked= formData.get('isDisliked')
     const cookieStore= cookies();
 
     const supabase= createServerClient(
@@ -32,12 +32,12 @@ export async function addOrRemoveFromWatchlist(formData){
     if(!user){
         return{success: false, error: 'User is not authenticated!'}
     }
-    console.log( movieTitle, user.id, "isOnWatchlist:", isOnWatchList)
+    console.log( movieTitle, user.id, "isDisliked:", isDisliked)
 
-    if(isOnWatchList === 'true'){
-        console.log("removed", isOnWatchList)
+    if(isDisliked === 'true'){
+        console.log("removed from dislike", isDisliked)
         const {error}= await supabase 
-            .from('watchlist')
+            .from('dislikes')
             .delete()
             .match({user_id: user.id, movie_title: movieTitle})
 
@@ -45,10 +45,10 @@ export async function addOrRemoveFromWatchlist(formData){
             return{success: false, error}
         }
     }else {
-        console.log( movieTitle, user.id, "isOnWatchlist:", isOnWatchList)
+        console.log( movieTitle, user.id, "isDisliked:", isDisliked)
         const {error} = await supabase
-        .from('watchlist')
-        .insert({ user_id: user.id, movie_title: movieTitle});        
+        .from('dislikes')
+        .insert({ user_id: user.id, movie_title: movieTitle });        
         if (error) {
             console.log("error inserting Movie", error)
         }

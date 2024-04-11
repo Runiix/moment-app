@@ -1,15 +1,14 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from "react";
-import { supabase } from "../utils/supabaseClient";
-import Review from "./Review";
-import ReviewForm from "./ReviewForm";
+import { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabaseClient';
+import Review from './Review';
+import ReviewForm from './ReviewForm';
 
-export default function ReviewList({movie_id}){
+export default function ReviewList({ movie_id }) {
+   const [reviewList, setReviewList] = useState(null);
 
-   const [reviewList, setReviewList]= useState(null)
-
-/*    const getReviews = async () => {
+   /*    const getReviews = async () => {
         try {
             const { data: movieIdList, error } = await supabase.from("Movies").select("id");
             if (error) {
@@ -70,44 +69,42 @@ export default function ReviewList({movie_id}){
         if (reviewList !== null) { 
             saveReviewsToDB(); 
         }
-    }, [reviewList]);    */ 
+    }, [reviewList]);    */
 
-    const fetchReviews= async () =>{
-        const {data, error}= await supabase.from("reviews").select("*").eq("movie_id", movie_id)
-        if(error) console.log("Error fetching Reviews", error)
-        else{
-            setReviewList(data)
-            console.log(data)
-        }
-    }
+   const fetchReviews = async () => {
+      const { data, error } = await supabase
+         .from('reviews')
+         .select('*')
+         .eq('movie_id', movie_id);
+      if (error) console.log('Error fetching Reviews', error);
+      else {
+         setReviewList(data);
+         console.log(data);
+      }
+   };
 
+   useEffect(() => {
+      fetchReviews();
+   }, []);
 
-    useEffect(() =>{
-        fetchReviews()
-    }, [])
-
- 
-
-    return(
-        <div className="mt-5 mb-20">
-            <div>
-                <ReviewForm movie_id={movie_id}/>
+   return (
+      <div className="mt-5 mb-20">
+         <div>
+            <ReviewForm movie_id={movie_id} />
+         </div>
+         {reviewList !== null && (
+            <div className="flex flex-col items-center gap-10">
+               {reviewList.map((review, index) => (
+                  <Review
+                     key={index}
+                     username={review.username}
+                     rating={review.rating}
+                     content={review.content}
+                     avatar_path={review.avatar_path}
+                  />
+               ))}
             </div>
-            {
-                reviewList !== null &&
-                    <div className="flex flex-col items-center gap-10">
-                        {reviewList.map((review, index) => (
-                            <Review
-                                key={index}
-                                username={review.username}
-                                rating={review.rating}
-                                content={review.content}
-                                avatar_path={review.avatar_path}
-                            />
-                        ))}
-                    </div>
-            }
-            
-        </div>
-    )
+         )}
+      </div>
+   );
 }

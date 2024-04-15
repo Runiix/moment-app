@@ -1,22 +1,65 @@
-'use client'
+import MovieGrid from '../components/MovieGrid';
+import { supabaseServer } from '../utils/supabaseServerClient';
 
-import { useState } from "react";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
-import MovieGrid from "../components/MovieGrid";
+async function getUser() {
+   const { data: user, error } = await supabaseServer.auth.getUser();
 
-export default function Home(){
+   if (error) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+   }
 
-    const [searchQuery, setSearchQuery]= useState('');
+   return user;
+}
+
+async function getData(from, to) {
+   const { data, error } = await supabaseServer
+      .from('Movies')
+      .select('*')
+      .range(from, to);
+   /*       .contains('genre_ids', genre)
+      .ilike('title', `%${searchQuery}%`)
+      .order(sortedBy, { ascending: sortOrder }) */
+
+   // The return value is *not* serialized
+   // You can return Date, Map, Set, etc.
+
+   if (error) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+   }
+   return data;
+}
+
+export default async function movies({ query }) {
+   console.log(query);
+   const from = 0;
+   const to = 19;
+   const user = await getUser();
+   const data = await getData(
+      /*       query.genre,
+      query.sortedBy,
+      query.sortOrder,
+      query.searchQuery,
+      query.from,
+      query.to */
+      from,
+      to
+   );
+   /*     const [searchQuery, setSearchQuery]= useState('');
 
     const handleSearch= (query) =>{
         setSearchQuery(query);
-    }
-    
-    return(
-        <main className="bg-gray-900 text-slate-100 font-doppio ">
-           <Nav onSearch={handleSearch}/>
-           <MovieGrid searchQuery={searchQuery}/>
-        </main>
-    )
+    } */
+
+   return (
+      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+         {/* <Nav onSearch={handleSearch} /> */}
+         <MovieGrid
+            data={data}
+            user={user} /* searchQuery={''}  */
+            favorites={true}
+         />
+      </main>
+   );
 }

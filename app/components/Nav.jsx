@@ -53,7 +53,7 @@ export default function Nav({ onSearch }) {
                </li>
                <li>
                   <Link
-                     href="/favorites"
+                     href="/mymovies/Movies"
                      className="text-slate-100 hover:text-slate-300"
                   >
                      My Movies
@@ -130,7 +130,7 @@ export default function Nav({ onSearch }) {
                   </li>
                   <li className="mb-2">
                      <Link
-                        href="/favorites"
+                        href="/mymovies/mymovies/genre/sortby/sortorder"
                         className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
                      >
                         My Movies

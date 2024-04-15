@@ -2,16 +2,21 @@
 
 import MovieScrollerImage from './MovieScrollerImage';
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '../utils/supabaseClient';
-import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
+import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import { debounce } from 'lodash';
+import Link from 'next/link';
 
 import { GridLoader } from 'react-spinners';
 
 export default function MovieGrid({
    favorites = false,
    genre = null,
-   searchQuery,
+   user,
+   data,
+   favoritetype,
+   favorite_titles,
+   dislike_titles,
+   watchlist_titles,
 }) {
    const [movieList, setMovieList] = useState(null);
    const [sortedBy, setSortedBy] = useState('vote_average');
@@ -19,14 +24,15 @@ export default function MovieGrid({
    const [genreList, setGenreList] = useState(genre);
    const [currentUser, setCurrentUser] = useState();
    const [offset, setOffset] = useState(1);
-   const [loading, setLoading] = useState(true);
+   const [isLoading, setIsLoading] = useState(true);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
    const [isInView, setIsInView] = useState(false);
    const [isLast, setIsLast] = useState(false);
-   const [favoriteType, setFavoriteType] = useState('all');
-   const [favoriteList, setFavoriteList] = useState();
+   const [favoriteType, setFavoriteType] = useState(favoritetype);
+   /*    const [favoriteList, setFavoriteList] = useState();
    const [dislikeList, setDislikeList] = useState();
-   const [watchlistList, setWatchlistList] = useState();
+   const [watchlistList, setWatchlistList] = useState(); */
+   const [showFavoriteFilter, setShowFavoriteFilter] = useState(false);
    const containerRef = useRef(null);
    const PAGE_COUNT = 20;
 
@@ -39,17 +45,74 @@ export default function MovieGrid({
          //console.log(bottom-1, innerHeight)
       }
    };
-
-   const loadMoreMovies = async () => {
-      setLoadingMoreMovies(true);
-      if (movieList === null) {
-         return;
+   /* const fetchMovies = async (from, to, genre, sortedBy, sortOrder, searchQuery) => {
+      try {
+         const response = await fetch(
+            `/api/movies?genre=${genre}&sortedBy=${sortedBy}&sortOrder=${sortOrder}&searchQuery=${searchQuery}&from=${from}&to=`
+         );
+         if (!response.ok) {
+            throw new Error('Failed to fetch movies');
+         }
+         const data = await response.json();
+         // Update movie list state with fetched data
+         setMovieList(data);
+      } catch (error) {
+         console.error('Error fetching movies:', error);
       }
-      const { data } = await getMoreMovies(offset, PAGE_COUNT);
-      setMovieList((prevMovieList) => [...prevMovieList, ...data]);
-      setLoadingMoreMovies(false);
-      if (data.length < PAGE_COUNT) {
-         setIsLast(true);
+   }; */
+   useEffect(() => {
+      if (data === null || data === undefined) {
+         setIsLoading(true);
+      } else {
+         setIsLoading(false);
+      }
+   }, [data]);
+
+   /*    const getFirstMovies = async (u) => {
+      const from = 0;
+      const to = PAGE_COUNT - 1;
+      try {
+         if (favorites === false) {
+            const { data, error } = await supabase
+               .from('Movies')
+               .select('*')
+               .contains('genre_ids', [genreList])
+               .ilike('title', `%${searchQuery}%`)
+               .order(sortedBy, { ascending: sortOrder })
+               .range(from, to);
+            if (error) return error;
+            else {
+               setMovieList(data);
+
+               if (data.length < PAGE_COUNT) {
+                  setIsLast(true);
+               }
+            }
+         } else {
+            const filteredTitles = await filterFavorites(u);
+            const filteredList = filteredTitles.map((favorite) =>
+               favorite.movie_title.trim()
+            );
+            //console.log('fileteredTitles', filteredList);
+            const { data, error } = await supabase
+               .from('Movies')
+               .select('*')
+               .contains('genre_ids', [genreList])
+               .ilike('title', `%${searchQuery}%`)
+               .order(sortedBy, { ascending: sortOrder })
+               .in('title', filteredList)
+               .range(from, to);
+            if (error) return error;
+            else {
+               setMovieList(data);
+
+               if (data.length < PAGE_COUNT) {
+                  setIsLast(true);
+               }
+            }
+         }
+      } catch (error) {
+         console.error('Error getting data from DB:', error);
       }
    };
 
@@ -92,50 +155,20 @@ export default function MovieGrid({
       }
    };
 
-   const getFirstMovies = async (u) => {
-      const from = 0;
-      const to = PAGE_COUNT - 1;
-      try {
-         if (favorites === false) {
-            const { data, error } = await supabase
-               .from('Movies')
-               .select('*')
-               .contains('genre_ids', [genreList])
-               .ilike('title', `%${searchQuery}%`)
-               .order(sortedBy, { ascending: sortOrder })
-               .range(from, to);
-            if (error) return error;
-            else {
-               setMovieList(data);
-               if (data.length < PAGE_COUNT) {
-                  setIsLast(true);
-               }
-            }
-         } else {
-            const filteredTitles = await filterFavorites(u);
-            const filteredList = filteredTitles.map((favorite) =>
-               favorite.movie_title.trim()
-            );
-            //console.log('fileteredTitles', filteredList);
-            const { data, error } = await supabase
-               .from('Movies')
-               .select('*')
-               .contains('genre_ids', [genreList])
-               .ilike('title', `%${searchQuery}%`)
-               .order(sortedBy, { ascending: sortOrder })
-               .in('title', filteredList)
-               .range(from, to);
-            if (error) return error;
-
-            setMovieList(data);
-         }
-      } catch (error) {
-         console.error('Error getting data from DB:', error);
+   const loadMoreMovies = async () => {
+      setLoadingMoreMovies(true);
+      if (movieList === null) {
+         return;
+      }
+      const { data } = await getMoreMovies(offset, PAGE_COUNT);
+      setMovieList((prevMovieList) => [...prevMovieList, ...data]);
+      setLoadingMoreMovies(false);
+      if (data.length < PAGE_COUNT) {
+         setIsLast(true);
       }
    };
-
-   const filterFavorites = async (u) => {
-      //console.log(favoriteType);
+ */
+   /* const filterFavorites = async (u) => {
       const filteredTitles = [];
       if (favoriteType === 'all' || favoriteType === 'fav') {
          const { data: favoritesData, error: favoritesError } = await supabase
@@ -169,84 +202,12 @@ export default function MovieGrid({
       }
       console.log(filteredTitles);
       return filteredTitles;
-   };
-   const changeSort = (sort) => {
-      setSortedBy(sort);
-   };
-   const changeGenre = (genre) => {
-      if (genre === '1') {
-         setGenreList(null);
-      } else {
-         setGenreList(genre);
-      }
-   };
-
-   const changeType = (type) => {
-      if (type === 'null') [setFavoriteType(null)];
-      else setFavoriteType(type);
-   };
-
-   useEffect(() => {
-      const fetchUser = async () => {
-         const { data: user, error } = await supabase.auth.getUser();
-         if (error) {
-            console.error('Error fetching user:', error.message);
-         } else {
-            console.log(user);
-
-            return user;
-         }
-      };
-      fetchUser().then((u) => {
-         setCurrentUser(u);
-         getFirstMovies(u);
-         setLoading(false);
-      });
-   }, []);
-
-   useEffect(() => {
-      if (isLast) {
-         setLoadingMoreMovies(false);
-      }
-   }, [isLast]);
-
-   useEffect(() => {
-      const handleDebouncedScroll = debounce(
-         () => !isLast && handleScroll(),
-         1000
-      );
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-         window.removeEventListener('scroll', handleScroll);
-      };
-   }, []);
-
-   useEffect(() => {
-      if (isInView) {
-         loadMoreMovies();
-      }
-   }, [isInView]);
-
-   useEffect(() => {
-      console.log(favoriteType);
-      if (!loading) {
-         setOffset(1);
-         getFirstMovies(currentUser);
-      }
-   }, [sortedBy, genreList, sortOrder, favoriteType, searchQuery]);
-
-   useEffect(() => {
-      const hasScrollbar = window.innerWidth > document.body.clientWidth;
-      if (!hasScrollbar && !isLast) {
-         loadMoreMovies();
-      }
-      //console.log(movieList)
-   }, [movieList]);
+   }; */
 
    const movieScrollerImages =
-      movieList !== null &&
-      movieList
-         .filter((movie) => movie.title.toLowerCase().includes(searchQuery))
+      data !== null &&
+      data
+         //.filter((movie) => movie.title.toLowerCase().includes(searchQuery))
          .map((movie, index) => (
             <MovieScrollerImage
                key={index}
@@ -260,11 +221,85 @@ export default function MovieGrid({
                votecount={movie.vote_count}
                releasedate={movie.release_date}
                genre={movie.genre_ids}
-               watchlistList={watchlistList}
-               favoriteList={favoriteList}
-               dislikeList={dislikeList}
+               watchlist_titles={watchlist_titles}
+               favorite_titles={favorite_titles}
+               dislike_titles={dislike_titles}
+               favoriteType={favoriteType}
             />
          ));
+
+   const changeGenre = (genre) => {
+      if (genre === '1') {
+         setGenreList(null);
+      } else {
+         setGenreList(genre);
+      }
+   };
+
+   /*    const changeType = (type) => {
+      setLoading(true);
+      console.log('change type');
+      console.log(type);
+      setFavoriteType(type);
+      setLoading(false);
+   }; */
+
+   /*    useEffect(() => {
+      const fetchUser = async () => {
+         const { data: user, error } = await supabase.auth.getUser();
+         if (error) {
+            console.error('Error fetching user:', error.message);
+         } else {
+            console.log(user);
+            return user;
+         }
+      };
+      fetchUser().then((u) => {
+         setCurrentUser(u);
+         getFirstMovies(u);
+         setLoading(false);
+      });
+   }, []); */
+
+   /*    useEffect(() => {
+      const handleDebouncedScroll = debounce(
+         () => !isLast && handleScroll(),
+         1000
+      );
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+         window.removeEventListener('scroll', handleScroll);
+      };
+   }, []); */
+
+   /*    useEffect(() => {
+      if (isInView) {
+         loadMoreMovies();
+      }
+   }, [isInView]); */
+
+   /*    useEffect(() => {
+      console.log('FAVORITE TYPE');
+      console.log(favoriteType);
+      console.log(loading);
+      if (!isLoading) {
+         setOffset(1);
+         getFirstMovies(currentUser);
+      }
+   }, [isLoading, favoriteType]); */
+
+   /*  useEffect(() => {
+      const hasScrollbar = window.innerWidth > document.body.clientWidth;
+      if (!hasScrollbar && !isLast) {
+         loadMoreMovies();
+      }
+   }, [movieList]);
+
+   useEffect(() => {
+      if (isLast) {
+         setLoadingMoreMovies(false);
+      }
+   }, [isLast]); */
 
    return (
       <div className="mx-[18%] sm:w-screen sm:ml-[14vw] md:ml-[14vw] lg:ml-[10vw] 2xl:ml-[5vw] sm:flex sm:flex-col">
@@ -299,29 +334,55 @@ export default function MovieGrid({
                   <option value="37">Western</option>
                </select>
             </div>
-            <div>
-               {favorites && (
-                  <select
-                     name="favorite-type"
-                     id="favorite-type"
-                     placeholder="Filter"
-                     className="bg-zinc-900 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer p-2 transition-all duration-200 rounded-md"
-                     onChange={(e) => changeType(e.target.value)}
-                  >
-                     <option value="all">My Movies</option>
-                     <option value="fav">Favorites</option>
-                     <option value="dis">Dislikes</option>
-                     <option value="watch">Watchlist</option>
-                  </select>
-               )}
-            </div>
+            {favorites && (
+               <div>
+                  <div>
+                     <div>
+                        <button
+                           onClick={() =>
+                              setShowFavoriteFilter(!showFavoriteFilter)
+                           }
+                           className={`bg-zinc-900 flex justify-around border w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
+                              !showFavoriteFilter
+                                 ? 'rounded-md'
+                                 : 'rounded-t-md'
+                           } `}
+                        >
+                           {favoriteType}
+
+                           {showFavoriteFilter ? (
+                              <ExpandLess />
+                           ) : (
+                              <ExpandMore />
+                           )}
+                        </button>
+                     </div>
+                     {showFavoriteFilter && (
+                        <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
+                           <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
+                              <Link href="/mymovies/Movies">My Movies</Link>
+                           </li>
+                           <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
+                              <Link href="/mymovies/Favorites">Favorites</Link>
+                           </li>
+                           <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
+                              <Link href="/mymovies/Dislikes">Dislikes</Link>
+                           </li>
+                           <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
+                              <Link href="/mymovies/Watchlist">Watchlist</Link>
+                           </li>
+                        </ul>
+                     )}
+                  </div>
+               </div>
+            )}
             <div className="flex gap-2 items-center">
                <select
                   name="sorted-by"
                   id="sorted-by"
                   placeholder="Sort By"
                   className="bg-zinc-900 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer p-2 transition-all duration-200 rounded-md"
-                  onChange={(e) => changeSort(e.target.value)}
+                  onChange={(e) => setSortedBy(e.target.value)}
                >
                   <option value="vote_average">Rating</option>
                   <option value="title">Alphabetical</option>
@@ -340,13 +401,10 @@ export default function MovieGrid({
                )}
             </div>
          </div>
-         <div className="absolute top-20 w-full left-0">
-            {loading ? (
-               <div>
-                  <GridLoader
-                     className="absolute left-1/2 top-1/2"
-                     color="#16A34A"
-                  />{' '}
+         <div className="absolute top-20 w-full left-0 ">
+            {isLoading ? (
+               <div className="absolute left-1/2 top-1/2">
+                  <GridLoader color="#16A34A" />{' '}
                </div>
             ) : (
                <div

@@ -27,39 +27,41 @@ export default function MovieScrollerImage({
    genre,
    isFirst,
    modal = false,
-   favoriteList,
-   watchlistList,
-   dislikeList,
+   favorite_titles,
+   watchlist_titles,
+   dislike_titles,
+   favoriteType,
 }) {
    const [isFavorited, setIsFavorited] = useState(false);
    const [isOnWatchlist, setIsOnWatchlist] = useState(false);
    const [isDisliked, setIsDisliked] = useState(false);
    const [showModal, setShowModal] = useState(modal);
+   const [isLoading, setIsLoading] = useState(false);
+
+   useEffect(() => {
+      setIsLoading(!isLoading);
+   }, [favoriteType]);
 
    useEffect(() => {
       const checkForFavorites = () => {
-         if (favoriteList !== undefined) {
-            const isFavorited = favoriteList.some(
-               (item) => item.movie_title === title
-            );
+         if (favorite_titles !== undefined) {
+            const isFavorited = favorite_titles.some((item) => item === title);
             setIsFavorited(isFavorited);
          }
 
-         if (favoriteList !== undefined) {
-            const isOnWatchlist = watchlistList.some(
-               (item) => item.movie_title === title
+         if (watchlist_titles !== undefined) {
+            const isOnWatchlist = watchlist_titles.some(
+               (item) => item === title
             );
             setIsOnWatchlist(isOnWatchlist);
          }
-         if (favoriteList !== undefined) {
-            const isDisliked = dislikeList.some(
-               (item) => item.movie_title === title
-            );
+         if (dislike_titles !== undefined) {
+            const isDisliked = dislike_titles.some((item) => item === title);
             setIsDisliked(isDisliked);
          }
       };
       checkForFavorites();
-   }, [favoriteList, watchlistList, dislikeList]);
+   }, []);
 
    function toggleModal() {
       setShowModal(!showModal);
@@ -173,7 +175,7 @@ export default function MovieScrollerImage({
 
                                     <button
                                        type="submit"
-                                       className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
+                                       className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
                                        onClick={(e) =>
                                           handleChildElementClick(e)
                                        }
@@ -205,7 +207,7 @@ export default function MovieScrollerImage({
 
                                     <button
                                        type="submit"
-                                       className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
+                                       className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
                                        onClick={(e) =>
                                           handleChildElementClick(e)
                                        }
@@ -236,11 +238,11 @@ export default function MovieScrollerImage({
 
                                  <button
                                     type="submit"
-                                    className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
+                                    className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-slate-100 hover:scale-110 transition duration-300"
                                     onClick={(e) => handleChildElementClick(e)}
                                  >
                                     {isOnWatchlist ? (
-                                       <CheckCircle className="text-green-600" />
+                                       <CheckCircle className="text-slate-100" />
                                     ) : (
                                        <AddCircleOutline />
                                     )}

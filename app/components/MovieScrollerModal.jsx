@@ -35,9 +35,6 @@ export default function MovieScrollerModal({
    visible,
 }) {
    const [similarOrReviews, setSimilarOrReviews] = useState(false);
-   const [isFavorited, setIsFavorited] = useState(isfavorite);
-   const [isOnWatchlist, setIsOnWatchlist] = useState(isdisliked);
-   const [isDisliked, setIsDisliked] = useState(isonwatchlist);
 
    const titleLength = title.length;
    const getTitleStyle = () => {
@@ -78,7 +75,7 @@ export default function MovieScrollerModal({
                      <h3 className="text-6xl">{title}</h3>
                   </div>
                   <div className="flex items-center">
-                     {!isDisliked && (
+                     {!isdisliked && (
                         <form
                            id="favoriteForm"
                            action={addOrRemoveFromFavorites}
@@ -87,7 +84,7 @@ export default function MovieScrollerModal({
                            <input
                               type="hidden"
                               name="isFavorited"
-                              value={isFavorited}
+                              value={isfavorite}
                            />
 
                            <button
@@ -95,7 +92,7 @@ export default function MovieScrollerModal({
                               className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
-                              {isFavorited ? (
+                              {isfavorite ? (
                                  <Favorite className="text-green-600" />
                               ) : (
                                  <FavoriteBorder />
@@ -104,13 +101,13 @@ export default function MovieScrollerModal({
                         </form>
                      )}
 
-                     {!isFavorited && (
+                     {!isfavorite && (
                         <form id="dislikeForm" action={addOrRemoveFromDislikes}>
                            <input type="hidden" name="title" value={title} />
                            <input
                               type="hidden"
                               name="isDisliked"
-                              value={isDisliked}
+                              value={isdisliked}
                            />
 
                            <button
@@ -118,7 +115,7 @@ export default function MovieScrollerModal({
                               className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
-                              {isDisliked ? (
+                              {isdisliked ? (
                                  <HeartBroken className="text-red-600" />
                               ) : (
                                  <HeartBrokenOutlined />
@@ -132,7 +129,7 @@ export default function MovieScrollerModal({
                         <input
                            type="hidden"
                            name="isOnWatchlist"
-                           value={isOnWatchlist}
+                           value={isonwatchlist}
                         />
 
                         <button
@@ -140,7 +137,7 @@ export default function MovieScrollerModal({
                            className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
                            onClick={(e) => handleChildElementClick(e)}
                         >
-                           {isOnWatchlist ? (
+                           {isonwatchlist ? (
                               <CheckCircle className="text-green-600" />
                            ) : (
                               <AddCircleOutline />

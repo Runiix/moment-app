@@ -25,17 +25,16 @@ export default async function ProfileInfo({ user }) {
       .select('*', { count: 'exact' })
       .eq('user_id', user.id);
 
-   const { data: ratingData } = await supabaseServer
-      .from('reviews')
-      .select('rating')
-      .eq('username', username);
-
    const calcAverageRating = async () => {
+      const { data: ratingData } = await supabaseServer
+         .from('reviews')
+         .select('rating')
+         .eq('username', username);
       const ratings = ratingData.map((rating) => rating.rating);
       let sum = 0;
       for (let i = 0; i <= ratings.length; i++) {
-         sum += ratings;
-         console.log(sum / ratings.length);
+         sum += ratings[i];
+         console.log(sum, ratings.length);
          return sum / ratings.length;
       }
    };

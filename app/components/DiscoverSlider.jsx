@@ -18,9 +18,8 @@ import { addOrRemoveFromWatchlist } from '../actions/addOrRemoveFromWatchlist';
 import { addOrRemoveFromDislikes } from '../actions/addorRemoveFromDislikes';
 import Draggable from 'react-draggable';
 
-export default function DiscoverSlider() {
+export default function DiscoverSlider({ user }) {
    const [randomMovie, setRandomMovie] = useState(null);
-   const [currentUser, setCurrentUser] = useState(null);
    const movieRef = useRef(null);
    const parentRef = useRef(null);
 
@@ -111,11 +110,16 @@ export default function DiscoverSlider() {
                      <KeyboardArrowLeft />
                      <NotInterested />
                   </div>
-                  <Draggable nodeRef={movieRef} bounds={calculateBounds()}>
-                     <div ref={movieRef}>
+                  <Draggable
+                     nodeRef={movieRef}
+                     bounds={calculateBounds}
+                     handle=".handle"
+                  >
+                     {' '}
+                     <div ref={movieRef} className="handle">
                         <MovieDiscoverImage
                            id={randomMovie[0].id}
-                           u={currentUser}
+                           u={user}
                            src={`https://image.tmdb.org/t/p/w500${randomMovie[0].poster_path}`}
                            src2={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
                            title={randomMovie[0].title}
@@ -126,7 +130,7 @@ export default function DiscoverSlider() {
                            genre={randomMovie[0].genre_ids}
                         />
                      </div>
-                  </Draggable>
+                  </Draggable>{' '}
                   <form action={addOrRemoveFromWatchlist}>
                      <input
                         type="hidden"

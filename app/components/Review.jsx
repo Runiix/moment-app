@@ -34,7 +34,7 @@ export default function Review({
                {rating === 10 ? (
                   <h2 className="text-xl text-green-600 flex items-center">
                      <Star />
-                     {rating} /10
+                     {rating}
                   </h2>
                ) : (
                   <h2 className="text-xl text-green-600 flex items-center">

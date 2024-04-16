@@ -2,74 +2,34 @@
 
 import { StarHalf } from '@mui/icons-material';
 import MovieScrollerModal from './MovieScrollerModal';
-import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabaseClient';
+import { useState } from 'react';
 
-export default function HomeHero() {
+export default function HomeHero({ data }) {
    const [showModal, setShowModal] = useState(false);
-   const [randomMovie, setRandomMovie] = useState(null);
 
    function toggleModal() {
       setShowModal(!showModal);
    }
 
-   const getRandomId = async () => {
-      try {
-         const { data, error } = await supabase.from('Movies').select('id');
-         if (error) console.error('Error fetching Movie Ids', error);
-         console.log(data);
-         const IdData = data.map((movie) => movie.id);
-         const randomIndex = Math.floor(Math.random() * IdData.length);
-         const randomId = IdData[randomIndex];
-         console.log('RAndomID', randomId);
-         getMovieFromDB(randomId);
-      } catch (error) {
-         console.error('Error fetching Movie Ids', error);
-      }
-   };
-
-   const getMovieFromDB = async (rand) => {
-      try {
-         if (rand !== null && rand !== undefined) {
-            console.log('Rand', rand);
-            const { data, error } = await supabase
-               .from('Movies')
-               .select('*')
-               .eq('id', rand);
-            if (error) console.error('Error getting Movie', error);
-            setRandomMovie(data);
-            console.log(data);
-         } else {
-            console.error('Rand is undefined or null');
-         }
-      } catch (error) {
-         console.error('Error getting data from DB:', error);
-      }
-   };
-
-   useEffect(() => {
-      getRandomId();
-   }, []);
-
    return (
       <div>
-         {randomMovie && (
+         {data && (
             <div
                className="h-[50vh] w-full flex flex-col hover:cursor-pointer"
                onClick={() => setShowModal(!showModal)}
             >
                <img
-                  src={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/original${data[0].backdrop_path}`}
                   alt="Hero Image"
                   className="w-full h-full object-cover opacity-90"
                />
                <div className="relative bottom-1/2 lg:bottom-[30vh] w-1/2 ml-20 flex flex-col gap-3">
                   <h2 className="md:text-6xl sm:text-5xl text-4xl font-bold text-slate-100">
-                     {randomMovie[0].title}
+                     {data[0].title}
                   </h2>
                   <div className="flex items-center text-3xl">
                      <StarHalf className="text-3xl" />
-                     <p>{randomMovie[0].vote_average.toFixed(1)}</p>
+                     <p>{data[0].vote_average.toFixed(1)}</p>
                   </div>
                </div>
                <div className="absolute w-full h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/0 to-gray-900/0"></div>
@@ -77,14 +37,14 @@ export default function HomeHero() {
          )}
          {showModal && (
             <MovieScrollerModal
-               src={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
-               alt={randomMovie[0].title}
-               title={randomMovie[0].title}
-               overview={randomMovie[0].overview}
-               rating={randomMovie[0].vote_average}
-               votecount={randomMovie[0].vote_count}
-               releasedate={randomMovie[0].release_date}
-               genre={randomMovie[0].genre}
+               src={`https://image.tmdb.org/t/p/original${data[0].backdrop_path}`}
+               alt={data[0].title}
+               title={data[0].title}
+               overview={data[0].overview}
+               rating={data[0].vote_average}
+               votecount={data[0].vote_count}
+               releasedate={data[0].release_date}
+               genre={data[0].genre}
                onClose={toggleModal}
                visible={toggleModal}
             />

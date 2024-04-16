@@ -43,11 +43,11 @@ export default async function ProfileInfo({ user }) {
 
    return (
       <div className="w-full">
-         <div className=" flex m-auto w-2/3 border border-slate-400">
-            <div className="z-10 flex gap-20 p-10 items-start">
-               <div className="w-1/2">
-                  <h2 className="text-5xl mb-10">Stats:</h2>
-                  <ul className="text-3xl flex flex-wrap items-center gap-10">
+         <div className=" flex  m-auto w-2/3 border border-slate-400 shadow-xl shadow-black rounded-lg">
+            <div className="z-10 flex flex-col 2xl:flex-row gap-20 2xl:gap-0 p-10 items-start">
+               <div className="">
+                  <h2 className=" text-3xl lg:text-5xl mb-10">Stats:</h2>
+                  <ul className=" lg:text-3xl 2xl:w-full flex flex-wrap items-center gap-10">
                      <li>
                         <ProfileStat
                            name={'Reviews'}
@@ -90,7 +90,7 @@ export default async function ProfileInfo({ user }) {
                      </li>
                   </ul>
                </div>
-               <div className="w-1/2">
+               <div className="2xl:w-full">
                   <ProfileReviews username={username} />
                </div>
             </div>

@@ -1,6 +1,6 @@
 import Nav from '../components/Nav';
 
-export default function DashboardLayout({
+export default function MyMoviesLayout({
    children, // will be a page or nested layout
 }) {
    return (

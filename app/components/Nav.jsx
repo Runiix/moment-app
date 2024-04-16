@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Profile from './Profile';
 import { useState } from 'react';
 import { Close, Menu } from '@mui/icons-material';
-import NavSearch from './navSearch';
+import NavSearch from './NavSearch';
 
-export default function Nav({ onSearch }) {
+export default function Nav() {
    const [navbarBackground, setNavbarBackground] = useState(false);
    const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -45,7 +45,7 @@ export default function Nav({ onSearch }) {
                </li>
                <li>
                   <Link
-                     href="/movies"
+                     href="/movies/1/vote_average/false"
                      className="text-slate-100 hover:text-slate-300"
                   >
                      Movies
@@ -53,7 +53,7 @@ export default function Nav({ onSearch }) {
                </li>
                <li>
                   <Link
-                     href="/mymovies/Movies"
+                     href="/mymovies/Movies/1/vote_average/false"
                      className="text-slate-100 hover:text-slate-300"
                   >
                      My Movies
@@ -71,7 +71,7 @@ export default function Nav({ onSearch }) {
          </div>
          <div className="flex items-center gap-5 absolute lg:static right-8">
             <div className="hidden sm:flex">
-               <NavSearch onSearch={onSearch} id="webSearch" />
+               <NavSearch id="webSearch" />
             </div>
 
             <div className="hidden sm:flex lg:mr-5">
@@ -105,12 +105,7 @@ export default function Nav({ onSearch }) {
                      <Profile mobile={true} />
                   </li>
                   <li>
-                     <NavSearch
-                        onSearch={onSearch}
-                        show={true}
-                        mobile={true}
-                        id="mobileSearch"
-                     />
+                     <NavSearch show={true} mobile={true} id="mobileSearch" />
                   </li>
                   <li className="mb-2">
                      <Link
@@ -130,7 +125,7 @@ export default function Nav({ onSearch }) {
                   </li>
                   <li className="mb-2">
                      <Link
-                        href="/mymovies/mymovies/genre/sortby/sortorder"
+                        href="/mymovies/Movies/all/vote_average/false"
                         className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
                      >
                         My Movies

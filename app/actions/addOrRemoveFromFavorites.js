@@ -55,8 +55,8 @@ export async function addOrRemoveFromFavorites(formData) {
       }
    }
    revalidatePath('/home');
-   revalidatePath('/movies');
-   revalidatePath('/favorites');
+   revalidatePath('/movies/1/vote_average/false');
+   revalidatePath('/mymovies/Movies/1/vote_average/false');
 
    return { success: true };
 }

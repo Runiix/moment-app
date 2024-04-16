@@ -1,36 +1,79 @@
 import MovieScroller from './MovieScroller';
 
-export default function MovieScrollerGrid({ user }) {
+export default function MovieScrollerGrid({
+   user,
+   favoritemovies,
+   watchlistmovies,
+   dislikemovies,
+   favoritedata,
+   watchlistdata,
+   actiondata,
+   animationdata,
+   thrillerdata,
+}) {
    return (
       <div className=" flex flex-col gap-[16vh] absolute top-[15vh] lg:top-[25vh] ">
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               link="mymovies/Watchlist/1/vote_average/false"
                scrollertitle="My Watchlist"
                isfavorite={true}
                favoritetype={'watchlist'}
+               favoritemovies={favoritemovies}
+               watchlistmovies={watchlistmovies}
+               dislikemovies={dislikemovies}
+               data={watchlistdata}
             />
          </div>
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               link="mymovies/Favorites/1/vote_average/false"
                scrollertitle="My Favorites"
                isfavorite={true}
                favoritetype={'favorites'}
+               favoritemovies={favoritemovies}
+               watchlistmovies={watchlistmovies}
+               dislikemovies={dislikemovies}
+               data={favoritedata}
             />
-         </div>
-         <div className="flex flex-col">
-            <MovieScroller user={user} scrollertitle="Action" category="28" />
          </div>
          <div className="flex flex-col">
             <MovieScroller
                user={user}
-               scrollertitle="Animation"
-               category="16"
+               link="movies/28/vote_average/false"
+               scrollertitle="Action"
+               category="28"
+               favoritemovies={favoritemovies}
+               watchlistmovies={watchlistmovies}
+               dislikemovies={dislikemovies}
+               data={actiondata}
             />
          </div>
          <div className="flex flex-col">
-            <MovieScroller user={user} scrollertitle="Thriller" category="53" />
+            <MovieScroller
+               user={user}
+               link="movies/16/vote_average/false"
+               scrollertitle="Animation"
+               category="16"
+               favoritemovies={favoritemovies}
+               watchlistmovies={watchlistmovies}
+               dislikemovies={dislikemovies}
+               data={animationdata}
+            />
+         </div>
+         <div className="flex flex-col">
+            <MovieScroller
+               user={user}
+               link="movies/53/vote_average/false"
+               scrollertitle="Thriller"
+               category="53"
+               favoritemovies={favoritemovies}
+               watchlistmovies={watchlistmovies}
+               dislikemovies={dislikemovies}
+               data={thrillerdata}
+            />
          </div>
       </div>
    );

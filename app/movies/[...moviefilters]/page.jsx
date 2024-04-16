@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
-import MovieGridFavorites from '../../components/MovieGridFavorites';
+import MovieGrid from '../../components/MovieGrid';
 
 async function getUser(supabaseServer) {
    const { data: user, error } = await supabaseServer.auth.getUser();
@@ -50,36 +50,26 @@ async function getDislikeData(supabaseServer, u) {
    return dislikeTitles;
 }
 
-async function getData(
-   supabaseServer,
-   params,
-   myMovies,
-   favoriteMovies,
-   dislikeMovies,
-   watchlistMovies
-) {
-   console.log(params.favoritefilters[0]);
-   let list = null;
-   if (params.favoritefilters[0] === 'Movies') {
-      list = myMovies;
-   } else if (params.favoritefilters[0] === 'Favorites') {
-      list = favoriteMovies;
-   } else if (params.favoritefilters[0] === 'Dislikes') {
-      list = dislikeMovies;
-   } else if (params.favoritefilters[0] === 'Watchlist') {
-      list = watchlistMovies;
-   } else {
-      console.error('Invalid movielist');
-      return;
+const handleScroll = () => {
+   if (containerRef.current && typeof window !== 'undefined') {
+      const container = containerRef.current;
+      const { bottom } = container.getBoundingClientRect();
+      const { innerHeight } = window;
+      bottom - 1 <= innerHeight;
+      //console.log(bottom-1, innerHeight)
    }
-   if (params.favoritefilters[1] === '1') {
+};
+
+async function getData(supabaseServer, params, from, to, query) {
+   if (params.moviefilters[0] === '1') {
       const { data, error } = await supabaseServer
          .from('Movies')
          .select('*')
-         .in('title', list)
-         .order(params.favoritefilters[2], {
-            ascending: params.favoritefilters[3],
-         });
+         .order(params.moviefilters[1], {
+            ascending: JSON.parse(params.moviefilters[2]),
+         })
+         .ilike('title', `%${query}%`)
+         .range(from, to);
       if (error) {
          // This will activate the closest `error.js` Error Boundary
          console.log(params);
@@ -91,16 +81,12 @@ async function getData(
       const { data, error } = await supabaseServer
          .from('Movies')
          .select('*')
-         .in('title', list)
-         .contains('genre_ids', [params.favoritefilters[1]])
-         .order(params.favoritefilters[2], {
-            ascending: params.favoritefilters[3],
-         }); /*
-      .ilike('title', `%${params.searchParams}%`); */
-      /*       .order(params.favoritefilters[2], { ascending: params.favritefilters[3] })
-        .range(from, to); */
-      // The return value is *not* serialized
-      // You can return Date, Map, Set, etc.
+         .contains('genre_ids', [params.moviefilters[0]])
+         .order(params.moviefilters[1], {
+            ascending: JSON.parse(params.moviefilters[2]),
+         })
+         .ilike('title', `%${query}%`)
+         .range(from, to);
       if (error) {
          // This will activate the closest `error.js` Error Boundary
          console.log(params);
@@ -111,7 +97,7 @@ async function getData(
    }
 }
 
-export default async function Favorites({ params }) {
+export default async function Movies({ params, searchParams }) {
    const cookieStore = cookies();
 
    const supabaseServer = createServerClient(
@@ -125,44 +111,25 @@ export default async function Favorites({ params }) {
          },
       }
    );
+   const query = searchParams?.query || '';
+   const from = 0;
+   const to = 39;
    console.log(params);
    const user = await getUser(supabaseServer);
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
-   const myMovies = getFilteredTitles();
-   const data = await getData(
-      supabaseServer,
-      params,
-      myMovies,
-      favoriteMovies,
-      dislikeMovies,
-      watchlistMovies
-   );
-   /*     const [searchQuery, setSearchQuery]= useState('');
-
-    const handleSearch= (query) =>{
-        setSearchQuery(query);
-    } */
-
-   function getFilteredTitles() {
-      const filteredTitles = favoriteMovies
-         .concat(dislikeMovies)
-         .concat(watchlistMovies);
-      return filteredTitles;
-   }
+   const data = await getData(supabaseServer, params, from, to, query);
 
    return (
       <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
-         {/* <Nav onSearch={handleSearch} /> */}
-         <MovieGridFavorites
+         <MovieGrid
             data={data}
-            user={user} /* searchQuery={''}  */
-            favorites={true}
-            favoritetype={params.favoritefilters[0]}
-            genre={params.favoritefilters[1]}
-            sortby={params.favoritefilters[2]}
-            sortorder={params.favoritefilters[3]}
+            user={user}
+            favorites={false}
+            genre={params.moviefilters[0]}
+            sortby={params.moviefilters[1]}
+            sortorder={params.moviefilters[2]}
             favorite_titles={favoriteMovies}
             dislike_titles={dislikeMovies}
             watchlist_titles={watchlistMovies}

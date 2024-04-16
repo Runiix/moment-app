@@ -89,7 +89,7 @@ export default function MovieScrollerModal({
 
                            <button
                               type="submit"
-                              className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
+                              className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
                               {isfavorite ? (
@@ -112,7 +112,7 @@ export default function MovieScrollerModal({
 
                            <button
                               type="submit"
-                              className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
+                              className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
                               {isdisliked ? (
@@ -134,11 +134,11 @@ export default function MovieScrollerModal({
 
                         <button
                            type="submit"
-                           className="bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
+                           className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-slate-100 hover:scale-110 transition duration-300"
                            onClick={(e) => handleChildElementClick(e)}
                         >
                            {isonwatchlist ? (
-                              <CheckCircle className="text-green-600" />
+                              <CheckCircle className="text-slate-100" />
                            ) : (
                               <AddCircleOutline />
                            )}

@@ -6,9 +6,13 @@ import HomeHero from '../components/HomeHero';
 import MovieScrollerGrid from '../components/MovieScrollerGrid';
 import MovieGrid from '../components/MovieGrid';
 import saveMoviesToDb from '../actions/saveMoviesToDb';
+import Nav from '../components/Nav';
 
 async function getUser(supabaseServer) {
-   const { data: user, error } = await supabaseServer.auth.getUser();
+   const {
+      data: { user },
+      error,
+   } = await supabaseServer.auth.getUser();
 
    if (error) {
       // This will activate the closest `error.js` Error Boundary
@@ -22,7 +26,7 @@ async function getFavoriteData(supabaseServer, u) {
    const { data: favoritesData, error: favoritesError } = await supabaseServer
       .from('favorites')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (favoritesError) return favoritesError;
    const favoriteTitles = favoritesData.map((favorite) => favorite.movie_title);
 
@@ -33,7 +37,7 @@ async function getWatchlistData(supabaseServer, u) {
    const { data: watchlistData, error: watchlistError } = await supabaseServer
       .from('watchlist')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (watchlistError) return watchlistError;
    const watchlistTitles = watchlistData.map(
       (watchlist) => watchlist.movie_title
@@ -45,7 +49,7 @@ async function getDislikeData(supabaseServer, u) {
    const { data: dislikeData, error: dislikeError } = await supabaseServer
       .from('dislikes')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
    //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
@@ -73,7 +77,7 @@ const getMovieFromDB = async () => {
          const { data: favoritesData, error: favoritesError } = await supabase
             .from(favoritetype)
             .select('movie_title')
-            .eq('user_id', user.user.id);
+            .eq('user_id', user.id);
 
          if (favoritesError) return favoritesError;
          else {
@@ -216,6 +220,7 @@ export default async function Home({ searchParams }) {
       const thrillerData = await getData(supabaseServer, null, '53');
       return (
          <main className="bg-gray-900 text-slate-100 font-doppio ">
+            <Nav user={user} />
             <div>
                <HomeHero data={homeHeroData} />
                <MovieScrollerGrid
@@ -234,17 +239,19 @@ export default async function Home({ searchParams }) {
       );
    } else {
       const data = await getGridData(supabaseServer, query);
-
       return (
          <main className="bg-gray-900 text-slate-100 font-doppio ">
-            <MovieGrid
-               data={data}
-               user={user}
-               homepage={true}
-               favorite_titles={favoriteMovies}
-               dislike_titles={dislikeMovies}
-               watchlist_titles={watchlistMovies}
-            />
+            <Nav user={user} />
+            <section className="">
+               <MovieGrid
+                  data={data}
+                  user={user}
+                  homepage={true}
+                  favorite_titles={favoriteMovies}
+                  dislike_titles={dislikeMovies}
+                  watchlist_titles={watchlistMovies}
+               />
+            </section>
          </main>
       );
    }

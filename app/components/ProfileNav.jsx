@@ -5,7 +5,9 @@ import SignOutButton from './SignOutButton';
 import { Article, Gavel, Person, ManageAccounts } from '@mui/icons-material';
 import { Help } from '@mui/icons-material';
 
-export default function ProfileNav({ mobile = false, show = false }) {
+export default function ProfileNav({ mobile = false, show = false, user }) {
+   const username = user.user_metadata.displayName;
+   const profileLink = `/profilepage/${username}`;
    return (
       <div
          id="profileNav"
@@ -21,7 +23,7 @@ export default function ProfileNav({ mobile = false, show = false }) {
       >
          <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
             <Person />
-            <Link href="/profilepage">Profile</Link>
+            <Link href={profileLink}>Profile</Link>
          </div>
          <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
             <ManageAccounts />

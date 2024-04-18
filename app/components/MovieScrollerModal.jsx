@@ -38,10 +38,12 @@ export default function MovieScrollerModal({
 
    const titleLength = title.length;
    const getTitleStyle = () => {
-      if (titleLength > 20) {
+      if (titleLength > 30) {
          return 'bottom-32';
+      } else if (titleLength > 20) {
+         return 'bottom-32 sm:bottom-20';
       } else {
-         return 'bottom-16';
+         return 'bottom-28 sm:bottom-16';
       }
    };
 
@@ -55,10 +57,10 @@ export default function MovieScrollerModal({
          onClick={() => visible()}
       >
          <div
-            className="bg-gray-900 h-screen w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
+            className="bg-gray-900 h-screen w-[500px] sm:w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
             onClick={(e) => handleChildElementClick(e)}
          >
-            <div className="relative w-full h-1/2 hover:opacity-90 hover:cursor-pointer">
+            <div className="relative w-full h-1/3 sm:h-1/2 hover:opacity-90 hover:cursor-pointer">
                <img
                   src={src}
                   alt={alt}
@@ -72,9 +74,9 @@ export default function MovieScrollerModal({
                   className={`flex justify-between items-center relative ${getTitleStyle()} bg-gray-900 bg-opacity-40 px-5 pb-5`}
                >
                   <div className="flex items-center gap-2">
-                     <h3 className="text-6xl">{title}</h3>
+                     <h3 className="text-4xl sm:text-5xl">{title}</h3>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex flex-col sm:flex-row items-center bg-gray-900 rounded-full bg-opacity-50 p-2">
                      {!isdisliked && (
                         <form
                            id="favoriteForm"
@@ -151,7 +153,7 @@ export default function MovieScrollerModal({
                <div className="mx-4 mt-4 flex gap-5">
                   <div className="w-1/2">
                      <h3 className="text-2xl">Overview:</h3>
-                     <p className="text-base">{overview}</p>
+                     <p className="text-xs sm:text-base">{overview}</p>
                   </div>
                   <div>
                      <div className="flex text-2xl items-center">

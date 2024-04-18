@@ -87,18 +87,17 @@ export default function MovieScrollerImage({
                     transition-all 
                     duartion-500 
                     shadow-xl 
-                    group-hover:opacity-90 
-                    sm:group-hover:opacity-0
                     delay-200
                     "
+               onClick={() => setShowModal(true)}
             />
             <div
                className={`
                     absolute
-                    w-64 
+                    w-1
+                    sm:w-64 
                     flex
-                    visible
-                    sm:invisible
+                    invisible
                     transition-all
                     scale-100
                     sm:scale-0
@@ -106,13 +105,12 @@ export default function MovieScrollerImage({
                     sm:opacity-0
                     delay-300
                     duration-500
-                    group:scale-100
-                    group-hover:scale-[1.15]
-                    group-hover:opacity-100
-                    group-hover:visible
-                    group-hover:translate-y-1
+                    sm:group:scale-100
+                    sm:group-hover:scale-[1.15]
+                    sm:group-hover:opacity-100
+                    sm:group-hover:visible
+                    sm:group-hover:translate-y-1
                     ${isFirst ? 'group-hover:translate-x-28' : ''}
-                    z-2
                     hover:cursor-pointer
                     `}
                onClick={() => setShowModal(true)}
@@ -128,7 +126,8 @@ export default function MovieScrollerImage({
                         right-24
                         shadow-xl
                         h-64
-                        w-44
+                        w-0
+                        sm:w-44
                         min-w-44
                         rounded-l-md                        
                         "
@@ -138,7 +137,8 @@ export default function MovieScrollerImage({
                         bg-gray-950
                         z-10
                         h-64
-                        w-52
+                        w-0
+                        sm:w-52
                         min-w-52
                         relative
                         right-24

@@ -61,7 +61,7 @@ export default function DiscoverSlider({ user }) {
       getRandomId();
    }, []);
 
-   const calculateBounds = () => {
+   /*    const calculateBounds = () => {
       const parentBounds = parentRef.current.getBoundingClientRect();
       const movieBounds = movieRef.current.getBoundingClientRect();
 
@@ -70,11 +70,11 @@ export default function DiscoverSlider({ user }) {
          top: parentBounds.top - movieBounds.top,
          right: parentBounds.right - movieBounds.right,
          bottom: parentBounds.bottom - movieBounds.bottom,
-      };
-   };
+      
+   }; */
 
    return (
-      <div className="absolute top-44 ml-44 h-96">
+      <div className="mt-52 ">
          {randomMovie && (
             <div ref={parentRef} className="flex flex-col gap-10 items-center">
                <div className="group  ">
@@ -110,27 +110,24 @@ export default function DiscoverSlider({ user }) {
                      <KeyboardArrowLeft />
                      <NotInterested />
                   </div>
-                  <Draggable
-                     nodeRef={movieRef}
-                     bounds={calculateBounds}
-                     handle=".handle"
-                  >
-                     {' '}
-                     <div ref={movieRef} className="handle">
-                        <MovieDiscoverImage
-                           id={randomMovie[0].id}
-                           u={user}
-                           src={`https://image.tmdb.org/t/p/w500${randomMovie[0].poster_path}`}
-                           src2={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
-                           title={randomMovie[0].title}
-                           overview={randomMovie[0].overview}
-                           rating={randomMovie[0].vote_average.toFixed(1)}
-                           votecount={randomMovie[0].vote_count}
-                           releasedate={randomMovie[0].release_date}
-                           genre={randomMovie[0].genre_ids}
-                        />
-                     </div>
-                  </Draggable>{' '}
+                  {/*                   <Draggable bounds={parentRef}>
+                   */}{' '}
+                  <div className="handle">
+                     <MovieDiscoverImage
+                        id={randomMovie[0].id}
+                        u={user}
+                        src={`https://image.tmdb.org/t/p/w500${randomMovie[0].poster_path}`}
+                        src2={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
+                        title={randomMovie[0].title}
+                        overview={randomMovie[0].overview}
+                        rating={randomMovie[0].vote_average.toFixed(1)}
+                        votecount={randomMovie[0].vote_count}
+                        releasedate={randomMovie[0].release_date}
+                        genre={randomMovie[0].genre_ids}
+                     />
+                  </div>
+                  {/*                   </Draggable>
+                   */}{' '}
                   <form action={addOrRemoveFromWatchlist}>
                      <input
                         type="hidden"

@@ -90,13 +90,13 @@ export default function MovieGrid({
    }
 
    return (
-      <div className=" flex flex-col gap-10 w-full items-center justify-center absolute top-32">
+      <div className=" flex flex-col gap-10 w-full items-center  absolute top-32">
          <div className="flex w-full justify-around">
             <div>
                <div>
                   <button
                      onClick={() => setShowGenreFilter(!showGenreFilter)}
-                     className={`bg-zinc-900 flex justify-around border w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
+                     className={`bg-zinc-900 flex justify-around border w-24 sm:w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
                         !showGenreFilter ? 'rounded-md' : 'rounded-t-md'
                      } `}
                   >
@@ -107,68 +107,109 @@ export default function MovieGrid({
                {showGenreFilter && (
                   <div>
                      <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('1')}>All Movies</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('28')}>Action</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('12')}>Adventure</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('16')}>Animation</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('35')}>Comedy</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('80')}>Crime</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('99')}>Documentary</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('18')}>Drama</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('10751')}>Family</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('14')}>Fantasy</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('36')}>History</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('27')}>Horror</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('10402')}>Music</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('9648')}>Mystery</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('10749')}>Romance</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('878')}>
+                        <Link href={changeGenre('1')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              All Movies
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('28')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Action
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('12')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Adventure
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('16')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Animation
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('35')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Comedy
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('80')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Crime
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('99')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Documentary
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('18')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Drama
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('10751')}>
+                           {' '}
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Family
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('14')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Fantasy
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('36')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              History
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('27')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Horror
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('10402')}>
+                           {' '}
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Music
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('9648')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Mystery
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('10749')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Romance
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('878')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
                               Science Fiction
-                           </Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('10770')}>TV Movie</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('53')}>Thriller</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('10752')}>War</Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
-                           <Link href={changeGenre('37')}>Western</Link>
-                        </li>
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('10770')}>
+                           {' '}
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              TV Movie
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('53')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Thriller
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('10752')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              War
+                           </li>
+                        </Link>
+                        <Link href={changeGenre('37')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
+                              Western
+                           </li>
+                        </Link>
                      </ul>
                   </div>
                )}
@@ -177,7 +218,7 @@ export default function MovieGrid({
                <div>
                   <button
                      onClick={() => setShowFavoriteFilter(!showFavoriteFilter)}
-                     className={`bg-zinc-900 flex justify-around border w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
+                     className={`bg-zinc-900 flex justify-around border w-28 sm:w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
                         !showFavoriteFilter ? 'rounded-md' : 'rounded-t-md'
                      } `}
                   >
@@ -187,33 +228,41 @@ export default function MovieGrid({
                </div>
                {showFavoriteFilter && (
                   <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
-                     <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                        <Link href={changeFavoriteType('Movies')}>Movies</Link>
-                     </li>
-                     <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                        <Link href={changeFavoriteType('Favorites')}>
+                     <Link href={changeFavoriteType('Movies')}>
+                        <li
+                           className="hover:bg-green-600 py-2  
+                        w-28 sm:w-32 hover:cursor-pointer hover:text-zinc-900"
+                        >
+                           Movies
+                        </li>
+                     </Link>
+                     <Link href={changeFavoriteType('Favorites')}>
+                        <li className="hover:bg-green-600 py-2 w-27 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                            Favorites
-                        </Link>
-                     </li>
-                     <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                        <Link href={changeFavoriteType('Dislikes')}>
+                        </li>{' '}
+                     </Link>
+
+                     <Link href={changeFavoriteType('Dislikes')}>
+                        <li className="hover:bg-green-600 py-2 w-27 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                            Dislikes
-                        </Link>
-                     </li>
-                     <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                        <Link href={changeFavoriteType('watchlist')}>
+                        </li>{' '}
+                     </Link>
+
+                     <Link href={changeFavoriteType('watchlist')}>
+                        <li className="hover:bg-green-600 py-2 w-27 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                            Watchlist
-                        </Link>
-                     </li>
+                        </li>{' '}
+                     </Link>
                   </ul>
                )}
             </div>
+
             <div className="flex gap-2 items-center">
                <div>
                   <div>
                      <button
                         onClick={() => setShowSortBy(!showSortBy)}
-                        className={`bg-zinc-900 flex justify-around border w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
+                        className={`bg-zinc-900 flex justify-around border w-24 sm:w-32 border-slate-100 hover:bg-zinc-800 hover:cursor-pointer py-2  transition-all duration-200 ${
                            !showSortBy ? 'rounded-md' : 'rounded-t-md'
                         } `}
                      >
@@ -227,34 +276,36 @@ export default function MovieGrid({
                   </div>
                   {showSortBy && (
                      <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
-                        <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                           <Link href={changeSortBy('vote_average')}>
+                        <Link href={changeSortBy('vote_average')}>
+                           <li className="hover:bg-green-600 py-2 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                               Rating
-                           </Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                           <Link href={changeSortBy('title')}>
+                           </li>{' '}
+                        </Link>
+
+                        <Link href={changeSortBy('title')}>
+                           <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                               Alphabetical
-                           </Link>
-                        </li>
-                        <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
-                           <Link href={changeSortBy('popularity')}>
+                           </li>{' '}
+                        </Link>
+
+                        <Link href={changeSortBy('popularity')}>
+                           <li className="hover:bg-green-600 py-2 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                               Popularity
-                           </Link>
-                        </li>
+                           </li>{' '}
+                        </Link>
                      </ul>
                   )}
                </div>
                {sortorder === 'false' ? (
                   <div>
                      <Link href={changeSortOrder('true')}>
-                        <ArrowDownward className="hover:cursor transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
+                        <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
                      </Link>
                   </div>
                ) : (
                   <div>
                      <Link href={changeSortOrder('false')}>
-                        <ArrowDownward className="hover:cursor-pointer transition-all duration-300 rotate-180 border border-slate-100 rounded-md" />
+                        <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all duration-300 rotate-180 border border-slate-100 rounded-md" />
                      </Link>
                   </div>
                )}
@@ -266,7 +317,7 @@ export default function MovieGrid({
             </div>
          ) : (
             <div
-               className=" grid grid-cols-1  sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols:5 xl:grid-cols-6 2xl:grid-cols-7"
+               className=" grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols:5 xl:grid-cols-6 2xl:grid-cols-7"
                ref={containerRef}
             >
                {movieScrollerImages}

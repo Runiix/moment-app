@@ -31,7 +31,7 @@ export default function MoviDiscoverImage({
          const { data: favoritesData, error: favoritesError } = await supabase
             .from('favorites')
             .select('movie_title')
-            .eq('user_id', u.user.id);
+            .eq('user_id', u.id);
          if (favoritesError) return favoritesError;
 
          for (let i = 0; i < favoritesData.length; i++) {
@@ -64,6 +64,7 @@ export default function MoviDiscoverImage({
                     object-cover 
                     h-[25rem]
                     w-72
+                    min-w-52
                     cursor-pointer 
                     transition-all 
                     duartion-200 

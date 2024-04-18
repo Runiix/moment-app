@@ -3,9 +3,14 @@
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import MovieGrid from '../../components/MovieGrid';
+import Nav from '@/app/components/Nav';
+import getData from '@/app/actions/getData';
 
 async function getUser(supabaseServer) {
-   const { data: user, error } = await supabaseServer.auth.getUser();
+   const {
+      data: { user },
+      error,
+   } = await supabaseServer.auth.getUser();
 
    if (error) {
       // This will activate the closest `error.js` Error Boundary
@@ -19,7 +24,7 @@ async function getFavoriteData(supabaseServer, u) {
    const { data: favoritesData, error: favoritesError } = await supabaseServer
       .from('favorites')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (favoritesError) return favoritesError;
    const favoriteTitles = favoritesData.map((favorite) => favorite.movie_title);
 
@@ -30,7 +35,7 @@ async function getWatchlistData(supabaseServer, u) {
    const { data: watchlistData, error: watchlistError } = await supabaseServer
       .from('watchlist')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (watchlistError) return watchlistError;
    const watchlistTitles = watchlistData.map(
       (watchlist) => watchlist.movie_title
@@ -42,7 +47,7 @@ async function getDislikeData(supabaseServer, u) {
    const { data: dislikeData, error: dislikeError } = await supabaseServer
       .from('dislikes')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
    //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
@@ -50,17 +55,9 @@ async function getDislikeData(supabaseServer, u) {
    return dislikeTitles;
 }
 
-const handleScroll = () => {
-   if (containerRef.current && typeof window !== 'undefined') {
-      const container = containerRef.current;
-      const { bottom } = container.getBoundingClientRect();
-      const { innerHeight } = window;
-      bottom - 1 <= innerHeight;
-      //console.log(bottom-1, innerHeight)
-   }
-};
-
-async function getData(supabaseServer, params, from, to, query) {
+/* async function getData(supabaseServer, params, page, pageSize, query) {
+   const from = page * pageSize;
+   const to = (page + 1) * pageSize;
    if (params.moviefilters[0] === '1') {
       const { data, error } = await supabaseServer
          .from('Movies')
@@ -95,7 +92,7 @@ async function getData(supabaseServer, params, from, to, query) {
 
       return data;
    }
-}
+} */
 
 export default async function Movies({ params, searchParams }) {
    const cookieStore = cookies();
@@ -112,28 +109,38 @@ export default async function Movies({ params, searchParams }) {
       }
    );
    const query = searchParams?.query || '';
-   const from = 0;
-   const to = 39;
    console.log(params);
+   const page = 0;
+   const pageSize = 20;
    const user = await getUser(supabaseServer);
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
-   const data = await getData(supabaseServer, params, from, to, query);
+   /*    const data = await getData(supabaseServer, params, page, pageSize, query);
+   const loadMoreMoviesHandler = async (page, pageSize) => {
+      'use server';
+      const data = await getData(supabaseServer, params, page, pageSize, query);
+   }; */
 
    return (
-      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
-         <MovieGrid
-            data={data}
-            user={user}
-            favorites={false}
-            genre={params.moviefilters[0]}
-            sortby={params.moviefilters[1]}
-            sortorder={params.moviefilters[2]}
-            favorite_titles={favoriteMovies}
-            dislike_titles={dislikeMovies}
-            watchlist_titles={watchlistMovies}
-         />
+      <main>
+         <Nav user={user} />
+         <section className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+            <MovieGrid
+               user={user}
+               query={query}
+               favorites={false}
+               params={params}
+               genre={params.moviefilters[0]}
+               sortby={params.moviefilters[1]}
+               sortorder={params.moviefilters[2]}
+               favorite_titles={favoriteMovies}
+               dislike_titles={dislikeMovies}
+               watchlist_titles={watchlistMovies}
+               /*                callBack={loadMoreMoviesHandler()}
+                */
+            />
+         </section>
       </main>
    );
 }

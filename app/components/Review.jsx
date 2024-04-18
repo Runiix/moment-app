@@ -1,4 +1,5 @@
 import { Person, Star, StarHalf } from '@mui/icons-material';
+import Link from 'next/link';
 export default function Review({
    username,
    rating,
@@ -26,7 +27,12 @@ export default function Review({
             )}
             <div className="flex gap-5">
                {movie_title === null ? (
-                  <h2 className="text-xl">{username}</h2>
+                  <Link
+                     href={`../../../profilepage/${username}`}
+                     className="text-xl"
+                  >
+                     {username}
+                  </Link>
                ) : (
                   <h2 className="text-xl">{movie_title}</h2>
                )}

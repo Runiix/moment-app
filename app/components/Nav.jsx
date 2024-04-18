@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Close, Menu } from '@mui/icons-material';
 import NavSearch from './NavSearch';
 
-export default function Nav() {
+export default function Nav({ user }) {
    const [navbarBackground, setNavbarBackground] = useState(false);
    const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -75,7 +75,7 @@ export default function Nav() {
             </div>
 
             <div className="hidden sm:flex lg:mr-5">
-               <Profile />
+               <Profile user={user} />
             </div>
          </div>
 
@@ -102,7 +102,7 @@ export default function Nav() {
             >
                <ul className="absolute text-xl right-0 top-8 p-4 flex flex-col items-center gap-3  text-center bg-gray-900 border border-slate-400 ">
                   <li className="mb-2 border-b border-slate-400">
-                     <Profile mobile={true} />
+                     <Profile mobile={true} user={user} />
                   </li>
                   <li>
                      <NavSearch show={true} mobile={true} id="mobileSearch" />
@@ -117,7 +117,7 @@ export default function Nav() {
                   </li>
                   <li className="mb-2">
                      <Link
-                        href="/movies"
+                        href="/movies/1/vote_average/false"
                         className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
                      >
                         Movies
@@ -125,7 +125,7 @@ export default function Nav() {
                   </li>
                   <li className="mb-2">
                      <Link
-                        href="/mymovies/Movies/all/vote_average/false"
+                        href="/mymovies/Movies/1/vote_average/false"
                         className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
                      >
                         My Movies

@@ -9,10 +9,10 @@ export default function ReviewForm({ movie_id }) {
    const [content, setContent] = useState('');
    console.log(movie_id);
    return (
-      <div className="mb-10 border border-slate-400 rounded-lg p-4">
+      <div className="mb-10 border border-slate-400 rounded-lg p-4 mx-2">
          <h2 className="text-3xl text-center mb-4">Wirte your own Review: </h2>
-         <div className="flex felx-col items-center justify-center">
-            <form action={addReview} className="flex flex-col gap-5">
+         <div className="flex felx-col items-center justify-center ">
+            <form action={addReview} className="flex flex-col gap-5 w-80 ">
                <input type="hidden" name="movieId" value={movie_id} />
                <div className="flex items-center">
                   <label className="text-xl">Rating:</label>
@@ -35,7 +35,7 @@ export default function ReviewForm({ movie_id }) {
                      type="text"
                      name="content"
                      value={content}
-                     className=" hide-scrollbar ml-4 w-80 h-32 p-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer  rounded-lg"
+                     className="hide-scrollbar ml-4 w-80 h-32 p-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer  rounded-lg"
                      onChange={(e) => setContent(e.target.value)}
                   ></textarea>
                </div>

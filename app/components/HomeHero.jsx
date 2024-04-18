@@ -24,10 +24,10 @@ export default function HomeHero({ data }) {
                   className="w-full h-full object-cover opacity-90"
                />
                <div className="relative bottom-1/2 lg:bottom-[30vh] w-1/2 ml-20 flex flex-col gap-3">
-                  <h2 className="md:text-6xl sm:text-5xl text-4xl font-bold text-slate-100">
+                  <h2 className="md:text-6xl sm:text-5xl text-3xl font-bold text-slate-100">
                      {data[0].title}
                   </h2>
-                  <div className="flex items-center text-3xl">
+                  <div className="flex items-center text-xl sm:text-3xl">
                      <StarHalf className="text-3xl" />
                      <p>{data[0].vote_average.toFixed(1)}</p>
                   </div>

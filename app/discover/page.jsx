@@ -1,9 +1,12 @@
 import DiscoverSlider from '../components/DiscoverSlider';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-
+import Nav from '../components/Nav';
 async function getUser(supabaseServer) {
-   const { data: user, error } = await supabaseServer.auth.getUser();
+   const {
+      data: { user },
+      error,
+   } = await supabaseServer.auth.getUser();
 
    if (error) {
       // This will activate the closest `error.js` Error Boundary
@@ -30,6 +33,8 @@ export default async function Discover() {
    const user = await getUser(supabaseServer);
    return (
       <main className="bg-gray-900 text-slate-100 font-doppio ">
+         <Nav user={user} />
+
          <DiscoverSlider user={user} />
       </main>
    );

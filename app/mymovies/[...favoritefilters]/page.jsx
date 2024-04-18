@@ -3,9 +3,13 @@
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import MovieGridFavorites from '../../components/MovieGridFavorites';
+import Nav from '@/app/components/Nav';
 
 async function getUser(supabaseServer) {
-   const { data: user, error } = await supabaseServer.auth.getUser();
+   const {
+      data: { user },
+      error,
+   } = await supabaseServer.auth.getUser();
 
    if (error) {
       // This will activate the closest `error.js` Error Boundary
@@ -19,7 +23,7 @@ async function getFavoriteData(supabaseServer, u) {
    const { data: favoritesData, error: favoritesError } = await supabaseServer
       .from('favorites')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (favoritesError) return favoritesError;
    const favoriteTitles = favoritesData.map((favorite) => favorite.movie_title);
 
@@ -30,7 +34,7 @@ async function getWatchlistData(supabaseServer, u) {
    const { data: watchlistData, error: watchlistError } = await supabaseServer
       .from('watchlist')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (watchlistError) return watchlistError;
    const watchlistTitles = watchlistData.map(
       (watchlist) => watchlist.movie_title
@@ -42,7 +46,7 @@ async function getDislikeData(supabaseServer, u) {
    const { data: dislikeData, error: dislikeError } = await supabaseServer
       .from('dislikes')
       .select('movie_title')
-      .match({ user_id: u.user.id });
+      .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
    //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
@@ -78,7 +82,7 @@ async function getData(
          .select('*')
          .in('title', list)
          .order(params.favoritefilters[2], {
-            ascending: params.favoritefilters[3],
+            ascending: JSON.parse(params.favoritefilters[3]),
          });
       if (error) {
          // This will activate the closest `error.js` Error Boundary
@@ -94,7 +98,7 @@ async function getData(
          .in('title', list)
          .contains('genre_ids', [params.favoritefilters[1]])
          .order(params.favoritefilters[2], {
-            ascending: params.favoritefilters[3],
+            ascending: JSON.parse(params.favoritefilters[3]),
          }); /*
       .ilike('title', `%${params.searchParams}%`); */
       /*       .order(params.favoritefilters[2], { ascending: params.favritefilters[3] })
@@ -153,20 +157,23 @@ export default async function Favorites({ params }) {
    }
 
    return (
-      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
-         {/* <Nav onSearch={handleSearch} /> */}
-         <MovieGridFavorites
-            data={data}
-            user={user} /* searchQuery={''}  */
-            favorites={true}
-            favoritetype={params.favoritefilters[0]}
-            genre={params.favoritefilters[1]}
-            sortby={params.favoritefilters[2]}
-            sortorder={params.favoritefilters[3]}
-            favorite_titles={favoriteMovies}
-            dislike_titles={dislikeMovies}
-            watchlist_titles={watchlistMovies}
-         />
+      <main>
+         <Nav user={user} />
+         <section className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+            {/* <Nav onSearch={handleSearch} /> */}
+            <MovieGridFavorites
+               data={data}
+               user={user} /* searchQuery={''}  */
+               favorites={true}
+               favoritetype={params.favoritefilters[0]}
+               genre={params.favoritefilters[1]}
+               sortby={params.favoritefilters[2]}
+               sortorder={params.favoritefilters[3]}
+               favorite_titles={favoriteMovies}
+               dislike_titles={dislikeMovies}
+               watchlist_titles={watchlistMovies}
+            />
+         </section>
       </main>
    );
 }

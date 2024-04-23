@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import MovieGrid from '../../assets/images/MovieGrid.png';
+import MovieGrid from '../../../assets/images/MovieGrid.png';
 
 export default function MovieListContainer({
    movielist_link,

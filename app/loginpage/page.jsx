@@ -1,4 +1,4 @@
-import AuthForm from '../components/AuthForm';
+import AuthForm from '../components/Login/AuthForm';
 import Image from 'next/image';
 import heroBanner from '/assets/images/dark-vip-cinema-studio-still-life.jpg';
 import { ArrowBack } from '@mui/icons-material';

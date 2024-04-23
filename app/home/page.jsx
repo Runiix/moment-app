@@ -2,11 +2,11 @@
 
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
-import HomeHero from '../components/HomeHero';
-import MovieScrollerGrid from '../components/MovieScrollerGrid';
-import MovieGrid from '../components/MovieGrid';
+import HomeHero from '../components/Home/HomeHero';
+import MovieScrollerGrid from '../components/Home/MovieScrollerGrid';
+import MovieGrid from '../components/Movies/MovieGrid';
 import saveMoviesToDb from '../actions/saveMoviesToDb';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav/Nav';
 
 async function getUser(supabaseServer) {
    const {

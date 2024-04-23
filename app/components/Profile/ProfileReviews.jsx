@@ -1,4 +1,4 @@
-import Review from './Review';
+import Review from '../MovieContainer/Review';
 
 export default async function ProfileReviews({ reviewListWithTitles }) {
    return (

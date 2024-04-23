@@ -41,7 +41,6 @@ export default function NavSearch({ show = false, mobile = false, id }) {
                   onChange={(e) => {
                      handleSearch(e.target.value);
                   }}
-                  defaultValue={searchParams.get('query')?.toString()}
                />
                {mobile === false ? (
                   <Search

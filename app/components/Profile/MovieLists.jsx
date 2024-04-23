@@ -1,7 +1,7 @@
 'use client';
 
 import MovieListContainer from './MovieListContainer';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 import { Add } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import MovieListForm from './MovieListForm';
@@ -24,6 +24,7 @@ export default function MovieLists({ user }) {
       }
    }
    useEffect(() => {
+      console.log('USER: ', user);
       const fetchMovieList = async () => {
          const lists = await getMovieLists(user.id);
          setMovieLists(lists);
@@ -44,7 +45,8 @@ export default function MovieLists({ user }) {
                {movieLists !== null &&
                   movieLists.map((movielist, index) => (
                      <MovieListContainer
-                        movielist_link={`/movielists/${user.displayname}/${movielist.id}`}
+                        key={index}
+                        movielist_link={`/movielists/${user.user_metadata.displayName}/${movielist.id}`}
                         movielist_title={movielist.name}
                         movielist_description={movielist.description}
                         /*                   movielist_image={movielist.movielist_image}

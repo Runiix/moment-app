@@ -1,6 +1,6 @@
 'use client';
 
-import MovieScrollerImage from './MovieScrollerImage';
+import MovieImage from '../MovieContainer/MovieImage';
 import { useState, useEffect, useRef } from 'react';
 import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Link from 'next/link';
@@ -35,7 +35,7 @@ export default function MovieGrid({
    const movieScrollerImages =
       data !== null &&
       data.map((movie, index) => (
-         <MovieScrollerImage
+         <MovieImage
             key={index}
             u={user}
             genres={genres}

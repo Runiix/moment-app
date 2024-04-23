@@ -2,7 +2,7 @@
 import movieCollage from '/assets/images/movie-poster-background-p5qblffj7cvswl5g.jpg';
 import Image from 'next/image';
 import { Cameraswitch, Person, Settings } from '@mui/icons-material';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';

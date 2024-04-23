@@ -2,7 +2,7 @@
 
 import { StarHalf } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 
 export default function MoviDiscoverImage({
    u,

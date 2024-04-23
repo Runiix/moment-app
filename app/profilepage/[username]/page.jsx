@@ -1,7 +1,7 @@
-import Nav from '@/app/components/Nav';
-import ProfileBanner from '../../components/ProfileBanner';
-import MovieLists from '@/app/components/MovieLists';
-import ProfileInfo from '../../components/ProfileInfo';
+import Nav from '@/app/components/Nav/Nav';
+import ProfileBanner from '../../components/Profile/ProfileBanner';
+import MovieLists from '@/app/components/Profile/MovieLists';
+import ProfileInfo from '../../components/Profile/ProfileInfo';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 

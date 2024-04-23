@@ -1,7 +1,7 @@
 'use client';
 
 import { Star } from '@mui/icons-material';
-import { addReview } from '../actions/addReview';
+import { addReview } from '../../actions/addReview';
 import { useState } from 'react';
 
 export default function ReviewForm({ movie_id }) {

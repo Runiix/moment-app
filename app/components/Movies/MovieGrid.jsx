@@ -1,11 +1,11 @@
 'use client';
 
-import MovieScrollerImage from './MovieScrollerImage';
+import MovieImage from '../MovieContainer/MovieImage';
 import { useState, useEffect, useRef } from 'react';
 import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 /* import getData from '../actions/getData';
  */ import { useInView } from 'react-intersection-observer';
 
@@ -16,7 +16,6 @@ export default function MovieGrid({
    genres,
    data,
    homepage = false,
-   favoritetype,
    genre,
    sortby,
    sortorder,
@@ -294,7 +293,7 @@ export default function MovieGrid({
                   data !== undefined &&
                   !loadingMoreMovies &&
                   data.map((movie, index) => (
-                     <MovieScrollerImage
+                     <MovieImage
                         key={index}
                         u={user}
                         id={movie.id}
@@ -310,7 +309,6 @@ export default function MovieGrid({
                         watchlist_titles={watchlist_titles}
                         favorite_titles={favorite_titles}
                         dislike_titles={dislike_titles}
-                        favoriteType={favoritetype}
                      />
                   ))}
             </div>

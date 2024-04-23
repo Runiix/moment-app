@@ -1,5 +1,5 @@
-import MovieScrollerImage from './MovieScrollerImage';
-import '../../assets/css/scrollbar.css';
+import MovieImage from '../MovieContainer/MovieImage';
+import '../../../assets/css/scrollbar.css';
 import Link from 'next/link';
 
 export default function MovieScroller({
@@ -24,7 +24,7 @@ export default function MovieScroller({
             <div className="w-[99vw] sm:w-[96vw] pl-1 sm:pl-6 xl:pl-8 pb-2 my-44 absolute overflow-x-scroll overflow-y-hidden scroll-smooth hide-scrollbar hover:first:ml-10">
                <div className="flex gap-2 sm:gap-5 ">
                   {data.map((movie, index) => (
-                     <MovieScrollerImage
+                     <MovieImage
                         key={index}
                         id={movie.id}
                         u={user}

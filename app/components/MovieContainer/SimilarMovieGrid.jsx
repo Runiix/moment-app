@@ -1,8 +1,8 @@
 'use client';
 
-import MovieScrollerImage from './MovieScrollerImage';
+import MovieScrollerImage from './MovieImage';
 import { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 
 export default function SimilarMovieGrid({ genre, genres }) {
    const [movieList, setMovieList] = useState(null);

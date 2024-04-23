@@ -1,7 +1,7 @@
 'use client';
 
 import { StarHalf } from '@mui/icons-material';
-import MovieScrollerModal from './MovieScrollerModal';
+import MovieScrollerModal from '../MovieContainer/MovieModal';
 import { useState } from 'react';
 
 export default function HomeHero({ data }) {

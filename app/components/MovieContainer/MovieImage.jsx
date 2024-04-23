@@ -10,10 +10,10 @@ import {
 } from '@mui/icons-material';
 import { FavoriteBorder } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import MovieScrollerModal from './MovieScrollerModal';
-import { addOrRemoveFromFavorites } from '../actions/addOrRemoveFromFavorites';
-import { addOrRemoveFromWatchlist } from '../actions/addOrRemoveFromWatchlist';
-import { addOrRemoveFromDislikes } from '../actions/addorRemoveFromDislikes';
+import MovieScrollerModal from './MovieModal';
+import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
+import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
+import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
 
 export default function MovieScrollerImage({
    id,
@@ -31,7 +31,6 @@ export default function MovieScrollerImage({
    favorite_titles,
    watchlist_titles,
    dislike_titles,
-   favoriteType,
 }) {
    const [isFavorited, setIsFavorited] = useState(false);
    const [isOnWatchlist, setIsOnWatchlist] = useState(false);
@@ -39,10 +38,6 @@ export default function MovieScrollerImage({
    const [showModal, setShowModal] = useState(modal);
    const [isLoading, setIsLoading] = useState(false);
    const [genreList, setGenreList] = useState(' - ');
-
-   useEffect(() => {
-      setIsLoading(!isLoading);
-   }, [favoriteType]);
 
    useEffect(() => {
       const checkForFavorites = () => {

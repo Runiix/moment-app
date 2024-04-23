@@ -2,8 +2,8 @@
 
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
-import MovieGrid from '../../components/MovieGrid';
-import Nav from '@/app/components/Nav';
+import MovieGrid from '../../components/Movies/MovieGrid';
+import Nav from '@/app/components/Nav/Nav';
 /* import getData from '@/app/actions/getData';
  */
 async function getUser(supabaseServer) {

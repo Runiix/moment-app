@@ -12,10 +12,10 @@ import {
    HeartBroken,
 } from '@mui/icons-material';
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '../utils/supabaseClient';
-import { addOrRemoveFromFavorites } from '../actions/addOrRemoveFromFavorites';
-import { addOrRemoveFromWatchlist } from '../actions/addOrRemoveFromWatchlist';
-import { addOrRemoveFromDislikes } from '../actions/addorRemoveFromDislikes';
+import { supabase } from '../../utils/supabaseClient';
+import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
+import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
+import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
 import Draggable from 'react-draggable';
 
 export default function DiscoverSlider({ user }) {

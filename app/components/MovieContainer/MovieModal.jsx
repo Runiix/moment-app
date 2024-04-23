@@ -1,8 +1,8 @@
 'use client';
 
-import { addOrRemoveFromFavorites } from '../actions/addOrRemoveFromFavorites';
-import { addOrRemoveFromDislikes } from '../actions/addorRemoveFromDislikes';
-import { addOrRemoveFromWatchlist } from '../actions/addOrRemoveFromWatchlist';
+import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
+import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
+import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
 import {
    Close,
    StarHalf,
@@ -13,7 +13,7 @@ import {
    HeartBroken,
    HeartBrokenOutlined,
 } from '@mui/icons-material';
-import '../../assets/css/scrollbar.css';
+import '../../../assets/css/scrollbar.css';
 import { useState } from 'react';
 import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';

@@ -1,7 +1,7 @@
-import DiscoverSlider from '../components/DiscoverSlider';
+import DiscoverSlider from '../components/Discover/DiscoverSlider';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav/Nav';
 import moviegrid from '../../assets/images/MovieGrid.png';
 import Image from 'next/image';
 

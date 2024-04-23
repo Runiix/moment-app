@@ -1,7 +1,7 @@
 'use client';
 import { Close } from '@mui/icons-material';
 import { useState } from 'react';
-import addNewMovieList from '../actions/addNewMovieList';
+import addNewMovieList from '../../actions/addNewMovieList';
 import swal from 'sweetalert';
 
 export default function MovieListForm({ onClose }) {

@@ -1,5 +1,5 @@
 import { Email, Password } from '@mui/icons-material';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav/Nav';
 import { supabaseServer } from '../utils/supabaseServerClient';
 import Link from 'next/link';
 

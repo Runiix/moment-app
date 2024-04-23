@@ -1,17 +1,12 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import MovieScrollerImage from './MovieScrollerImage';
 import '../../assets/css/scrollbar.css';
-import { supabase } from '../utils/supabaseClient';
-import { userAgent } from 'next/server';
 import Link from 'next/link';
 
 export default function MovieScroller({
    user,
    link,
+   genres,
    scrollertitle,
-   isfavorite,
    favoritemovies,
    dislikemovies,
    watchlistmovies,
@@ -33,6 +28,7 @@ export default function MovieScroller({
                         key={index}
                         id={movie.id}
                         u={user}
+                        genres={genres}
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         title={movie.title}

@@ -1,8 +1,8 @@
 import ProfileStat from './ProfileStat';
 import ProfileReviews from './ProfileReviews';
+import Link from 'next/link';
 
 export default async function ProfileInfo({
-   user,
    username,
    ReviewCount,
    WatchlistCount,
@@ -27,28 +27,34 @@ export default async function ProfileInfo({
                         />
                      </li>
                      <li>
-                        <ProfileStat
-                           name={'Favorites'}
-                           stat={FavoriteCount}
-                           yellow={10}
-                           green={20}
-                        />
+                        <Link href="../../mymovies/Favorites/1/vote_average/false">
+                           <ProfileStat
+                              name={'Favorites'}
+                              stat={FavoriteCount}
+                              yellow={10}
+                              green={20}
+                           />
+                        </Link>
                      </li>
                      <li>
-                        <ProfileStat
-                           name={'Dislikes'}
-                           stat={DislikeCount}
-                           yellow={10}
-                           green={20}
-                        />
+                        <Link href="../../mymovies/Dislikes/1/vote_average/false">
+                           <ProfileStat
+                              name={'Dislikes'}
+                              stat={DislikeCount}
+                              yellow={10}
+                              green={20}
+                           />
+                        </Link>
                      </li>
                      <li>
-                        <ProfileStat
-                           name={'WatchList Entries'}
-                           stat={WatchlistCount}
-                           yellow={10}
-                           green={20}
-                        />
+                        <Link href="../../mymovies/Watchlist/1/vote_average/false">
+                           <ProfileStat
+                              name={'WatchList Entries'}
+                              stat={WatchlistCount}
+                              yellow={10}
+                              green={20}
+                           />
+                        </Link>
                      </li>
                      <li>
                         <ProfileStat

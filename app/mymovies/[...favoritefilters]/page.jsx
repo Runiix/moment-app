@@ -54,6 +54,22 @@ async function getDislikeData(supabaseServer, u) {
    return dislikeTitles;
 }
 
+async function getGenres() {
+   try {
+      const response = await fetch(
+         'https://api.themoviedb.org/3/genre/movie/list?api_key=77ea84f8c960e9d8d7e658a914bd428b&language=en'
+      );
+      if (!response.ok) {
+         throw new Error('Failed to fetch genres');
+      }
+      const data = await response.json();
+      // Update movie list state with fetched data
+      return data;
+   } catch (error) {
+      console.error('Error fetching genres:', error);
+   }
+}
+
 async function getData(
    supabaseServer,
    params,
@@ -131,6 +147,8 @@ export default async function Favorites({ params }) {
    );
    console.log(params);
    const user = await getUser(supabaseServer);
+   const genres = await getGenres();
+
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
@@ -157,13 +175,13 @@ export default async function Favorites({ params }) {
    }
 
    return (
-      <main>
+      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
          <Nav user={user} />
-         <section className="min-h-screen bg-gray-900 text-white relative  font-doppio">
-            {/* <Nav onSearch={handleSearch} /> */}
+         <section>
             <MovieGridFavorites
                data={data}
-               user={user} /* searchQuery={''}  */
+               user={user}
+               genres={genres}
                favorites={true}
                favoritetype={params.favoritefilters[0]}
                genre={params.favoritefilters[1]}

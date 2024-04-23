@@ -4,7 +4,7 @@ import MovieScrollerImage from './MovieScrollerImage';
 import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabaseClient';
 
-export default function SimilarMovieGrid({ genre }) {
+export default function SimilarMovieGrid({ genre, genres }) {
    const [movieList, setMovieList] = useState(null);
 
    const getMovieFromDB = async () => {
@@ -33,6 +33,8 @@ export default function SimilarMovieGrid({ genre }) {
       movieList !== null &&
       movieList.map((movie, index) => (
          <MovieScrollerImage
+            genres={genres}
+            genre={genre}
             key={index}
             id={movie.id}
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

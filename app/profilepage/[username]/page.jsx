@@ -1,5 +1,6 @@
 import Nav from '@/app/components/Nav';
 import ProfileBanner from '../../components/ProfileBanner';
+import MovieLists from '@/app/components/MovieLists';
 import ProfileInfo from '../../components/ProfileInfo';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -117,6 +118,8 @@ export default async function ProfilePage({ params }) {
    const username = user.user_metadata.displayName;
    const userId = user.id;
    const paramUserName = params.username;
+   const paramUser = await getParamUser(supabaseServer, paramUserName);
+   const paramUserId = paramUser[0].id;
    if (paramUserName === username) {
       const ReviewCount = await getReviewCount(supabaseServer, username);
       const FavoriteCount = await getFavoriteCount(supabaseServer, userId);
@@ -127,13 +130,17 @@ export default async function ProfilePage({ params }) {
          supabaseServer,
          username
       );
+      /*       const MovieLists = await getMovieLists(supabaseServer, userId);
+       */
       const createdat = user.created_at.split('T')[0];
 
       return (
-         <main>
+         <main className="font-doppio bg-gray-900">
             <Nav user={user} />
             <section className="font-doppio">
                <ProfileBanner
+                  paramusername={params.username}
+                  paramuserid={paramUserId}
                   user={user}
                   createdat={createdat}
                   username={username}
@@ -148,17 +155,21 @@ export default async function ProfilePage({ params }) {
                   DislikeCount={DislikeCount}
                   averageRating={averageRating}
                />
+               <MovieLists user={user} />
             </section>
          </main>
       );
    } else {
-      const paramUser = await getParamUser(supabaseServer, paramUserName);
-      console.log(paramUser);
-      const paramUserId = paramUser[0].id;
       const ReviewCount = await getReviewCount(supabaseServer, paramUserName);
-      const FavoriteCount = await getFavoriteCount(supabaseServer, paramUserId);
-      const DislikeCount = await getDislikeCount(supabaseServer, paramUserId);
-      const WatchlistCount = await getWatchlistCount(
+      const ParamFavoriteCount = await getFavoriteCount(
+         supabaseServer,
+         paramUserId
+      );
+      const ParamDislikeCount = await getDislikeCount(
+         supabaseServer,
+         paramUserId
+      );
+      const ParamWatchlistCount = await getWatchlistCount(
          supabaseServer,
          paramUserId
       );
@@ -173,10 +184,13 @@ export default async function ProfilePage({ params }) {
       const createdat = user.created_at.split('T')[0];
 
       return (
-         <main>
+         <main className="font-doppio">
             <Nav user={user} username={paramUserName} createdat={createdat} />
             <section className="font-doppio">
                <ProfileBanner
+                  user={user}
+                  paramuserid={paramUserId}
+                  changeprofile={false}
                   username={paramUserName}
                   createdat={paramUser[0].joyndate}
                />
@@ -185,11 +199,15 @@ export default async function ProfilePage({ params }) {
                   reviewListWithTitles={reviewListWithTitles}
                   username={username}
                   ReviewCount={ReviewCount}
-                  WatchlistCount={WatchlistCount}
-                  FavoriteCount={FavoriteCount}
-                  DislikeCount={DislikeCount}
+                  WatchlistCount={ParamWatchlistCount}
+                  FavoriteCount={ParamFavoriteCount}
+                  DislikeCount={ParamDislikeCount}
                   averageRating={averageRating}
                />
+            </section>
+            <section>
+               {/*                <MovieLists />
+                */}{' '}
             </section>
          </main>
       );

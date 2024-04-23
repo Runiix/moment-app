@@ -24,6 +24,7 @@ export default function MovieScrollerImage({
    rating,
    votecount,
    releasedate,
+   genres,
    genre,
    isFirst,
    modal = false,
@@ -37,6 +38,7 @@ export default function MovieScrollerImage({
    const [isDisliked, setIsDisliked] = useState(false);
    const [showModal, setShowModal] = useState(modal);
    const [isLoading, setIsLoading] = useState(false);
+   const [genreList, setGenreList] = useState(' - ');
 
    useEffect(() => {
       setIsLoading(!isLoading);
@@ -61,7 +63,17 @@ export default function MovieScrollerImage({
          }
       };
       checkForFavorites();
+      populateGenreList();
    }, []);
+
+   const populateGenreList = () => {
+      for (let i = 0; i < genres.genres.length; i++) {
+         if (genre.includes(genres.genres[i].id)) {
+            let temp = genres.genres[i].name + ' - ';
+            setGenreList((prev) => [...prev, temp]);
+         }
+      }
+   };
 
    function toggleModal() {
       setShowModal(!showModal);
@@ -123,7 +135,7 @@ export default function MovieScrollerImage({
                         object-cover
                         transition-all
                         relative
-                        right-24
+                        right-[5.5rem]
                         shadow-xl
                         h-64
                         w-0
@@ -150,6 +162,7 @@ export default function MovieScrollerImage({
                         <div className="flex flex-col gap-2">
                            <h3 className="text-xl">{title}</h3>
                            <p className="text-[8px]">{overview}</p>
+                           <p className="text-xs">{genreList}</p>
                         </div>
                         <div className="flex gap-12 absolute bottom-2">
                            <div className="flex text-xl items-center">
@@ -259,6 +272,8 @@ export default function MovieScrollerImage({
             <MovieScrollerModal
                id={id}
                src={src2}
+               genreList={genreList}
+               genres={genres}
                alt={title}
                title={title}
                overview={overview}
@@ -270,7 +285,6 @@ export default function MovieScrollerImage({
                isfavorited={isFavorited}
                isdisliked={isDisliked}
                isonwatchlist={isOnWatchlist}
-               visible={toggleModal}
             />
          )}
       </div>

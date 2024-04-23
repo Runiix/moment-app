@@ -183,6 +183,22 @@ const getHomeHero = async (supabaseServer) => {
    }
 };
 
+async function getGenres() {
+   try {
+      const response = await fetch(
+         'https://api.themoviedb.org/3/genre/movie/list?api_key=77ea84f8c960e9d8d7e658a914bd428b&language=en'
+      );
+      if (!response.ok) {
+         throw new Error('Failed to fetch genres');
+      }
+      const data = await response.json();
+      // Update movie list state with fetched data
+      return data;
+   } catch (error) {
+      console.error('Error fetching genres:', error);
+   }
+}
+
 export default async function Home({ searchParams }) {
    const cookieStore = cookies();
 
@@ -200,6 +216,7 @@ export default async function Home({ searchParams }) {
 
    const query = searchParams?.query || '';
    const user = await getUser(supabaseServer);
+   const genres = await getGenres();
    /*    const safe = await saveMoviesToDb();
     */
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
@@ -225,6 +242,7 @@ export default async function Home({ searchParams }) {
                <HomeHero data={homeHeroData} />
                <MovieScrollerGrid
                   user={user}
+                  genres={genres}
                   favoritemovies={favoriteMovies}
                   watchlistmovies={watchlistMovies}
                   dislikemovies={dislikeMovies}
@@ -246,6 +264,7 @@ export default async function Home({ searchParams }) {
                <MovieGrid
                   data={data}
                   user={user}
+                  genres={genres}
                   homepage={true}
                   favorite_titles={favoriteMovies}
                   dislike_titles={dislikeMovies}

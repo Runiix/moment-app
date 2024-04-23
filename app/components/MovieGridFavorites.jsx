@@ -3,35 +3,26 @@
 import MovieScrollerImage from './MovieScrollerImage';
 import { useState, useEffect, useRef } from 'react';
 import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
-import { debounce } from 'lodash';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { GridLoader } from 'react-spinners';
-
 export default function MovieGrid({
    user,
    data,
    favoritetype,
    genre,
+   genres,
    sortby,
    sortorder = false,
    favorite_titles,
    dislike_titles,
    watchlist_titles,
 }) {
-   const [offset, setOffset] = useState(1);
    const [isLoading, setIsLoading] = useState(true);
-   const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
-   const [isInView, setIsInView] = useState(false);
-   const [isLast, setIsLast] = useState(false);
-
    const [favoriteType, setFavoriteType] = useState(favoritetype);
    const [showFavoriteFilter, setShowFavoriteFilter] = useState(false);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
    const containerRef = useRef(null);
-   const PAGE_COUNT = 20;
-   const router = useRouter();
 
    useEffect(() => {
       if (data === null || data === undefined) {
@@ -41,22 +32,13 @@ export default function MovieGrid({
       }
    }, [data]);
 
-   /*    const handleScroll = () => {
-      if (containerRef.current && typeof window !== 'undefined') {
-         const container = containerRef.current;
-         const { bottom } = container.getBoundingClientRect();
-         const { innerHeight } = window;
-         setIsInView((prev) => bottom - 1 <= innerHeight);
-         //console.log(bottom-1, innerHeight)
-      }
-   };
-    */
    const movieScrollerImages =
       data !== null &&
       data.map((movie, index) => (
          <MovieScrollerImage
             key={index}
             u={user}
+            genres={genres}
             id={movie.id}
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -248,7 +230,7 @@ export default function MovieGrid({
                         </li>{' '}
                      </Link>
 
-                     <Link href={changeFavoriteType('watchlist')}>
+                     <Link href={changeFavoriteType('Watchlist')}>
                         <li className="hover:bg-green-600 py-2 w-27 sm:w-32 hover:cursor-pointer hover:text-zinc-900">
                            Watchlist
                         </li>{' '}
@@ -321,14 +303,6 @@ export default function MovieGrid({
                ref={containerRef}
             >
                {movieScrollerImages}
-               {loadingMoreMovies && (
-                  <div>
-                     <GridLoader
-                        className="relative left-16 top-28"
-                        color="#16A34A"
-                     />{' '}
-                  </div>
-               )}
             </div>
          )}
       </div>

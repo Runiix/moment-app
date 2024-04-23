@@ -2,7 +2,6 @@
 
 import { Search } from '@mui/icons-material';
 import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 export default function NavSearch({ show = false, mobile = false, id }) {

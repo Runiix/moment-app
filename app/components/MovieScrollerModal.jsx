@@ -21,6 +21,8 @@ import ReviewList from './ReviewList';
 export default function MovieScrollerModal({
    id,
    src,
+   genres,
+   genreList,
    alt,
    title,
    overview,
@@ -32,7 +34,6 @@ export default function MovieScrollerModal({
    isfavorite,
    isdisliked,
    isonwatchlist,
-   visible,
 }) {
    const [similarOrReviews, setSimilarOrReviews] = useState(false);
 
@@ -54,7 +55,7 @@ export default function MovieScrollerModal({
    return (
       <div
          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-40"
-         onClick={() => visible()}
+         onClick={onClose}
       >
          <div
             className="bg-gray-900 h-screen w-[500px] sm:w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
@@ -165,6 +166,7 @@ export default function MovieScrollerModal({
                      </div>
 
                      <p>Release-Date: {releasedate}</p>
+                     <p>{genreList}</p>
                   </div>
                </div>
                <div className="flex flex-col items-center text-center">
@@ -191,7 +193,7 @@ export default function MovieScrollerModal({
                      </h3>
                   </div>
                   {!similarOrReviews ? (
-                     <SimilarMovieGrid genre={genre} />
+                     <SimilarMovieGrid genre={genre} genres={genres} />
                   ) : (
                      <ReviewList movie_id={id} />
                   )}

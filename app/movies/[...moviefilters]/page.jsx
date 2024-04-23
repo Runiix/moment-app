@@ -4,8 +4,8 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import MovieGrid from '../../components/MovieGrid';
 import Nav from '@/app/components/Nav';
-import getData from '@/app/actions/getData';
-
+/* import getData from '@/app/actions/getData';
+ */
 async function getUser(supabaseServer) {
    const {
       data: { user },
@@ -55,7 +55,23 @@ async function getDislikeData(supabaseServer, u) {
    return dislikeTitles;
 }
 
-/* async function getData(supabaseServer, params, page, pageSize, query) {
+async function getGenres() {
+   try {
+      const response = await fetch(
+         'https://api.themoviedb.org/3/genre/movie/list?api_key=77ea84f8c960e9d8d7e658a914bd428b&language=en'
+      );
+      if (!response.ok) {
+         throw new Error('Failed to fetch genres');
+      }
+      const data = await response.json();
+      // Update movie list state with fetched data
+      return data;
+   } catch (error) {
+      console.error('Error fetching genres:', error);
+   }
+}
+
+async function getData(supabaseServer, params, page, pageSize, query) {
    const from = page * pageSize;
    const to = (page + 1) * pageSize;
    if (params.moviefilters[0] === '1') {
@@ -92,7 +108,7 @@ async function getDislikeData(supabaseServer, u) {
 
       return data;
    }
-} */
+}
 
 export default async function Movies({ params, searchParams }) {
    const cookieStore = cookies();
@@ -110,24 +126,28 @@ export default async function Movies({ params, searchParams }) {
    );
    const query = searchParams?.query || '';
    console.log(params);
-   const page = 0;
-   const pageSize = 20;
+
    const user = await getUser(supabaseServer);
+   const genres = await getGenres();
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
-   /*    const data = await getData(supabaseServer, params, page, pageSize, query);
-   const loadMoreMoviesHandler = async (page, pageSize) => {
+   const page = 0;
+   const pageSize = 1;
+   const data = await getData(supabaseServer, params, page, pageSize, query);
+   /*    const loadMoreMoviesHandler = async (page, pageSize) => {
       'use server';
       const data = await getData(supabaseServer, params, page, pageSize, query);
    }; */
 
    return (
-      <main>
+      <main className="min-h-screen bg-gray-900 text-white relative font-doppio">
          <Nav user={user} />
-         <section className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+         <section>
             <MovieGrid
                user={user}
+               genres={genres}
+               data={data}
                query={query}
                favorites={false}
                params={params}

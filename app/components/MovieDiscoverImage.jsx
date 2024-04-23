@@ -1,24 +1,17 @@
 'use client';
 
-import { Favorite, StarHalf } from '@mui/icons-material';
-import { FavoriteBorder } from '@mui/icons-material';
+import { StarHalf } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import MovieScrollerModal from './MovieScrollerModal';
 import { supabase } from '../utils/supabaseClient';
-import { addOrRemoveFromFavorites } from '../actions/addOrRemoveFromFavorites';
 
 export default function MoviDiscoverImage({
    u,
-   id,
    src,
-   src2,
    title,
    overview,
    rating,
    votecount,
    releasedate,
-   genre,
-   isFirst,
    modal = false,
    isfavorite = false,
 }) {

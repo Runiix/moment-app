@@ -6,13 +6,15 @@ import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
 import { supabase } from '../utils/supabaseClient';
-import getData from '../actions/getData';
-import { useInView } from 'react-intersection-observer';
+/* import getData from '../actions/getData';
+ */ import { useInView } from 'react-intersection-observer';
 
 export default function MovieGrid({
    user,
    query,
    params,
+   genres,
+   data,
    homepage = false,
    favoritetype,
    genre,
@@ -23,9 +25,8 @@ export default function MovieGrid({
    watchlist_titles,
 }) {
    const [offset, setOffset] = useState(0);
-   const [isLoading, setIsLoading] = useState(true);
+   const [isLoading, setIsLoading] = useState(false);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
-   const [favoriteType, setFavoriteType] = useState(favoritetype);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
    const [movies, setMovies] = useState([]);
@@ -33,13 +34,12 @@ export default function MovieGrid({
    const { ref, inView } = useInView();
    const pageSize = 20;
 
-   useEffect(() => {
-      if (movies === null || movies === undefined) {
+   /*    useEffect(() => {
          setIsLoading(true);
       } else {
          setIsLoading(false);
       }
-   }, [movies]);
+   }, [movies]); */
 
    /*    useEffect(() => {
       const handleScroll = () => {
@@ -54,14 +54,15 @@ export default function MovieGrid({
       handleScroll();
    }, []); */
 
-   const loadMoreMovies = async () => {
+   /*    const loadMoreMovies = async () => {
       try {
          const { data, error } = await getData(params, offset, pageSize, query);
          if (error) {
             throw new Error('Failed to load more movies');
          } else {
-            setMovies((prevMovies) => movies, data);
+            setMovies((prevMovies) => [...prevMovies, ...data]);
             setOffset((prev) => prev + 1);
+            console.log(data);
             return data;
          }
       } catch (error) {
@@ -71,11 +72,11 @@ export default function MovieGrid({
 
    useEffect(() => {
       if (inView) {
-         setLoadingMoreMovies(true);
+         setIsLoading(false);
          loadMoreMovies();
-         setLoadingMoreMovies(false);
+         setLoadingMoreMovies(true);
       }
-   }, [inView]);
+   }, [inView]); */
 
    /*    useEffect(() => {
       if (isInView) {
@@ -289,14 +290,15 @@ export default function MovieGrid({
                className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
                ref={containerRef}
             >
-               {movies !== null &&
-                  movies !== undefined &&
+               {data !== null &&
+                  data !== undefined &&
                   !loadingMoreMovies &&
-                  movies.map((movie, index) => (
+                  data.map((movie, index) => (
                      <MovieScrollerImage
                         key={index}
                         u={user}
                         id={movie.id}
+                        genres={genres}
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         title={movie.title}
@@ -308,7 +310,7 @@ export default function MovieGrid({
                         watchlist_titles={watchlist_titles}
                         favorite_titles={favorite_titles}
                         dislike_titles={dislike_titles}
-                        favoriteType={favoriteType}
+                        favoriteType={favoritetype}
                      />
                   ))}
             </div>

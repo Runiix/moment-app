@@ -2,6 +2,7 @@ import MovieScroller from './MovieScroller';
 
 export default function MovieScrollerGrid({
    user,
+   genres,
    favoritemovies,
    watchlistmovies,
    dislikemovies,
@@ -16,6 +17,7 @@ export default function MovieScrollerGrid({
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               genres={genres}
                link="mymovies/Watchlist/1/vote_average/false"
                scrollertitle="My Watchlist"
                isfavorite={true}
@@ -29,6 +31,7 @@ export default function MovieScrollerGrid({
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               genres={genres}
                link="mymovies/Favorites/1/vote_average/false"
                scrollertitle="My Favorites"
                isfavorite={true}
@@ -42,6 +45,7 @@ export default function MovieScrollerGrid({
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               genres={genres}
                link="movies/28/vote_average/false"
                scrollertitle="Action"
                category="28"
@@ -54,6 +58,7 @@ export default function MovieScrollerGrid({
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               genres={genres}
                link="movies/16/vote_average/false"
                scrollertitle="Animation"
                category="16"
@@ -66,6 +71,7 @@ export default function MovieScrollerGrid({
          <div className="flex flex-col">
             <MovieScroller
                user={user}
+               genres={genres}
                link="movies/53/vote_average/false"
                scrollertitle="Thriller"
                category="53"

@@ -25,8 +25,8 @@ export default function Nav({ user }) {
       <nav
          className={
             navbarBackground
-               ? 'fixed w-screen top-0 left-0 p-4 z-10 flex lg:justify-between items-center bg-gray-900'
-               : 'fixed w-screen top-0 left-0 p-4 z-10 flex lg:justify-between items-center bg-gradient-to-b from-gray-900 via-gray-900/80 to-gray-900/0'
+               ? 'fixed w-screen top-0 left-0 p-4 z-50 flex lg:justify-between items-center bg-gray-900'
+               : 'fixed w-screen top-0 left-0 p-4 z-50 flex lg:justify-between items-center bg-gradient-to-b from-gray-900 via-gray-900/80 to-gray-900/0'
          }
       >
          <div className=" flex items-center gap-10 ">

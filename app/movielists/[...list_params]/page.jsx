@@ -55,18 +55,19 @@ async function getDislikeData(supabaseServer, u) {
 async function getListItems(supabaseServer, params) {
    const { data: listItems, error } = await supabaseServer
       .from('MovieListItems')
-      .select('*')
+      .select('movie_id')
       .eq('list_id', params.list_params[1]);
    if (error) {
       throw new Error('Failed to fetch data');
    }
-   console.log(listItems);
-   return listItems;
+   const listOfIds = listItems.map((obj) => obj.movie_id);
+   return listOfIds;
 }
 
 async function getMovieList(supabaseServer, listitems) {
+   console.log('Inner LIst ITEMS', listitems);
    const { data, error } = await supabaseServer
-      .from('MovieListItems')
+      .from('Movies')
       .select('*')
       .in('id', listitems);
    if (error) {
@@ -107,6 +108,18 @@ async function getGenres() {
       console.error('Error fetching genres:', error);
    }
 }
+async function getMovieListTitle(supabaseServer, params) {
+   const { data, error } = await supabaseServer
+      .from('MovieLists')
+      .select('*')
+      .eq('id', params.list_params[1]);
+   if (error) {
+      console.error('Error Getting MovieList Title', error);
+   } else {
+      console.log('name', data);
+      return data[0];
+   }
+}
 
 export default async function movielists({ params, searchParams }) {
    const cookieStore = cookies();
@@ -137,6 +150,9 @@ export default async function movielists({ params, searchParams }) {
    const movieList = await getMovieList(supabaseServer, listItems);
    console.log('MovieList:', movieList);
    const genres = await getGenres();
+   const MovieListItem = await getMovieListTitle(supabaseServer, params);
+   const MovieListTitle = MovieListItem.name;
+   const MovieListDescription = MovieListItem.description;
 
    return (
       <main className="font-doppio bg-gray-900">
@@ -144,9 +160,12 @@ export default async function movielists({ params, searchParams }) {
          <div>
             <MovieList
                movielistid={MovieListId}
+               movielisttitle={MovieListTitle}
+               movielistdescription={MovieListDescription}
                user={user}
                query={query}
-               movielist={movieList}
+               params={params}
+               movieList={movieList}
                data={data}
                genres={genres}
                favorite_titles={favoriteMovies}

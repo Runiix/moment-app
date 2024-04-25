@@ -99,6 +99,13 @@ async function getReviewListWithTitles(supabaseServer, username) {
    return reviewListWithTitles;
 }
 
+const getListContainerImages = async (supabaseServer, user) => {
+   const { data, error } = await supabaseServer
+      .from('MovieListItems')
+      .select('movie_id')
+      .eq();
+};
+
 export default async function ProfilePage({ params }) {
    const cookieStore = cookies();
 
@@ -155,7 +162,7 @@ export default async function ProfilePage({ params }) {
                   DislikeCount={DislikeCount}
                   averageRating={averageRating}
                />
-               <MovieLists user={user} />
+               <MovieLists userid={userId} username={username} />
             </section>
          </main>
       );
@@ -206,8 +213,7 @@ export default async function ProfilePage({ params }) {
                />
             </section>
             <section>
-               {/*                <MovieLists />
-                */}{' '}
+               <MovieLists userid={paramUserId} username={paramUserName} />
             </section>
          </main>
       );

@@ -1,6 +1,6 @@
 import Nav from '@/app/components/Nav/Nav';
 import ProfileBanner from '../../components/Profile/ProfileBanner';
-import MovieLists from '@/app/components/Profile/MovieLists';
+import MovieLists from '../../components/Profile/MovieLists';
 import ProfileInfo from '../../components/Profile/ProfileInfo';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -99,12 +99,31 @@ async function getReviewListWithTitles(supabaseServer, username) {
    return reviewListWithTitles;
 }
 
-const getListContainerImages = async (supabaseServer, user) => {
-   const { data, error } = await supabaseServer
+async function getMovieLists(supabaseServer, userId) {
+   const { data: movieLists, error } = await supabaseServer
+      .from('MovieLists')
+      .select('*')
+      .eq('user_id', userId);
+   if (error) console.error('Error getting MovieLists');
+   return movieLists;
+}
+async function getMovieIds(supabaseServer, movieListId) {
+   const { data: movieIds, error: idError } = await supabaseServer
       .from('MovieListItems')
       .select('movie_id')
-      .eq();
-};
+      .eq('list_id', movieListId);
+   if (idError) console.log('Error getting Movie IDs', idError);
+   return movieIds;
+}
+
+async function getMovieImage(supabaseServer, movieIds) {
+   const { data: movieImageUrls, error: urlError } = await supabaseServer
+      .from('Movies')
+      .select('poster_path')
+      .in('id', movieIds);
+   if (urlError) console.log('Error getting Image Urls', urlError);
+   return movieImageUrls;
+}
 
 export default async function ProfilePage({ params }) {
    const cookieStore = cookies();
@@ -133,12 +152,29 @@ export default async function ProfilePage({ params }) {
       const DislikeCount = await getDislikeCount(supabaseServer, userId);
       const WatchlistCount = await getWatchlistCount(supabaseServer, userId);
       const averageRating = await calcAverageRating(supabaseServer, username);
+
       const reviewListWithTitles = await getReviewListWithTitles(
          supabaseServer,
          username
       );
-      /*       const MovieLists = await getMovieLists(supabaseServer, userId);
-       */
+
+      const movieLists = await getMovieLists(supabaseServer, userId);
+      console.log(movieLists);
+      const listIds = movieLists.map((item) => item.id);
+      const allMovieIds = [];
+      for (const listId of listIds) {
+         const movieIdData = await getMovieIds(supabaseServer, listId);
+         const movieIds = movieIdData.map((item) => item.movie_id);
+         allMovieIds.push(movieIds);
+      }
+
+      const allMovieImages = [];
+      for (const idlist of allMovieIds) {
+         const imageData = await getMovieImage(supabaseServer, idlist);
+         const movieImages = imageData.map((item) => item.poster_path);
+         allMovieImages.push(movieImages);
+      }
+
       const createdat = user.created_at.split('T')[0];
 
       return (
@@ -162,7 +198,12 @@ export default async function ProfilePage({ params }) {
                   DislikeCount={DislikeCount}
                   averageRating={averageRating}
                />
-               <MovieLists userid={userId} username={username} />
+
+               <MovieLists
+                  username={username}
+                  movielists={movieLists}
+                  movieimages={allMovieImages}
+               />
             </section>
          </main>
       );
@@ -188,6 +229,23 @@ export default async function ProfilePage({ params }) {
          supabaseServer,
          paramUserName
       );
+
+      const movieLists = await getMovieLists(supabaseServer, paramUserId);
+      const listIds = movieLists.map((item) => item.id);
+      const allMovieIds = [];
+      for (const listId of listIds) {
+         const movieIdData = await getMovieIds(supabaseServer, listId);
+         const movieIds = movieIdData.map((item) => item.movie_id);
+         allMovieIds.push(movieIds);
+      }
+
+      const allMovieImages = [];
+      for (const idlist of allMovieIds) {
+         const imageData = await getMovieImage(supabaseServer, idlist);
+         const movieImages = imageData.map((item) => item.poster_path);
+         allMovieImages.push(movieImages);
+      }
+
       const createdat = user.created_at.split('T')[0];
 
       return (
@@ -213,7 +271,11 @@ export default async function ProfilePage({ params }) {
                />
             </section>
             <section>
-               <MovieLists userid={paramUserId} username={paramUserName} />
+               <MovieLists
+                  username={paramUserName}
+                  movielists={movieLists}
+                  movieimages={allMovieImages}
+               />
             </section>
          </main>
       );

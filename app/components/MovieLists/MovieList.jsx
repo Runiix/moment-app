@@ -29,22 +29,23 @@ export default function MovieList({
 
    return (
       <div className="flex flex-col items-center">
-         <div className="absolute top-20 flex flex-col items-center">
+         <div className="absolute top-20 flex flex-col gap-4 items-center justify-center">
             <h2 className=" text-6xl ">{movielisttitle}</h2>
             <p className="text-xs">{movielistdescription}</p>
          </div>
-         <div className="absolute top-28 flex flex-wrap gap-5 items-center ">
-            {params.list_params[0] === user.user_metadata.displayName && (
-               <button
-                  className="border m-auto border-slate-400 rounded-lg p-14 mt-32 ml-32 text-center hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 hover:border-zinc-900 "
-                  onClick={() => setAddMovie(!addMovie)}
-               >
-                  {' '}
-                  <Add className="text-6xl" />
-               </button>
-            )}
-
-            <div className="flex gap-5 relative top-16">
+         <div className="absolute top-28 flex flex-col w-screen gap-5 items-center ">
+            <div>
+               {params.list_params[0] === user.user_metadata.displayName && (
+                  <button
+                     className="border border-slate-400 rounded-lg py-2 w-[90vw] mt-24 text-center hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 hover:border-zinc-900 "
+                     onClick={() => setAddMovie(!addMovie)}
+                  >
+                     {' '}
+                     <Add className="text-6xl" />
+                  </button>
+               )}
+            </div>
+            <div className=" mx-10 mt-10 grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
                {movieList !== null &&
                   movieList !== undefined &&
                   movieList.map((movie, index) => (

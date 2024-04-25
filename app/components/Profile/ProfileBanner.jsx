@@ -169,7 +169,7 @@ export default function ProfileBanner({
 
                <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-t from-gray-900 via-gray-900/0 to-gray-900/0"></div>
                <div
-                  className={`relative bottom-36 items-center flex ${
+                  className={`relative bottom-36 items-end flex ${
                      changeprofile ? 'justify-around' : 'justify-center w-3/4'
                   }`}
                >

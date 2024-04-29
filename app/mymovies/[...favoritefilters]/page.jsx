@@ -70,68 +70,7 @@ async function getGenres() {
    }
 }
 
-async function getData(
-   supabaseServer,
-   params,
-   myMovies,
-   favoriteMovies,
-   dislikeMovies,
-   watchlistMovies
-) {
-   console.log(params.favoritefilters[0]);
-   let list = null;
-   if (params.favoritefilters[0] === 'Movies') {
-      list = myMovies;
-   } else if (params.favoritefilters[0] === 'Favorites') {
-      list = favoriteMovies;
-   } else if (params.favoritefilters[0] === 'Dislikes') {
-      list = dislikeMovies;
-   } else if (params.favoritefilters[0] === 'Watchlist') {
-      list = watchlistMovies;
-   } else {
-      console.error('Invalid movielist');
-      return;
-   }
-   if (params.favoritefilters[1] === '1') {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .in('title', list)
-         .order(params.favoritefilters[2], {
-            ascending: JSON.parse(params.favoritefilters[3]),
-         });
-      if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
-         throw new Error('Failed to fetch data');
-      }
-
-      return data;
-   } else {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .in('title', list)
-         .contains('genre_ids', [params.favoritefilters[1]])
-         .order(params.favoritefilters[2], {
-            ascending: JSON.parse(params.favoritefilters[3]),
-         }); /*
-      .ilike('title', `%${params.searchParams}%`); */
-      /*       .order(params.favoritefilters[2], { ascending: params.favritefilters[3] })
-        .range(from, to); */
-      // The return value is *not* serialized
-      // You can return Date, Map, Set, etc.
-      if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
-         throw new Error('Failed to fetch data');
-      }
-
-      return data;
-   }
-}
-
-export default async function Favorites({ params }) {
+export default async function Favorites({ params, searchParams }) {
    const cookieStore = cookies();
 
    const supabaseServer = createServerClient(
@@ -145,27 +84,13 @@ export default async function Favorites({ params }) {
          },
       }
    );
-   console.log(params);
+   const query = searchParams?.query || '';
    const user = await getUser(supabaseServer);
    const genres = await getGenres();
-
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
    const myMovies = getFilteredTitles();
-   const data = await getData(
-      supabaseServer,
-      params,
-      myMovies,
-      favoriteMovies,
-      dislikeMovies,
-      watchlistMovies
-   );
-   /*     const [searchQuery, setSearchQuery]= useState('');
-
-    const handleSearch= (query) =>{
-        setSearchQuery(query);
-    } */
 
    function getFilteredTitles() {
       const filteredTitles = favoriteMovies
@@ -179,10 +104,11 @@ export default async function Favorites({ params }) {
          <Nav user={user} />
          <section>
             <MovieGridFavorites
-               data={data}
                user={user}
                genres={genres}
+               query={query}
                favorites={true}
+               params={params}
                favoritetype={params.favoritefilters[0]}
                genre={params.favoritefilters[1]}
                sortby={params.favoritefilters[2]}
@@ -190,6 +116,7 @@ export default async function Favorites({ params }) {
                favorite_titles={favoriteMovies}
                dislike_titles={dislikeMovies}
                watchlist_titles={watchlistMovies}
+               mymovies={myMovies}
             />
          </section>
       </main>

@@ -1,19 +1,19 @@
 'use client';
 
 import { Search } from '@mui/icons-material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 export default function NavSearch({ show = false, mobile = false, id }) {
    const searchParams = useSearchParams();
    const pathName = usePathname();
    const { replace } = useRouter();
+   const router = useRouter();
 
    const [showSearch, setShowSearch] = useState(show);
    const [query, setQuery] = useState('');
 
    const handleSearch = (term) => {
-      console.log(term);
       const params = new URLSearchParams(searchParams);
       if (term) {
          params.set('query', term);
@@ -23,6 +23,9 @@ export default function NavSearch({ show = false, mobile = false, id }) {
       replace(`${pathName}?${params.toString()}`);
       setQuery(term);
    };
+   useEffect(() => {
+      router.refresh();
+   }, [query]);
 
    /* Debouncing TODO doesnt work as intended */
 

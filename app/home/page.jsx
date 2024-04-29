@@ -5,7 +5,6 @@ import { createServerClient } from '@supabase/ssr';
 import HomeHero from '../components/Home/HomeHero';
 import MovieScrollerGrid from '../components/Home/MovieScrollerGrid';
 import MovieGrid from '../components/Movies/MovieGrid';
-import saveMoviesToDb from '../actions/saveMoviesToDb';
 import Nav from '../components/Nav/Nav';
 
 async function getUser(supabaseServer) {
@@ -15,7 +14,6 @@ async function getUser(supabaseServer) {
    } = await supabaseServer.auth.getUser();
 
    if (error) {
-      // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data');
    }
 
@@ -57,52 +55,6 @@ async function getDislikeData(supabaseServer, u) {
    return dislikeTitles;
 }
 
-const getMovieFromDB = async () => {
-   try {
-      if (!isfavorite) {
-         const { data, error } = await supabase
-            .from('Movies')
-            .select('*')
-            .contains('genre_ids', [category]);
-         if (error) {
-            console.error('Error Getting movies from DB: ', error);
-         } else {
-            const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
-            const selectedMovies = shuffledMovies.slice(0, 20);
-            setMovieList(selectedMovies);
-         }
-      } else {
-         const { data: user, error } = await supabase.auth.getUser();
-         if (error) console.error('error getting user', error);
-         const { data: favoritesData, error: favoritesError } = await supabase
-            .from(favoritetype)
-            .select('movie_title')
-            .eq('user_id', user.id);
-
-         if (favoritesError) return favoritesError;
-         else {
-            const favoriteTitles = favoritesData.map((favorite) =>
-               favorite.movie_title.trim()
-            );
-
-            const { data, error } = await supabase
-               .from('Movies')
-               .select('*')
-               .in('title', favoriteTitles);
-            if (error) {
-               console.error('Error Getting movies from DB: ', error);
-            } else {
-               const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
-               const selectedMovies = shuffledMovies.slice(0, 20);
-               setMovieList(selectedMovies);
-            }
-         }
-      }
-   } catch (error) {
-      console.error('Error getting data from DB:', error);
-   }
-};
-
 async function getData(supabaseServer, titles = null, genre = null) {
    const from = 0;
    const to = 19;
@@ -111,8 +63,7 @@ async function getData(supabaseServer, titles = null, genre = null) {
          .from('Movies')
          .select('*')
          .contains('genre_ids', [genre])
-         /*          .ilike('title', `%${query}%`)
-          */ .range(from, to);
+         .range(from, to);
       if (error) {
          throw new Error('Failed to fetch data');
       }
@@ -125,8 +76,7 @@ async function getData(supabaseServer, titles = null, genre = null) {
          .from('Movies')
          .select('*')
          .in('title', titles)
-         /*          .ilike('title', `%${query}%`)
-          */ .range(from, to);
+         .range(from, to);
       if (error) {
          throw new Error('Failed to fetch data');
       }
@@ -134,20 +84,6 @@ async function getData(supabaseServer, titles = null, genre = null) {
       return data;
    }
 }
-const getGridData = async (supabaseServer, query) => {
-   const from = 0;
-   const to = 19;
-   const { data, error } = await supabaseServer
-      .from('Movies')
-      .select('*')
-      .ilike('title', `%${query}%`)
-      .range(from, to);
-   if (error) {
-      throw new Error('Failed to fetch data');
-   }
-
-   return data;
-};
 
 const getRandomId = async (supabaseServer) => {
    try {
@@ -156,7 +92,6 @@ const getRandomId = async (supabaseServer) => {
       const IdData = data.map((movie) => movie.id);
       const randomIndex = Math.floor(Math.random() * IdData.length);
       const randomId = IdData[randomIndex];
-      console.log('randomId', randomId);
       return randomId;
    } catch (error) {
       console.error('Error fetching Movie Ids', error);
@@ -167,13 +102,11 @@ const getHomeHero = async (supabaseServer) => {
    const rand = await getRandomId(supabaseServer);
    try {
       if (rand !== null && rand !== undefined) {
-         console.log('Rand', rand);
          const { data, error } = await supabaseServer
             .from('Movies')
             .select('*')
             .eq('id', rand);
          if (error) console.error('Error getting Movie', error);
-         console.log('Data: ', data);
          return data;
       } else {
          console.error('Rand is undefined or null');
@@ -213,12 +146,11 @@ export default async function Home({ searchParams }) {
          },
       }
    );
-
    const query = searchParams?.query || '';
    const user = await getUser(supabaseServer);
+   console.log(user);
+
    const genres = await getGenres();
-   /*    const safe = await saveMoviesToDb();
-    */
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
@@ -256,15 +188,14 @@ export default async function Home({ searchParams }) {
          </main>
       );
    } else {
-      const data = await getGridData(supabaseServer, query);
       return (
          <main className="bg-gray-900 text-slate-100 font-doppio ">
             <Nav user={user} />
             <section className="">
                <MovieGrid
-                  data={data}
                   user={user}
                   genres={genres}
+                  query={query}
                   homepage={true}
                   favorite_titles={favoriteMovies}
                   dislike_titles={dislikeMovies}

@@ -4,8 +4,8 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import MovieGrid from '../../components/Movies/MovieGrid';
 import Nav from '@/app/components/Nav/Nav';
-/* import getData from '@/app/actions/getData';
- */
+import saveMoviesToDb from '../../actions/saveMoviesToDb';
+
 async function getUser(supabaseServer) {
    const {
       data: { user },
@@ -13,7 +13,6 @@ async function getUser(supabaseServer) {
    } = await supabaseServer.auth.getUser();
 
    if (error) {
-      // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data');
    }
 
@@ -49,7 +48,6 @@ async function getDislikeData(supabaseServer, u) {
       .select('movie_title')
       .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
-   //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
 
    return dislikeTitles;
@@ -64,49 +62,9 @@ async function getGenres() {
          throw new Error('Failed to fetch genres');
       }
       const data = await response.json();
-      // Update movie list state with fetched data
       return data;
    } catch (error) {
       console.error('Error fetching genres:', error);
-   }
-}
-
-async function getData(supabaseServer, params, page, pageSize, query) {
-   const from = page * pageSize;
-   const to = (page + 1) * pageSize;
-   if (params.moviefilters[0] === '1') {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .order(params.moviefilters[1], {
-            ascending: JSON.parse(params.moviefilters[2]),
-         })
-         .ilike('title', `%${query}%`)
-         .range(from, to);
-      if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
-         throw new Error('Failed to fetch data');
-      }
-
-      return data;
-   } else {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .contains('genre_ids', [params.moviefilters[0]])
-         .order(params.moviefilters[1], {
-            ascending: JSON.parse(params.moviefilters[2]),
-         })
-         .ilike('title', `%${query}%`)
-         .range(from, to);
-      if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
-         throw new Error('Failed to fetch data');
-      }
-
-      return data;
    }
 }
 
@@ -124,21 +82,14 @@ export default async function Movies({ params, searchParams }) {
          },
       }
    );
+   /*    const safe = await saveMoviesToDb();
+    */
    const query = searchParams?.query || '';
-   console.log(params);
-
    const user = await getUser(supabaseServer);
    const genres = await getGenres();
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
-   const page = 0;
-   const pageSize = 1;
-   const data = await getData(supabaseServer, params, page, pageSize, query);
-   /*    const loadMoreMoviesHandler = async (page, pageSize) => {
-      'use server';
-      const data = await getData(supabaseServer, params, page, pageSize, query);
-   }; */
 
    return (
       <main className="min-h-screen bg-gray-900 text-white relative font-doppio">
@@ -147,7 +98,6 @@ export default async function Movies({ params, searchParams }) {
             <MovieGrid
                user={user}
                genres={genres}
-               data={data}
                query={query}
                favorites={false}
                params={params}
@@ -157,8 +107,6 @@ export default async function Movies({ params, searchParams }) {
                favorite_titles={favoriteMovies}
                dislike_titles={dislikeMovies}
                watchlist_titles={watchlistMovies}
-               /*                callBack={loadMoreMoviesHandler()}
-                */
             />
          </section>
       </main>

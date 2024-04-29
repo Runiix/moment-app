@@ -36,10 +36,10 @@ export default function MovieScrollerImage({
    const [isOnWatchlist, setIsOnWatchlist] = useState(false);
    const [isDisliked, setIsDisliked] = useState(false);
    const [showModal, setShowModal] = useState(modal);
-   const [isLoading, setIsLoading] = useState(false);
    const [genreList, setGenreList] = useState(' - ');
 
    useEffect(() => {
+      populateGenreList();
       const checkForFavorites = () => {
          if (favorite_titles !== undefined) {
             const isFavorited = favorite_titles.some((item) => item === title);
@@ -58,16 +58,16 @@ export default function MovieScrollerImage({
          }
       };
       checkForFavorites();
-      populateGenreList();
    }, []);
 
    const populateGenreList = () => {
+      const genreList = new Set();
       for (let i = 0; i < genres.genres.length; i++) {
          if (genre.includes(genres.genres[i].id)) {
-            let temp = genres.genres[i].name + ' - ';
-            setGenreList((prev) => [...prev, temp]);
+            genreList.add(genres.genres[i].name + ' - ');
          }
       }
+      setGenreList((prev) => [prev, genreList]);
    };
 
    function toggleModal() {

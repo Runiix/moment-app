@@ -1,59 +1,102 @@
 'use client';
 
 import MovieImage from '../MovieContainer/MovieImage';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
-export default function MovieGrid({
+import getFavoriteData from '@/app/actions/getFavoriteData';
+import { useInView } from 'react-intersection-observer';
+
+export default function MovieGridFavorites({
    user,
-   data,
+   genres,
+   query,
+   params,
    favoritetype,
    genre,
-   genres,
    sortby,
-   sortorder = false,
+   sortorder,
    favorite_titles,
    dislike_titles,
    watchlist_titles,
+   mymovies,
 }) {
-   const [isLoading, setIsLoading] = useState(true);
-   const [favoriteType, setFavoriteType] = useState(favoritetype);
-   const [showFavoriteFilter, setShowFavoriteFilter] = useState(false);
+   const [offset, setOffset] = useState(0);
+   const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
-   const containerRef = useRef(null);
+   const [movies, setMovies] = useState([]);
+   const [showFavoriteFilter, setShowFavoriteFilter] = useState(false);
+   const { ref, inView } = useInView();
+
+   const loadMovies = async (offset) => {
+      try {
+         let pageSize = 0;
+         if (window.innerWidth > 1500) {
+            pageSize = 25;
+         } else {
+            pageSize = 20;
+         }
+         const data = await getFavoriteData(
+            params,
+            offset,
+            pageSize,
+            query,
+            favorite_titles,
+            dislike_titles,
+            watchlist_titles,
+            mymovies
+         );
+         if (data.length < pageSize) {
+            setLoadingMoreMovies(false);
+         } else {
+            setLoadingMoreMovies(true);
+         }
+         setMovies(data);
+         setOffset(1);
+      } catch (error) {
+         console.error('Error loading movies:', error);
+      }
+   };
 
    useEffect(() => {
-      if (data === null || data === undefined) {
-         setIsLoading(true);
-      } else {
-         setIsLoading(false);
-      }
-   }, [data]);
+      loadMovies(0);
+   }, [query]);
 
-   const movieScrollerImages =
-      data !== null &&
-      data.map((movie, index) => (
-         <MovieImage
-            key={index}
-            u={user}
-            genres={genres}
-            id={movie.id}
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-            title={movie.title}
-            overview={movie.overview}
-            rating={movie.vote_average.toFixed(1)}
-            votecount={movie.vote_count}
-            releasedate={movie.release_date}
-            genre={movie.genre_ids}
-            watchlist_titles={watchlist_titles}
-            favorite_titles={favorite_titles}
-            dislike_titles={dislike_titles}
-            favoriteType={favoriteType}
-         />
-      ));
+   useEffect(() => {
+      if (inView && loadingMoreMovies) {
+         loadMoreMovies();
+      }
+   }, [inView]);
+
+   const loadMoreMovies = async () => {
+      try {
+         let pageSize = 0;
+         if (window.innerWidth > 1500) {
+            pageSize = 25;
+         } else {
+            pageSize = 20;
+         }
+         const data = await getFavoriteData(
+            params,
+            offset,
+            pageSize,
+            query,
+            favorite_titles,
+            dislike_titles,
+            watchlist_titles,
+            mymovies
+         );
+         if (data.length < pageSize) {
+            setLoadingMoreMovies(false);
+         }
+         setMovies((prevMovies) => [...prevMovies, ...data]);
+         setOffset((prev) => prev + 1);
+      } catch (error) {
+         console.error('Error loading more movies:', error);
+      }
+   };
 
    function changeFavoriteType(newFavoriteType) {
       return `/mymovies/${newFavoriteType}/${genre}/${sortby}/${sortorder}`;
@@ -72,7 +115,7 @@ export default function MovieGrid({
    }
 
    return (
-      <div className=" flex flex-col gap-10 w-full items-center  absolute top-32">
+      <div className=" flex flex-col gap-10 w-full items-center absolute top-32">
          <div className="flex w-full justify-around">
             <div>
                <div>
@@ -204,7 +247,7 @@ export default function MovieGrid({
                         !showFavoriteFilter ? 'rounded-md' : 'rounded-t-md'
                      } `}
                   >
-                     {'My ' + favoriteType}
+                     {'My ' + favoritetype}
                      {showFavoriteFilter ? <ExpandLess /> : <ExpandMore />}
                   </button>
                </div>
@@ -293,16 +336,34 @@ export default function MovieGrid({
                )}
             </div>
          </div>
-         {isLoading ? (
-            <div className="mt-32">
-               <GridLoader color="#16A34A" />{' '}
+         <div className="flex flex-col">
+            <div className=" grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols:5 xl:grid-cols-6 2xl:grid-cols-7">
+               {movies !== null &&
+                  movies !== undefined &&
+                  movies.map((movie, index) => (
+                     <MovieImage
+                        key={index}
+                        u={user}
+                        id={movie.id}
+                        genres={genres}
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                        title={movie.title}
+                        overview={movie.overview}
+                        rating={movie.vote_average.toFixed(1)}
+                        votecount={movie.vote_count}
+                        releasedate={movie.release_date}
+                        genre={movie.genre_ids}
+                        watchlist_titles={watchlist_titles}
+                        favorite_titles={favorite_titles}
+                        dislike_titles={dislike_titles}
+                     />
+                  ))}
             </div>
-         ) : (
-            <div
-               className=" grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols:5 xl:grid-cols-6 2xl:grid-cols-7"
-               ref={containerRef}
-            >
-               {movieScrollerImages}
+         </div>
+         {loadingMoreMovies && (
+            <div className="" ref={ref}>
+               <GridLoader color="#16A34A" />{' '}
             </div>
          )}
       </div>

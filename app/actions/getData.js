@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
+import { revalidatePath } from 'next/cache';
 
 export default async function getData(params, page, pageSize, query) {
    const cookieStore = cookies();
@@ -17,9 +18,9 @@ export default async function getData(params, page, pageSize, query) {
          },
       }
    );
-   console.log('getting data');
+
    const from = page * pageSize;
-   const to = (page + 1) * pageSize;
+   const to = (page + 1) * pageSize - 1;
    if (params.moviefilters[0] === '1') {
       const { data, error } = await supabaseServer
          .from('Movies')
@@ -30,10 +31,9 @@ export default async function getData(params, page, pageSize, query) {
          .ilike('title', `%${query}%`)
          .range(from, to);
       if (error) {
-         console.log(params);
          throw new Error('Failed to fetch data');
       }
-      console.log(data);
+      revalidatePath;
       return data;
    } else {
       const { data, error } = await supabaseServer
@@ -46,10 +46,9 @@ export default async function getData(params, page, pageSize, query) {
          .ilike('title', `%${query}%`)
          .range(from, to);
       if (error) {
-         console.log(params);
          throw new Error('Failed to fetch data');
       }
-
+      revalidatePath;
       return data;
    }
 }

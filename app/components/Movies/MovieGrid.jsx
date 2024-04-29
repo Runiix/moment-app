@@ -1,20 +1,19 @@
 'use client';
 
 import MovieImage from '../MovieContainer/MovieImage';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowDownward, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
-import { supabase } from '../../utils/supabaseClient';
-/* import getData from '../actions/getData';
- */ import { useInView } from 'react-intersection-observer';
+import getData from '@/app/actions/getData';
+import getHomeData from '@/app/actions/getHomeData';
+import { useInView } from 'react-intersection-observer';
 
 export default function MovieGrid({
    user,
    query,
    params,
    genres,
-   data,
    homepage = false,
    genre,
    sortby,
@@ -24,68 +23,81 @@ export default function MovieGrid({
    watchlist_titles,
 }) {
    const [offset, setOffset] = useState(0);
-   const [isLoading, setIsLoading] = useState(false);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
    const [movies, setMovies] = useState([]);
-   const containerRef = useRef(null);
    const { ref, inView } = useInView();
-   const pageSize = 20;
 
-   /*    useEffect(() => {
-         setIsLoading(true);
-      } else {
-         setIsLoading(false);
-      }
-   }, [movies]); */
-
-   /*    useEffect(() => {
-      const handleScroll = () => {
-         if (containerRef.current && typeof window !== 'undefined') {
-            const container = containerRef.current;
-            const { bottom } = container.getBoundingClientRect();
-            const { innerHeight } = window;
-            setIsInView((prev) => bottom - 1 <= innerHeight);
-            console.log(bottom - 1, innerHeight);
-         }
-      };
-      handleScroll();
-   }, []); */
-
-   /*    const loadMoreMovies = async () => {
+   const loadMovies = async (offset) => {
       try {
-         const { data, error } = await getData(params, offset, pageSize, query);
-         if (error) {
-            throw new Error('Failed to load more movies');
+         let pageSize = 0;
+         if (window.innerWidth > 1500) {
+            pageSize = 25;
          } else {
+            pageSize = 20;
+         }
+         if (homepage) {
+            const data = await getHomeData(offset, pageSize, query);
+            if (data.length < pageSize) {
+               setLoadingMoreMovies(false);
+            } else {
+               setLoadingMoreMovies(true);
+            }
+            setMovies(data);
+            setOffset(1);
+         } else {
+            const data = await getData(params, offset, pageSize, query);
+            if (data.length < pageSize) {
+               setLoadingMoreMovies(false);
+            } else {
+               setLoadingMoreMovies(true);
+            }
+            setMovies(data);
+            setOffset(1);
+         }
+      } catch (error) {
+         console.error('Error loading movies:', error);
+      }
+   };
+
+   useEffect(() => {
+      loadMovies(0);
+   }, [query]);
+
+   useEffect(() => {
+      if (inView && loadingMoreMovies) {
+         loadMoreMovies();
+      }
+   }, [inView]);
+
+   const loadMoreMovies = async () => {
+      try {
+         let pageSize = 0;
+         if (window.innerWidth > 1500) {
+            pageSize = 25;
+         } else {
+            pageSize = 20;
+         }
+         if (homepage) {
+            const data = await getHomeData(offset, pageSize, query);
+            if (data.length < pageSize) {
+               setLoadingMoreMovies(false);
+            }
             setMovies((prevMovies) => [...prevMovies, ...data]);
             setOffset((prev) => prev + 1);
-            console.log(data);
-            return data;
+         } else {
+            const data = await getData(params, offset, pageSize, query);
+            if (data.length < pageSize) {
+               setLoadingMoreMovies(false);
+            }
+            setMovies((prevMovies) => [...prevMovies, ...data]);
+            setOffset((prev) => prev + 1);
          }
       } catch (error) {
          console.error('Error loading more movies:', error);
       }
    };
-
-   useEffect(() => {
-      if (inView) {
-         setIsLoading(false);
-         loadMoreMovies();
-         setLoadingMoreMovies(true);
-      }
-   }, [inView]); */
-
-   /*    useEffect(() => {
-      if (isInView) {
-         setLoadingMoremovies(true);
-         setOffset((prev) => prev + 1);
-         getMovies();
-         setLoadingMoremovies(false);
-      }
-   }, [isInView]); */
-
    function changeGenre(newGenre) {
       return `/movies/${newGenre}/${sortby}/${sortorder}`;
    }
@@ -280,19 +292,10 @@ export default function MovieGrid({
             </div>
          )}
          <div className="flex flex-col">
-            {isLoading && (
-               <div className="mt-32" ref={ref}>
-                  <GridLoader color="#16A34A" />{' '}
-               </div>
-            )}
-            <div
-               className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
-               ref={containerRef}
-            >
-               {data !== null &&
-                  data !== undefined &&
-                  !loadingMoreMovies &&
-                  data.map((movie, index) => (
+            <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+               {movies !== null &&
+                  movies !== undefined &&
+                  movies.map((movie, index) => (
                      <MovieImage
                         key={index}
                         u={user}
@@ -313,6 +316,11 @@ export default function MovieGrid({
                   ))}
             </div>
          </div>
+         {loadingMoreMovies && (
+            <div className="" ref={ref}>
+               <GridLoader color="#16A34A" />{' '}
+            </div>
+         )}
       </div>
    );
 }

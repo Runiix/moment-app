@@ -20,26 +20,36 @@ export default function ProfileNav({ mobile = false, show = false, user }) {
                  }`
          }
       >
-         <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
-            <Person />
-            <Link href={profileLink}>Profile</Link>
-         </div>
-         <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
-            <ManageAccounts />
-            <Link href="/account">Account</Link>
-         </div>
-         <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
-            <Help />
-            <Link href="/help">Help</Link>
-         </div>
-         <div className="py-2 w-52 items-center justify-center hover:underline hover:text-green-600 hover:cursor-pointer flex border-b border-slate-400">
-            <Gavel />
-            <Link href="/termsofservice">Terms Of Service</Link>
-         </div>
-         <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
-            <Article />
-            <Link href="/impressum">Impressum</Link>
-         </div>
+         <Link href={profileLink}>
+            <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
+               <Person />
+               <p>Profile</p>
+            </div>
+         </Link>
+         <Link href="/account">
+            <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
+               <ManageAccounts />
+               <p>Account</p>
+            </div>
+         </Link>
+         <Link href="/help">
+            <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
+               <Help />
+               <p>Help</p>
+            </div>
+         </Link>
+         <Link href="/termsofservice">
+            <div className="py-2 w-52 items-center justify-center hover:underline hover:text-green-600 hover:cursor-pointer flex border-b border-slate-400">
+               <Gavel />
+               <p>Terms Of Service</p>
+            </div>
+         </Link>
+         <Link href="/impressum">
+            <div className="py-2 w-52 items-center justify-center  hover:underline hover:text-green-600 hover:cursor-pointer flex gap-2 border-b border-slate-400">
+               <Article />
+               <p>Impressum</p>
+            </div>
+         </Link>
          <form action="/auth/signout" method="post">
             <button
                type="submit"

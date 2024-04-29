@@ -42,8 +42,8 @@ export default function LandingPage() {
          <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
             <ExpandMore />
          </div>
-         <div className="flex items-center">
-            <img src={tmdb} />
+         <div className="flex items-center gap-5">
+            <Image src={tmdb} alt="tmdb-logo" className="w-14" />
             <p>
                This product uses the TMDB API but is not endorsed or certified
                by TMDB

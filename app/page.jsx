@@ -7,6 +7,7 @@ import moviegrid from '/assets/images/MovieGrid.png';
 import laptopPc from '/assets/images/realistic_laptop_with_smartphone.jpg';
 import { ExpandMore } from '@mui/icons-material';
 import Footer from './components/Footer';
+import tmdb from '/assets/images/tmdb_logo.svg';
 
 export default function LandingPage() {
    return (
@@ -40,6 +41,13 @@ export default function LandingPage() {
 
          <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
             <ExpandMore />
+         </div>
+         <div className="flex items-center">
+            <img src={tmdb} />
+            <p>
+               This product uses the TMDB API but is not endorsed or certified
+               by TMDB
+            </p>
          </div>
 
          <div className="flex flex-col">

@@ -13,11 +13,11 @@ export default function LandingPage() {
    return (
       <main className="flex flex-col w-full bg-gray-950 items-center justify-center font-doppio text-slate-100 overflow-x-hidden">
          <div>
-            <Image
+            {/*             <Image
                src={heroBanner}
                alt="hero banner"
                className="absolute top-0 left-0 object-cover w-screen h-screen opacity-80"
-            />
+            /> */}
          </div>
          <div className="absolute left-5 top-5 z-50">
             <h1 className="text-6xl font-bold text-green-600">MoMent</h1>

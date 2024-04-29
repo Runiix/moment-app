@@ -10,13 +10,13 @@ export default function LoginPage() {
          <Link className="absolute left-5 top-5 z-10" href="/">
             <ArrowBack className="text-slate-100 text-4xl hover:text-slate-400" />
          </Link>
-         <div>
+         {/*          <div>
             <Image
                src={heroBanner}
                alt="hero banner"
                className="absolute top-0 left-0 object-cover w-screen h-screen opacity-80"
             />
-         </div>
+         </div> */}
          <AuthForm />
       </div>
    );

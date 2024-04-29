@@ -7,7 +7,7 @@ import moviegrid from '/assets/images/MovieGrid.png';
 import laptopPc from '/assets/images/realistic_laptop_with_smartphone.jpg';
 import { ExpandMore } from '@mui/icons-material';
 import Footer from './components/Footer';
-import tmdb from '/assets/images/tmdb_logo.svg';
+import tmdb from '/assets/images/tmdb-logo.png';
 
 export default function LandingPage() {
    return (

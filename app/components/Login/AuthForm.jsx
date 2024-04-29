@@ -58,7 +58,7 @@ export default function AuthForm() {
          const { data, error } = await supabase.auth.resetPasswordForEmail(
             emailData,
             {
-               redirectTo: 'http://localhost:3000/passwordreset',
+               redirectTo: 'https://moment-app-8mtl.vercel.app/passwordreset',
             }
          );
       } catch (error) {

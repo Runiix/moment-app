@@ -1,9 +1,23 @@
 import { Email, Password } from '@mui/icons-material';
 import Nav from '../components/Nav/Nav';
-import { supabaseServer } from '../utils/supabaseServerClient';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
 import Link from 'next/link';
 
 export default async function Account() {
+   const cookieStore = cookies();
+
+   const supabaseServer = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+         cookies: {
+            get(name) {
+               return cookieStore.get(name)?.value;
+            },
+         },
+      }
+   );
    const {
       data: { user },
    } = await supabaseServer.auth.getUser();

@@ -43,7 +43,7 @@ export default function LandingPage() {
             <ExpandMore />
          </div>
          <div className="flex items-center">
-            <img src={tmdb} />
+            <div>{tmdb}</div>
             <p>
                This product uses the TMDB API but is not endorsed or certified
                by TMDB

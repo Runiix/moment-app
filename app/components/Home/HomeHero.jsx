@@ -1,16 +1,30 @@
 'use client';
 
 import { StarHalf } from '@mui/icons-material';
-import MovieScrollerModal from '../MovieContainer/MovieModal';
-import { useState } from 'react';
+import MovieModal from '../MovieContainer/MovieModal';
+import { useEffect, useState } from 'react';
 
-export default function HomeHero({ data }) {
+export default function HomeHero({ data, genres }) {
    const [showModal, setShowModal] = useState(false);
+   const [genreList, setGenreList] = useState();
 
    function toggleModal() {
       setShowModal(!showModal);
    }
 
+   useEffect(() => {
+      populateGenreList();
+   }, []);
+
+   const populateGenreList = () => {
+      const genreList = new Set();
+      for (let i = 0; i < genres.genres.length; i++) {
+         if (data[0].genre_ids.includes(genres.genres[i].id)) {
+            genreList.add(genres.genres[i].name + ' - ');
+         }
+      }
+      setGenreList((prev) => [prev, genreList]);
+   };
    return (
       <div>
          {data && (
@@ -36,7 +50,7 @@ export default function HomeHero({ data }) {
             </div>
          )}
          {showModal && (
-            <MovieScrollerModal
+            <MovieModal
                src={`https://image.tmdb.org/t/p/original${data[0].backdrop_path}`}
                alt={data[0].title}
                title={data[0].title}
@@ -44,7 +58,9 @@ export default function HomeHero({ data }) {
                rating={data[0].vote_average}
                votecount={data[0].vote_count}
                releasedate={data[0].release_date}
-               genre={data[0].genre}
+               genre={data[0].genre_ids}
+               genres={genres}
+               genreList={genreList}
                onClose={toggleModal}
                visible={toggleModal}
             />

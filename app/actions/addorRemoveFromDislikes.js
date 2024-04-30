@@ -57,7 +57,7 @@ export async function addOrRemoveFromDislikes(formData) {
    }
    revalidatePath('/home');
    revalidatePath('/movies');
-   revalidatePath('/favorites');
+   revalidatePath('/mymovies');
 
    return { success: true };
 }

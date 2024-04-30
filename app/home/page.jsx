@@ -171,7 +171,7 @@ export default async function Home({ searchParams }) {
          <main className="bg-gray-900 text-slate-100 font-doppio ">
             <Nav user={user} />
             <div>
-               <HomeHero data={homeHeroData} />
+               <HomeHero data={homeHeroData} genres={genres} />
                <MovieScrollerGrid
                   user={user}
                   genres={genres}

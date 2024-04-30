@@ -18,7 +18,7 @@ import { useState } from 'react';
 import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';
 
-export default function MovieScrollerModal({
+export default function MovieModal({
    id,
    src,
    genres,
@@ -54,7 +54,7 @@ export default function MovieScrollerModal({
 
    return (
       <div
-         className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-40"
+         className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
          onClick={onClose}
       >
          <div

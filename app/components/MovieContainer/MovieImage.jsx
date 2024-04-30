@@ -10,7 +10,7 @@ import {
 } from '@mui/icons-material';
 import { FavoriteBorder } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import MovieScrollerModal from './MovieModal';
+import MovieModal from './MovieModal';
 import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
 import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
@@ -156,7 +156,11 @@ export default function MovieScrollerImage({
                      <div className="flex flex-col justify-between">
                         <div className="flex flex-col gap-2">
                            <h3 className="text-xl">{title}</h3>
-                           <p className="text-[8px]">{overview}</p>
+                           <p className="text-[8px]">
+                              {overview.length < 300
+                                 ? overview
+                                 : overview.slice(0, 299) + '...'}
+                           </p>
                            <p className="text-xs">{genreList}</p>
                         </div>
                         <div className="flex gap-12 absolute bottom-2">
@@ -264,7 +268,7 @@ export default function MovieScrollerImage({
             </div>
          </div>
          {showModal && (
-            <MovieScrollerModal
+            <MovieModal
                id={id}
                src={src2}
                genreList={genreList}

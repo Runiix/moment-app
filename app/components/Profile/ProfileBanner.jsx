@@ -196,12 +196,12 @@ export default function ProfileBanner({
                         {changeprofile ? (
                            <label className="group">
                               {profilePicUrl === '' ? (
-                                 <Person className="text-5xl hover:cursor-pointer border-2 hover:text-slate-400 rounded-full " />
+                                 <Person className="text-5xl hover:cursor-pointer border-2 group-hover:text-slate-400 rounded-full w-20 h-20" />
                               ) : (
                                  <img
                                     src={profilePicUrl}
                                     alt="profileBanner"
-                                    className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 hover:cursor-pointer hover:opacity-90 h-20"
+                                    className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 hover:cursor-pointer group-hover:opacity-90 h-20"
                                  />
                               )}
                               <p className="hidden group-hover:flex absolute bottom-14 ml-5 text-xs hover:cursor-pointer">

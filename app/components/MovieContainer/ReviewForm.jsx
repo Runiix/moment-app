@@ -20,7 +20,6 @@ export default function ReviewForm({ movie_id }) {
       setContent('');
    };
 
-   console.log(movie_id);
    return (
       <div className="mb-10 border border-slate-400 rounded-lg p-4 mx-2">
          <h2 className="text-3xl text-center mb-4">Wirte your own Review: </h2>

@@ -112,7 +112,7 @@ async function getMovieIds(supabaseServer, movieListId) {
       .from('MovieListItems')
       .select('movie_id')
       .eq('list_id', movieListId);
-   if (idError) console.log('Error getting Movie IDs', idError);
+   if (idError) console.error('Error getting Movie IDs', idError);
    return movieIds;
 }
 
@@ -121,7 +121,7 @@ async function getMovieImage(supabaseServer, movieIds) {
       .from('Movies')
       .select('poster_path')
       .in('id', movieIds);
-   if (urlError) console.log('Error getting Image Urls', urlError);
+   if (urlError) console.error('Error getting Image Urls', urlError);
    return movieImageUrls;
 }
 
@@ -159,7 +159,6 @@ export default async function ProfilePage({ params }) {
       );
 
       const movieLists = await getMovieLists(supabaseServer, userId);
-      console.log(movieLists);
       const listIds = movieLists.map((item) => item.id);
       const allMovieIds = [];
       for (const listId of listIds) {

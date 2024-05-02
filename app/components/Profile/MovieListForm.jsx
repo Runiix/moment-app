@@ -3,6 +3,7 @@ import { Close } from '@mui/icons-material';
 import { useState } from 'react';
 import addNewMovieList from '../../actions/addNewMovieList';
 import swal from 'sweetalert';
+import { usePathname } from 'next/navigation';
 
 export default function MovieListForm({ onClose }) {
    const handleChildElementClick = (e) => {
@@ -11,6 +12,7 @@ export default function MovieListForm({ onClose }) {
 
    const [title, setTitle] = useState('');
    const [description, setDescription] = useState('');
+   const pathname = usePathname();
    const resetForm = () => {
       swal({
          title: 'Movie List added Successfully',
@@ -59,6 +61,7 @@ export default function MovieListForm({ onClose }) {
                      className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 border bg-opacity-80 border-slate-300 text-lg hover:border-slate-100 "
                   />
                </div>
+               <input type="hidden" name="pathname" value={pathname} />
 
                <button
                   type="submit"

@@ -46,7 +46,6 @@ async function getDislikeData(supabaseServer, u) {
       .select('movie_title')
       .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
-   //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
 
    return dislikeTitles;
@@ -65,7 +64,6 @@ async function getListItems(supabaseServer, params) {
 }
 
 async function getMovieList(supabaseServer, listitems) {
-   console.log('Inner LIst ITEMS', listitems);
    const { data, error } = await supabaseServer
       .from('Movies')
       .select('*')
@@ -85,7 +83,6 @@ async function getData(supabaseServer, query) {
          .ilike('title', `%${query}%`);
       if (error) {
          // This will activate the closest `error.js` Error Boundary
-         console.log(params);
          throw new Error('Failed to fetch data');
       }
 
@@ -116,7 +113,6 @@ async function getMovieListTitle(supabaseServer, params) {
    if (error) {
       console.error('Error Getting MovieList Title', error);
    } else {
-      console.log('name', data);
       return data[0];
    }
 }
@@ -138,17 +134,13 @@ export default async function movielists({ params, searchParams }) {
 
    const user = await getUser(supabaseServer);
    const query = searchParams?.query || '';
-   console.log('Query', query);
-   console.log('List ID ', params.list_params[1]);
    const MovieListId = params.list_params[1];
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
    const listItems = await getListItems(supabaseServer, params);
-   console.log('LIst ITEMS: ', listItems);
    const data = await getData(supabaseServer, query);
    const movieList = await getMovieList(supabaseServer, listItems);
-   console.log('MovieList:', movieList);
    const genres = await getGenres();
    const MovieListItem = await getMovieListTitle(supabaseServer, params);
    const MovieListTitle = MovieListItem.name;

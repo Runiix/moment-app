@@ -7,9 +7,21 @@
 
 ## The Goal
 
-My goal during my 11 week internship was to craete a full stack web-application. I decided on creating a movie app after coming up with the name MoMent - Movie Entertainment. To Achieve all the desired features i quickly decided on Next-JS for my Frontend framework, because i already had some experinece with React and Next-JS offered some helpfull aditional features for server-side usage. I planned to use TMDB API to fetch the data at first and later convert the data into a full fledged backend to implement some interactive features. I chose supabase as my backend. It offers all the features i would need like built in user Authentification features, a postgres Databse and even Storage functionality for images and videos. For styling i decided to use Tailwind, because of its ease of use for simple styling and the offered style consistency.
+My goal during my 11 week internship was to create a full stack web-application. This Project would help me to solidify my current knowledge with the basics of Web-Development like HTML, CSS and classic Javascript, but also introduce more modern Versions of Front-End Development and also start using a Backend which i didnt have a lot of previous experience with. I decided on implementing a Movie/TV-Series Application, since it fits the all the before moentioned criteria and it is very easy to get data via an API.
 
-## Chosing a Development Stack
+## Workflow
+
+-  Chosing the Development Stack
+-  Finding Desing Inspiratons
+-  Defining the Necessary Features
+-  Implementation
+-  Defining complementary features
+-  Deploying the Website
+-  Bug Fixing and Testing
+
+### Chosing a Development Stack
+
+The First step was to choose a programming stack to learn for later development. I decided on the following components:
 
 -  Next-JS
 -  TMDB API
@@ -18,7 +30,7 @@ My goal during my 11 week internship was to craete a full stack web-application.
 
 ### Next-JS
 
-Next-js is a Framwork for Javascript that includes various libraries and features. The main Porgramming Library is React, which is a component-based Javascript library. Next-JS also includes features like server-components, which allow data to be fetched and rendered by the server instead of the client. The Next-App router enables the use of dynamic layouts and routes for smooth and fast routing betwenn pages and dynamic content.
+Next-js is a Framwork for Javascript that includes various libraries and features. The main Porgramming Library is React, which is the most used component-based Javascript library. Next-JS also includes features like server-components, which allow data to be fetched and rendered by the server instead of the client. The NextJs-App router enables the use of dynamic layouts and routes for smooth and fast routing betwenn pages and dynamic content.
 
 ### TMDB API
 
@@ -27,20 +39,12 @@ I first started by fetching all my data right from the Api. Later i wrote a scri
 
 ### Supabase
 
-Supabase is a relatively new open-source backend provider. It bascially offers a Production Interface for all the backend functionalities you could need. Supabase is based on PostGreSQL which makes it theoretically possible to export or import data as a regular SQL Database.
-There are feature for all kinds of Authentification, like E-mail verification and resetting Passwords. There are a lot of built in filters for fetching Data.
+Supabase is a relatively new open-source backend provider. It bascially offers a Development Interface for all the backend functionalities you could need. Supabase is based on PostGreSQL which makes it theoretically possible to export or import data as a regular SQL Database.
+There are feature for all kinds of Authentification, like E-mail verification and resetting Passwords. There are a lot of built in filters for fetching Data and even a Storage functionality for storing images and videos.
 
 ### Tailwind-CSS
 
 Tailwind-CSS offers preconfigured css styling that is written directly as an elements className. This removes the need to think of classNames for all html-components and creates consistency by providing standardized colorization and sizing. Responsiveness is also easily appliable. More complex stylings can still be defined in css files.
-
-## Workflow
-
--  Chosing the Development Stack
--  Finding Desing Inspiratons
--  Defining the Necessary Features
--  Defining The Folder Structure
--  Defining complementary features
 
 ## Technical Feature Description
 
@@ -73,7 +77,85 @@ The Page components import all the Necessary other components. This makes it pos
 
 Server actions are a very helpfull feature. They are Functions that run as server components, but can be imported and called inside client components. A server action has to be marked with `'use server'` at the start of the file.
 
-## Implementation
+## Functionality
+
+### Landing Page
+
+![Landing Page](Doc-Images/Landing-Page.png)
+
+Click on "Get Started!" to get to the Login Page.
+Can be scrolled down to see some Information about MoMent.
+
+### Login Page
+
+![Login Page](Doc-Images/Login-Page.png)
+
+Allows the user to return to the Landing Page.
+Sign in with email and password.
+Klick on Sign Up to switch from singning in to signing up.
+Upon signing up receive an email to verify out identity and sign in afterwards.
+Clik on "Reset Password" to get to enter an email for a reset link.
+
+![Forgot Password](Doc-Images/Forgot-Password.png){style="height:325px"} ![Reset-Password](Doc-Images/Reset-Password.png){style="height: 325px"}
+
+Enter a new Password and Confirm to change the Password and get back to th Login Page.
+
+### Home Page
+
+![Home Page](Doc-Images/Home-Page.png)
+
+Shows a Navbar, a Movie-Banner of a random Movie, Movies in the Watchlist, Movies in Favorites and Movielist with random Movies filtered by genre.
+Use the Navigation to change between Pages, search for Movies or access the profile.
+Hover above a Movie to show aditional Information or add it to personal favorites, dislikes or watchlist.
+Click on a Movie to open the MovieModal.
+
+![Movie Modal](Doc-Images/Movie-Modal.png){style="height: 525px"} ![Reviews](Doc-Images/Reviews.png){style="height: 525px"}
+
+The Modal show detailed Movie Information and Stats.
+Shows similar Movies, that include the same genres.
+Write and Publish a Movie Review with Rating and Text.
+Read other users Reviews.
+
+### Movies Page
+
+![Movies](Doc-Images/Movies.png)
+
+Loads an infintite Scroller of Movies that fetches new Movies when the user scrolls down on the page.
+Allows for the filtering of Movies by Genre.
+Allows for the sortgin of Movies by Rating, Name and Popularity in ascending and descending order.
+
+### My Movies Page
+
+![My Movies](Doc-Images/MyMovies.png)
+
+Same Concept as the Movies page but only displays Movies in the current users Likes, Dislikes or Watchlist.
+Allows filtering between My Movies, Favorites, Dislikes and Watchlist
+
+### Discover
+
+![Discover](Doc-Images/Discover.png)
+
+Features a Movie-Discover-Slider.
+Get a random Movie and choose to add it to Favorites, Dislikes, Watchlist or get the next random Movie.
+Displays MovieInformation when hovering over the Movie poster.
+
+### Profile
+
+![Profile](Doc-Images/Profile.png)
+
+Enables custimization by allowint the user to upload a profile image and profile banner.
+Click on the cogwheel to enter settings and for example change your paassword as a logged in user.
+Displays Stats and Revies of the Current User.
+By exchangeing the username in the pathurl or clicking on the username on a review other users Profiles can be visited as well, but not edited.
+
+![Movie Lists](Doc-Images/MovieLists.png)
+
+Enables users to create custom Movie Lists to be displayed on the Profile.
+A Movie List can also be shared with other users by using its unique link.
+
+![Movie List](Doc-Images/MovieList.png)
+
+Click on the + on the MoveiList Page to search through all available Movies and add them to the List
 
 ### User Authentification
 
@@ -83,3 +165,7 @@ Necessary Components:
 -  Landing Page
 -  Sign IN/UP Page
 -  Password Resetting Page
+
+-  not Logged in users get to landing Page first
+-  click on Button to get to Sign In/Up
+-  change between signing up and signing out by clicking on button

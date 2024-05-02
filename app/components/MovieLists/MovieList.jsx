@@ -23,9 +23,6 @@ export default function MovieList({
    const toggleAdd = () => {
       setAddMovie(!addMovie);
    };
-   useEffect(() => {
-      console.log('MOvieLIST', movieList);
-   }, []);
 
    return (
       <div className="flex flex-col items-center">

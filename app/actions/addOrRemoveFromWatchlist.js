@@ -52,7 +52,7 @@ export async function addOrRemoveFromWatchlist(formData) {
          .from('watchlist')
          .insert({ user_id: user.id, movie_title: movieTitle });
       if (error) {
-         console.log('error inserting Movie', error);
+         console.error('error inserting Movie', error);
       }
    }
    revalidatePath('/home');

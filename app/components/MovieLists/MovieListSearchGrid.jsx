@@ -17,7 +17,6 @@ export default function MovieListSearchGrid({
    const [currQuery, setCurrQuery] = useState('');
 
    const handleSearch = (term) => {
-      console.log(term);
       const params = new URLSearchParams(searchParams);
       if (term) {
          params.set('query', term);

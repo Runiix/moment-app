@@ -14,6 +14,7 @@ import MovieModal from './MovieModal';
 import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
 import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
+import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 export default function MovieScrollerImage({
@@ -39,6 +40,7 @@ export default function MovieScrollerImage({
    const [showModal, setShowModal] = useState(modal);
    const [genreList, setGenreList] = useState(' - ');
    const pathname = usePathname();
+   const router = useRouter();
 
    useEffect(() => {
       populateGenreList();

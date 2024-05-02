@@ -48,7 +48,7 @@ async function getDislikeData(supabaseServer, u) {
       .select('movie_title')
       .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
-   //console.log(dislikeData);
+   //(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
 
    return dislikeTitles;

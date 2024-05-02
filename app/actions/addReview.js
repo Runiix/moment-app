@@ -5,7 +5,7 @@ import { createServerClient } from '@supabase/ssr';
 import { revalidatePath } from 'next/cache';
 
 export async function addReview(formData) {
-   const pathName = formData.get('pathname');
+   const pathname = formData.get('pathname');
    const movieId = formData.get('movieId');
    const rating = formData.get('rating');
    const content = formData.get('content');
@@ -76,7 +76,7 @@ export async function addReview(formData) {
       return { success: false, error: 'Error inserting Review' };
    }
 
-   revalidatePath(pathName);
+   revalidatePath(pathname);
 
    return { success: true };
 }

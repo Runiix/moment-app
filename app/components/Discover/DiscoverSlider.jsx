@@ -27,11 +27,9 @@ export default function DiscoverSlider({ user }) {
       try {
          const { data, error } = await supabase.from('Movies').select('id');
          if (error) console.error('Error fetching Movie Ids', error);
-         console.log(data);
          const IdData = data.map((movie) => movie.id);
          const randomIndex = Math.floor(Math.random() * IdData.length);
          const randomId = IdData[randomIndex];
-         console.log('RAndomID', randomId);
          getMovieFromDB(randomId);
       } catch (error) {
          console.error('Error fetching Movie Ids', error);
@@ -41,14 +39,12 @@ export default function DiscoverSlider({ user }) {
    const getMovieFromDB = async (rand) => {
       try {
          if (rand !== null && rand !== undefined) {
-            console.log('Rand', rand);
             const { data, error } = await supabase
                .from('Movies')
                .select('*')
                .eq('id', rand);
             if (error) console.error('Error getting Movie', error);
             setRandomMovie(data);
-            console.log(data);
          } else {
             console.error('Rand is undefined or null');
          }

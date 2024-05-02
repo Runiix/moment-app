@@ -49,7 +49,6 @@ async function getDislikeData(supabaseServer, u) {
       .select('movie_title')
       .match({ user_id: u.id });
    if (dislikeError) return dislikeError;
-   //console.log(dislikeData);
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
 
    return dislikeTitles;
@@ -148,7 +147,6 @@ export default async function Home({ searchParams }) {
    );
    const query = searchParams?.query || '';
    const user = await getUser(supabaseServer);
-   console.log(user);
 
    const genres = await getGenres();
    const favoriteMovies = await getFavoriteData(supabaseServer, user);

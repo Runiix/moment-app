@@ -2,8 +2,10 @@
 
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 
 export default async function addNewMovieList(formData) {
+   const pathname = formData.get('pathname');
    const title = formData.get('movie_list_title');
    const description = formData.get('movie_list_description');
    const cookieStore = cookies();
@@ -47,4 +49,5 @@ export default async function addNewMovieList(formData) {
       console.error('Error inserting Movie List:', insertionError);
       return { success: false, error: 'Error inserting Movie List' };
    }
+   revalidatePath(pathname);
 }

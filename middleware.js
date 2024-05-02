@@ -1,60 +1,78 @@
-import { NextResponse } from "next/server";
-import { createServerClient } from "@supabase/ssr";
+import { NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
 
-export async function middleware(req){
-    const res = NextResponse.next();
+export async function middleware(req) {
+   const res = NextResponse.next();
 
-    const supabase= createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-        {
-            cookies: {
-                get(name){
-                    return req.cookies.get(name)?.value;
+   const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+         cookies: {
+            get(name) {
+               return req.cookies.get(name)?.value;
+            },
+            set(name, value, options) {
+               req.cookies.set({
+                  name,
+                  value,
+                  ...options,
+               });
+               const response = NextResponse.next({
+                  request: {
+                     headers: req.headers,
+                  },
+               });
+               response.cookies.set({
+                  name,
+                  value,
+                  ...options,
+               });
+            },
+            remove(name, options) {
+               req.cookies.set({
+                  name,
+                  value: '',
+                  ...options,
+               });
+               const response = NextResponse.next({
+                  request: {
+                     headers: req.headers,
+                  },
+               });
+               response.cookies.set({
+                  name,
+                  value: '',
+                  ...options,
+               });
+            },
+         },
+      }
+   );
 
-                },
-                set(name, value, options){
-                    req.cookies.set({
-                        name, value, ...options
-                    })
-                    const response= NextResponse.next({
-                        request: {
-                            headers: req.headers
-                        }
-                    })
-                    response.cookies.set({
-                        name, value, ...options
-                    })
-                },
-                remove(name, options){
-                    req.cookies.set({
-                        name, value: '', ...options
-                    })
-                    const response= NextResponse.next({
-                        request: {
-                            headers: req.headers
-                        }
-                    })
-                    response.cookies.set({
-                        name, value: '', ...options
-                    })
-                }
-            }
-        }
-    )
+   const {
+      data: { user },
+   } = await supabase.auth.getUser();
 
-    const{data: {user}}= await supabase.auth.getUser();
-
-    if(user && req.nextUrl.pathname=== '/'){
-        return NextResponse.redirect(new URL('/home', req.url))
-    }
-    if(!user && req.nextUrl.pathname!== '/'){
-        return NextResponse.redirect(new URL('/', req.url))
-    }
-
-    return res;
+   if (
+      (user && req.nextUrl.pathname === '/') ||
+      (user && req.nextUrl.pathname === '/loginpage')
+   ) {
+      return NextResponse.redirect(new URL('/home', req.url));
+   }
+   if (!user && req.nextUrl.pathname !== '/') {
+      return NextResponse.redirect(new URL('/loginpage', req.url));
+   }
+   return res;
 }
 
-export const config= {
-    matcher: ['/', '/home']
-}
+export const config = {
+   matcher: [
+      '/',
+      '/home',
+      '/movies/:path*',
+      '/mymovies/:path*',
+      '/Discover',
+      '/movielists/:path*',
+   ],
+};

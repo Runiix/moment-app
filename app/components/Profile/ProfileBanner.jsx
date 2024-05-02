@@ -36,7 +36,6 @@ export default function ProfileBanner({
    async function addOrChangeProfilePictures(event) {
       try {
          const file = event.target.files[0];
-         console.log(file);
          const {
             data: { user },
          } = await supabase.auth.getUser();
@@ -53,7 +52,6 @@ export default function ProfileBanner({
                offset: 0,
                sortBy: { column: 'name', order: 'asc' },
             });
-         console.log('ListData: ', listData);
          if (listData.length === 0) {
             const { error: insertError } = await supabase.storage
                .from('profileimages')
@@ -79,7 +77,6 @@ export default function ProfileBanner({
    async function addOrChangeProfileBanner(event) {
       try {
          const file = event.target.files[0];
-         console.log(file);
          const {
             data: { user },
          } = await supabase.auth.getUser();
@@ -96,7 +93,6 @@ export default function ProfileBanner({
                offset: 0,
                sortBy: { column: 'name', order: 'asc' },
             });
-         console.log('ListData: ', listData);
          if (listData.length === 0) {
             const { error: insertError } = await supabase.storage
                .from('profileimages')

@@ -76,10 +76,9 @@ export default function ReviewList({ movie_id }) {
          .from('reviews')
          .select('*')
          .eq('movie_id', movie_id);
-      if (error) console.log('Error fetching Reviews', error);
+      if (error) console.error('Error fetching Reviews', error);
       else {
          setReviewList(data);
-         console.log(data);
       }
    };
 

@@ -52,7 +52,6 @@ export default function MovieModal({
       e.stopPropagation();
    };
    useEffect(() => {
-      console.log('Modal');
       document.body.style.overflow = 'hidden';
 
       // Reset body styling when modal unmounts

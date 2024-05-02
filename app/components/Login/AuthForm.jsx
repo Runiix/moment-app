@@ -27,7 +27,6 @@ export default function AuthForm() {
          email,
          password,
       });
-      console.log({ error, data });
       if (!error) {
          router.push('/home');
       } else {
@@ -50,7 +49,6 @@ export default function AuthForm() {
       if (!error) {
          setIsSigningUp(true);
       }
-      console.log({ data, error });
    }
 
    const sendResetPassword = async () => {
@@ -62,7 +60,7 @@ export default function AuthForm() {
             }
          );
       } catch (error) {
-         console.log(error);
+         console.error(error);
       }
       alert('Email sent successfully');
    };

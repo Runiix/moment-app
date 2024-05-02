@@ -71,10 +71,6 @@ export default function MovieScrollerImage({
       }
       setGenreList((prev) => [prev, genreList]);
    };
-   useEffect(() => {
-      showModal && document.body.classList.add('modal-open');
-      !showModal && document.body.classList.remove('modal-open');
-   });
 
    function toggleModal() {
       setShowModal(!showModal);

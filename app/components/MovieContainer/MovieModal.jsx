@@ -14,7 +14,7 @@ import {
    HeartBrokenOutlined,
 } from '@mui/icons-material';
 import '../../../assets/css/scrollbar.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';
 
@@ -51,6 +51,15 @@ export default function MovieModal({
    const handleChildElementClick = (e) => {
       e.stopPropagation();
    };
+   useEffect(() => {
+      console.log('Modal');
+      document.body.style.overflow = 'hidden';
+
+      // Reset body styling when modal unmounts
+      return () => {
+         document.body.style.overflow = 'auto';
+      };
+   }, []);
 
    return (
       <div

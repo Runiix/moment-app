@@ -157,12 +157,12 @@ export default function AuthForm() {
          )}
          {resetPassword && (
             <div>
-               <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center">
-                  <h1 className="text-5xl font-bold mb-4 text-slate-100">
+               <div className="min-h-screen flex flex-col gap-3 items-center justify-center">
+                  <h1 className="text-5xl font-bold  text-slate-100">
                      Forgot Your Password?
                   </h1>
-                  <div className="flex flex-col items-center gap-2">
-                     <label>
+                  <div className="flex flex-col items-center gap-4">
+                     <label className="mb-10">
                         Enter your Email to receive a Link for resetting your
                         password
                      </label>
@@ -171,11 +171,11 @@ export default function AuthForm() {
                         placeholder="Email"
                         value={emailData}
                         onChange={handleEmailChange}
-                        className="text-slate-100 p-3 rounded bg-gray-900 border"
+                        className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 border bg-opacity-80 border-slate-300 text-lg hover:border-slate-100 "
                      />
                      <button
                         type="submit"
-                        className="bg-green-600 hover:bg-green-700 py-2 px-8 rounded"
+                        className="bg-green-600 text-zinc-900 py-3 px-20 text-2xl rounded-2xl hover:text-slate-100 hover:bg-green-700"
                         onClick={sendResetPassword}
                      >
                         Send Email

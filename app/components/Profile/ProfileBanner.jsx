@@ -1,11 +1,11 @@
 'use client';
-import movieCollage from '/assets/images/movie-poster-background-p5qblffj7cvswl5g.jpg';
 import Image from 'next/image';
 import { Cameraswitch, Person, Settings } from '@mui/icons-material';
 import { supabase } from '../../utils/supabaseClient';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
+import moviegrid from '/assets/images/MovieGrid.png';
 
 export default function ProfileBanner({
    paramusername,
@@ -151,7 +151,7 @@ export default function ProfileBanner({
                {bannerUrl === '' ? (
                   <Image
                      priority={true}
-                     src={movieCollage}
+                     src={moviegrid}
                      alt="profileBanner"
                      className="z-0 object-cover w-full h-96"
                   />

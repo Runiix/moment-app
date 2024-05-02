@@ -14,6 +14,7 @@ import MovieModal from './MovieModal';
 import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
 import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
+import { usePathname } from 'next/navigation';
 
 export default function MovieScrollerImage({
    id,
@@ -37,6 +38,7 @@ export default function MovieScrollerImage({
    const [isDisliked, setIsDisliked] = useState(false);
    const [showModal, setShowModal] = useState(modal);
    const [genreList, setGenreList] = useState(' - ');
+   const pathname = usePathname();
 
    useEffect(() => {
       populateGenreList();
@@ -69,6 +71,10 @@ export default function MovieScrollerImage({
       }
       setGenreList((prev) => [prev, genreList]);
    };
+   useEffect(() => {
+      showModal && document.body.classList.add('modal-open');
+      !showModal && document.body.classList.remove('modal-open');
+   });
 
    function toggleModal() {
       setShowModal(!showModal);
@@ -184,6 +190,11 @@ export default function MovieScrollerImage({
                                        name="isFavorited"
                                        value={isFavorited}
                                     />
+                                    <input
+                                       type="hidden"
+                                       name="pathname"
+                                       value={pathname}
+                                    />
 
                                     <button
                                        type="submit"
@@ -216,6 +227,11 @@ export default function MovieScrollerImage({
                                        name="isDisliked"
                                        value={isDisliked}
                                     />
+                                    <input
+                                       type="hidden"
+                                       name="pathname"
+                                       value={pathname}
+                                    />
 
                                     <button
                                        type="submit"
@@ -246,6 +262,11 @@ export default function MovieScrollerImage({
                                     type="hidden"
                                     name="isOnWatchlist"
                                     value={isOnWatchlist}
+                                 />
+                                 <input
+                                    type="hidden"
+                                    name="pathname"
+                                    value={pathname}
                                  />
 
                                  <button

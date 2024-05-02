@@ -56,3 +56,6 @@ body {
 .swal-icon--success:after {
    background: none !important;
 }
+.modal-open {
+   overflow: hidden;
+}

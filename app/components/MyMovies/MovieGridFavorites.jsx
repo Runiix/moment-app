@@ -24,6 +24,7 @@ export default function MovieGridFavorites({
 }) {
    const [offset, setOffset] = useState(0);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
+   const [loading, setLoading] = useState(true);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
    const [movies, setMovies] = useState([]);
@@ -48,6 +49,7 @@ export default function MovieGridFavorites({
             watchlist_titles,
             mymovies
          );
+         setLoading(false);
          if (data.length < pageSize) {
             setLoadingMoreMovies(false);
          } else {
@@ -361,6 +363,11 @@ export default function MovieGridFavorites({
                   ))}
             </div>
          </div>
+         {loading && (
+            <div className="" ref={ref}>
+               <GridLoader color="#16A34A" />{' '}
+            </div>
+         )}
          {loadingMoreMovies && (
             <div className="" ref={ref}>
                <GridLoader color="#16A34A" />{' '}

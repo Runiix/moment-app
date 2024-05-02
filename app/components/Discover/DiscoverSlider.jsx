@@ -74,11 +74,11 @@ export default function DiscoverSlider({ user }) {
    }; */
 
    return (
-      <div className="mt-52 z-20">
+      <div className="mt-24 z-20">
          {randomMovie && (
             <div
                ref={parentRef}
-               className="flex flex-col gap-10 items-center z-20"
+               className="flex flex-col gap-4 items-center z-20"
             >
                <div className="group z-20 ">
                   <form action={addOrRemoveFromFavorites}>
@@ -152,27 +152,29 @@ export default function DiscoverSlider({ user }) {
                      </button>
                   </form>
                </div>
-               <form
-                  action={addOrRemoveFromDislikes}
-                  onSubmit={() => getRandomId()}
-               >
-                  <input
-                     type="hidden"
-                     name="title"
-                     value={randomMovie[0].title}
-                  />
-                  <input type="hidden" name="isDisliked" value={false} />
-                  <button
-                     type="submit"
-                     className="z-20 group items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 flex flex-col"
+               <div className="group z-20 ">
+                  <form
+                     action={addOrRemoveFromDislikes}
+                     onSubmit={() => getRandomId()}
                   >
-                     <HeartBroken />
-                     <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">
-                        Add to Dislikes
-                     </p>
-                     <KeyboardArrowDown />
-                  </button>
-               </form>
+                     <input
+                        type="hidden"
+                        name="title"
+                        value={randomMovie[0].title}
+                     />
+                     <input type="hidden" name="isDisliked" value={false} />
+                     <button
+                        type="submit"
+                        className="z-20 group items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 flex flex-col"
+                     >
+                        <HeartBroken />
+                        <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">
+                           Add to Dislikes
+                        </p>
+                        <KeyboardArrowDown />
+                     </button>
+                  </form>
+               </div>
             </div>
          )}
       </div>

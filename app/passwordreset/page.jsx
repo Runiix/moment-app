@@ -18,13 +18,9 @@ export default function PasswordReset() {
       const { resetData, error } = await supabase.auth.updateUser({
          password: data.password,
       });
-      console.log('ResetData', resetData);
-      if (resetData) {
-         console.log('push /');
-
-         router.push('/');
-      }
-      if (error) console.log(error);
+      if (error) console.error(error);
+      alert('Password changed successfully');
+      router.replace('/home');
    };
 
    const handlePasswordChange = (e) => {
@@ -53,7 +49,7 @@ export default function PasswordReset() {
                   value={data?.password}
                   placeholder="Password"
                   onChange={handlePasswordChange}
-                  className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 bg-opacity-80 border-r-none border-slate-300 text-lg hover:border-slate-100 "
+                  className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 bg-opacity-80 border-r-none active:border-r-none border-slate-300 text-lg hover:border-slate-100 "
                />
                <div
                   onClick={() => setShowPassword(!showPassword)}
@@ -71,7 +67,7 @@ export default function PasswordReset() {
                   value={data?.confirmPassword}
                   placeholder="Confrm Password"
                   onChange={handleConfirmPasswordChange}
-                  className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 bg-opacity-80 border-r-none border-slate-300 text-lg hover:border-slate-100 "
+                  className="text-slate-100 w-80 py-5 pl-3 rounded-2xl bg-gray-900 bg-opacity-80 border-r-none active:border-r-none border-slate-300 text-lg hover:border-slate-100 "
                />
                <div
                   onClick={() => setShowPassword(!showPassword)}

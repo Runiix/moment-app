@@ -24,6 +24,7 @@ export default function MovieGrid({
 }) {
    const [offset, setOffset] = useState(0);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
+   const [loading, setLoading] = useState(true);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
    const [movies, setMovies] = useState([]);
@@ -39,6 +40,7 @@ export default function MovieGrid({
          }
          if (homepage) {
             const data = await getHomeData(offset, pageSize, query);
+            setLoading(false);
             if (data.length < pageSize) {
                setLoadingMoreMovies(false);
             } else {
@@ -48,6 +50,8 @@ export default function MovieGrid({
             setOffset(1);
          } else {
             const data = await getData(params, offset, pageSize, query);
+            setLoading(false);
+
             if (data.length < pageSize) {
                setLoadingMoreMovies(false);
             } else {
@@ -316,6 +320,11 @@ export default function MovieGrid({
                   ))}
             </div>
          </div>
+         {loading && (
+            <div className="" ref={ref}>
+               <GridLoader color="#16A34A" />{' '}
+            </div>
+         )}
          {loadingMoreMovies && (
             <div className="" ref={ref}>
                <GridLoader color="#16A34A" />{' '}

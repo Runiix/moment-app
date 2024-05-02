@@ -5,6 +5,7 @@ import { createServerClient } from '@supabase/ssr';
 import { revalidatePath } from 'next/cache';
 
 export async function addOrRemoveFromFavorites(formData) {
+   const pathName = formData.get('pathname');
    const movieTitle = formData.get('title');
    const isFavorited = formData.get('isFavorited');
    const cookieStore = cookies();
@@ -54,9 +55,9 @@ export async function addOrRemoveFromFavorites(formData) {
          console.log('error inserting Movie', error);
       }
    }
-   revalidatePath('/home');
-   revalidatePath('/movies/1/vote_average/false');
-   revalidatePath('/mymovies/Movies/1/vote_average/false');
+
+   console.log(pathName);
+   revalidatePath(pathName);
 
    return { success: true };
 }

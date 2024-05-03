@@ -70,7 +70,7 @@ export default function MoviDiscoverImage({
                     border
                     border-slate-400
                     absolute
-                    right-5/12
+                    sm:right-5/12
                     bg-gray-950
                     opacity-0
                     scale-0
@@ -79,7 +79,7 @@ export default function MoviDiscoverImage({
                     delay-200
                     z-10
                     h-[25rem]
-                    w-72
+                    sm:w-72
                     group-hover:scale-100
                     group-hover:opacity-100
                     hover:cursor-pointer

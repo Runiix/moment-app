@@ -92,6 +92,7 @@ export default function MovieScrollerImage({
                     rounded-xl 
                     object-cover 
                     h-44
+                    min-w-32
                     w-32
                     sm:h-64
                     sm:w-44
@@ -106,8 +107,8 @@ export default function MovieScrollerImage({
             <div
                className={`
                     absolute
-                    hidden
                     sm:w-64 
+                    hidden
                     sm:flex
                     invisible
                     transition-all
@@ -138,6 +139,7 @@ export default function MovieScrollerImage({
                         right-[5.5rem]
                         shadow-xl
                         h-64
+                        w-0
                         sm:w-44
                         min-w-44
                         rounded-l-md                        
@@ -148,6 +150,7 @@ export default function MovieScrollerImage({
                         bg-gray-950
                         z-10
                         h-64
+                        w-0
                         sm:w-52
                         min-w-52
                         relative

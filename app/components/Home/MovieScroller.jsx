@@ -13,10 +13,10 @@ export default function MovieScroller({
    data,
 }) {
    return (
-      <div className="flex flex-col ">
+      <div className="flex flex-col">
          <Link
             href={link}
-            className="mt-40 ml-4 sm:ml-8 rounded-lg hover:bg-opacity-30 text-center hover:cursor-pointer hover:text-green-600 hover:underline hover:bg-gray-900 p-0"
+            className="mt-[9.5rem] text-start ml-4 sm:ml-8 rounded-lg hover:bg-opacity-30 sm:text-center hover:cursor-pointer hover:text-green-600 hover:underline hover:bg-gray-900 "
          >
             {scrollertitle}
          </Link>

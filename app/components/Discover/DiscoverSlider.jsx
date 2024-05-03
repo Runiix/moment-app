@@ -17,11 +17,13 @@ import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
 import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
 import Draggable from 'react-draggable';
+import { usePathname } from 'next/navigation';
 
 export default function DiscoverSlider({ user }) {
    const [randomMovie, setRandomMovie] = useState(null);
    const movieRef = useRef(null);
    const parentRef = useRef(null);
+   const pathname = usePathname();
 
    const getRandomId = async () => {
       try {
@@ -70,13 +72,13 @@ export default function DiscoverSlider({ user }) {
    }; */
 
    return (
-      <div className="mt-24 z-20">
+      <div className="mt-28 sm:mt-24 z-20">
          {randomMovie && (
             <div
                ref={parentRef}
-               className="flex flex-col gap-4 items-center z-20"
+               className="flex flex-col gap-4 items-center justify-center z-20"
             >
-               <div className="group z-20 ">
+               <div className="group z-50 ">
                   <form action={addOrRemoveFromFavorites}>
                      <input
                         type="hidden"
@@ -84,9 +86,10 @@ export default function DiscoverSlider({ user }) {
                         value={randomMovie[0].title}
                      />
                      <input type="hidden" name="isFavorited" value={false} />
+                     <input type="hidden" name="pathname" value={pathname} />
                      <button
                         type="submit"
-                        className="z-20 scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300 flex flex-col items-center"
+                        className="absolute sm:static z-20 scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300 flex flex-col items-center"
                         onClick={() => getRandomId()}
                      >
                         <KeyboardArrowUp />
@@ -98,10 +101,10 @@ export default function DiscoverSlider({ user }) {
                      </button>
                   </form>
                </div>
-               <div className="flex items-center gap-16 z-20">
+               <div className="flex items-center sm:gap-16 z-20">
                   <div
                      onClick={() => getRandomId()}
-                     className="z-10 flex group scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 items-center"
+                     className="absolute sm:static z-10 flex group scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 items-center"
                   >
                      <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[-90deg] relative left-9">
                         Next Movie
@@ -111,7 +114,7 @@ export default function DiscoverSlider({ user }) {
                   </div>
                   {/*                   <Draggable bounds={parentRef}>
                    */}{' '}
-                  <div className="handle">
+                  <div className="handle scale-[1.6] sm:scale-100 z-0">
                      <MovieDiscoverImage
                         id={randomMovie[0].id}
                         u={user}
@@ -134,9 +137,10 @@ export default function DiscoverSlider({ user }) {
                         value={randomMovie[0].title}
                      />
                      <input type="hidden" name="isOnWatchlist" value={false} />
+                     <input type="hidden" name="pathname" value={pathname} />
                      <button
                         type="submit"
-                        className="group flex items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300"
+                        className=" absolute sm:static group flex items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300"
                         onClick={() => getRandomId()}
                      >
                         <AddCircleOutline />
@@ -159,9 +163,10 @@ export default function DiscoverSlider({ user }) {
                         value={randomMovie[0].title}
                      />
                      <input type="hidden" name="isDisliked" value={false} />
+                     <input type="hidden" name="pathname" value={pathname} />
                      <button
                         type="submit"
-                        className="z-20 group items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 flex flex-col"
+                        className="absolute sm:static z-20 group items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 flex flex-col"
                      >
                         <HeartBroken />
                         <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">

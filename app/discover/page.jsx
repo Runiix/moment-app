@@ -91,7 +91,7 @@ export default async function Discover({ searchParams }) {
    const dislikeMovies = await getDislikeData(supabaseServer, user);
 
    return (
-      <main className="bg-gray-900 text-slate-100 font-doppio ">
+      <main className="bg-gray-900 text-slate-100 font-doppio max-h-screen max-w-screen">
          <Nav user={user} />
          {query === '' ? (
             <div>

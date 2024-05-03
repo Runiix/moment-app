@@ -80,7 +80,7 @@ export default function Nav({ user, search = true }) {
             </div>
          </div>
 
-         <div className="m-2 flex sm:invisible absolute right-10 top-5 hover:cursor-pointer">
+         <div className="m-2 flex sm:invisible absolute right-5 top-5 hover:cursor-pointer">
             {toggleMenu ? (
                <Close
                   color="fff"
@@ -95,59 +95,57 @@ export default function Nav({ user, search = true }) {
                   onClick={() => setToggleMenu(true)}
                />
             )}
+         </div>
+         <div
+            className={`shadow-xl shadow-black transition-all items-center duration-500 fixed left-0 top-20 text-xl w-full rounded-lg flex flex-col gap-3 text-center bg-gray-900 border border-slate-400  ${
+               toggleMenu ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+            } `}
+         >
+            <ul className="">
+               <li className="border-b w-screen rounded-t-lg border-slate-400 p-2">
+                  <Profile mobile={true} user={user} />
+               </li>
+               {search && (
+                  <li className="border-b w-screen  border-slate-400 p-2">
+                     <NavSearch show={true} mobile={true} id="mobileSearch" />
+                  </li>
+               )}
+               <Link
+                  href="/home"
+                  className="text-slate-100 hover:text-zinc-900   border-b border-slate-400"
+               >
+                  <li className="border-b w-screen  border-slate-400 hover:bg-green-600 active:bg-green-600 p-4">
+                     Homepage
+                  </li>
+               </Link>
 
-            <div
-               className={`transition-all duration-500 ${
-                  toggleMenu ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-               } `}
-            >
-               <ul className="absolute text-xl right-0 top-8 p-4 flex flex-col items-center gap-3  text-center bg-gray-900 border border-slate-400 ">
-                  <li className="mb-2 border-b border-slate-400">
-                     <Profile mobile={true} user={user} />
+               <Link
+                  href="/movies/1/vote_average/false"
+                  className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
+               >
+                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                     Movies
                   </li>
-                  {search && (
-                     <li>
-                        <NavSearch
-                           show={true}
-                           mobile={true}
-                           id="mobileSearch"
-                        />
-                     </li>
-                  )}
-                  <li className="mb-2">
-                     <Link
-                        href="/home"
-                        className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
-                     >
-                        Homepage
-                     </Link>
+               </Link>
+
+               <Link
+                  href="/mymovies/Movies/1/vote_average/false"
+                  className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
+               >
+                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                     My Movies
                   </li>
-                  <li className="mb-2">
-                     <Link
-                        href="/movies/1/vote_average/false"
-                        className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
-                     >
-                        Movies
-                     </Link>
+               </Link>
+
+               <Link
+                  href="/discover"
+                  className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
+               >
+                  <li className=" w-screen hover:bg-green-600 active:bg-green-600te-400 p-4">
+                     Discover
                   </li>
-                  <li className="mb-2">
-                     <Link
-                        href="/mymovies/Movies/1/vote_average/false"
-                        className="text-slate-100 hover:text-slate-400 border-b border-slate-400"
-                     >
-                        My Movies
-                     </Link>
-                  </li>
-                  <li>
-                     <Link
-                        href="/discover"
-                        className="text-slate-100 hover:text-slate-300"
-                     >
-                        Discover
-                     </Link>
-                  </li>
-               </ul>
-            </div>
+               </Link>
+            </ul>
          </div>
       </nav>
    );

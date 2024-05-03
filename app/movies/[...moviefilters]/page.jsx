@@ -92,7 +92,7 @@ export default async function Movies({ params, searchParams }) {
    const dislikeMovies = await getDislikeData(supabaseServer, user);
 
    return (
-      <main className="min-h-screen bg-gray-900 text-white relative font-doppio">
+      <main className="w-screen bg-gray-900 text-white font-doppio">
          <Nav user={user} />
          <section>
             <MovieGrid

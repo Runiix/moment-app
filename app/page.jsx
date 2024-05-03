@@ -5,6 +5,7 @@ import heroBanner from '/assets/images/dark-vip-cinema-studio-still-life.jpg';
 import moviegrid from '/assets/images/MovieGrid.png';
 import { ExpandMore } from '@mui/icons-material';
 import Footer from './components/Footer';
+import laptop from '/assets/images/realistic_laptop_with_smartphone.jpg';
 import tmdb from '/assets/images/tmdb-logo.png';
 
 export default function LandingPage() {
@@ -14,7 +15,7 @@ export default function LandingPage() {
             <Image
                src={heroBanner}
                alt="hero banner"
-               className="absolute top-0 left-0 object-cover w-screen h-screen opacity-80"
+               className="absolute top-0 left-0 object-cover w-screen h-screen opacity-80 shadow-xl shadow-black"
             />
          </div>
          <div className="absolute bottom-0 right-0 text-xs opacity-50">
@@ -24,16 +25,18 @@ export default function LandingPage() {
             </a>
          </div>
          <div className="absolute left-5 top-5 z-50">
-            <h1 className="text-6xl font-bold text-green-600">MoMent</h1>
-            <p>Movie-Entertainment</p>
+            <h1 className="text-5xl sm:text-6xl font-bold text-green-600">
+               MoMent
+            </h1>
+            <p className="text-sm sm:text-lg">Movie-Entertainment</p>
          </div>
 
-         <div className="h-screen flex flex-col items-center justify-center text-center z-50">
-            <h1 className="text-7xl mb-10">
+         <div className="h-screen flex flex-col items-center justify-center text-center z-50 mx-4 ">
+            <h1 className="text-4xl sm:text-7xl mb-4 sm:mb-10">
                Explore The World of Entertainment!
             </h1>
-            <p className="mb-10">
-               Watch your favorite Movies and share your opinions with others
+            <p className="mb-10 text-sm sm:text-lg">
+               Explore and personalize over 2000 Movies
             </p>
             <Link
                href="/loginpage"
@@ -46,7 +49,7 @@ export default function LandingPage() {
          <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
             <ExpandMore />
          </div>
-         <div className="flex items-center gap-5">
+         <div className="flex  items-center gap-5 mx-5 text-sm sm:text-lg my-10 opacity-50">
             <Image src={tmdb} alt="tmdb-logo" className="w-14" />
             <p>
                This product uses the TMDB API but is not endorsed or certified
@@ -54,32 +57,39 @@ export default function LandingPage() {
             </p>
          </div>
 
-         <div className="flex flex-col">
-            <div className="flex justify-around items-center border-b-4 border-gray-900 py-4">
-               <h2 className="text-5xl">Explore over 2000 Movies!</h2>
+         <div className="flex flex-col items-center">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg">
+               <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
+                  Explore over 2000 Movies!
+               </h2>
                <Image
                   src={moviegrid}
                   alt="Movie Collage"
-                  className=" w-5/12 rounded-full "
+                  className="rounded-full object-cover w-10/12 sm:w-1/2 h-auto shadow-inner border"
                />
             </div>
-            <div className="flex gap-20 p-44 w-full border-b-4 border-gray-900 items-center">
-               <Image
-                  className="rounded-full object-cover w-1/2 h-auto shadow-inner border"
-                  src={moviegrid}
-                  alt="Reviews and Comments"
-               />
-               <h2 className="text-5xl w-1/2 text-center">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg">
+               <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Read reviews and discuss with other users
                </h2>
+               <Image
+                  className="rounded-full object-cover w-10/12 sm:w-1/2 h-auto shadow-inner border"
+                  src={heroBanner}
+                  alt="Reviews and Comments"
+               />
             </div>
-            <div className="flex items-center gap-20 p-44 w-full border-b-4 border-gray-900">
-               <h2 className="text-5xl w-1/2 text-center">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg mb-20">
+               <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Avaialable for your Phone and PC
                </h2>
+               <Image
+                  className="rounded-full object-cover w-10/12 sm:w-1/3 h-auto shadow-inner border"
+                  src={laptop}
+                  alt="Reviews and Comments"
+               />
                <a
                   href="https://www.freepik.com/free-vector/realistic-laptop-with-smartphone_35202611.htm#query=computer%20phone&position=0&from_view=keyword&track=ais&uuid=a4491061-6236-4f2c-bf0e-e7bb957bda1a"
-                  className="w-1/3 h-auto hover:cursor-pointer"
+                  className=" absolute w-1/3 h-auto hover:cursor-pointer"
                ></a>
             </div>
          </div>

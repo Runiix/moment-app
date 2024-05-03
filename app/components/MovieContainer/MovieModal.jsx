@@ -66,7 +66,7 @@ export default function MovieModal({
          onClick={onClose}
       >
          <div
-            className="bg-gray-900 h-screen w-[500px] sm:w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
+            className="bg-gray-900 h-screen w-[300px] sm:w-[800px] rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
             onClick={(e) => handleChildElementClick(e)}
          >
             <div className="relative w-full h-1/3 sm:h-1/2 hover:opacity-90 hover:cursor-pointer">

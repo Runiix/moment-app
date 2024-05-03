@@ -86,13 +86,9 @@ export default function AuthForm() {
       <div className="font-doppio z-10">
          {!resetPassword && (
             <div>
-               <div className="flex gap-4 mb-10">
-                  <h1 className="text-6xl font-bold mb-4 text-green-600">
-                     MoMent{' '}
-                  </h1>
-                  <h1 className="text-6xl font-bold mb-4 text-slate-100">
-                     Login
-                  </h1>
+               <div className="flex gap-4 mb-6 sm:mb-10 text-5xl sm:text-6xl font-bold ">
+                  <h1 className="mb-4 text-green-600">MoMent </h1>
+                  <h1 className="mb-4 text-slate-100">Login</h1>
                </div>
                <form
                   onSubmit={isNewUser ? handleSignUp : handleLogin}
@@ -157,12 +153,12 @@ export default function AuthForm() {
          )}
          {resetPassword && (
             <div>
-               <div className="min-h-screen flex flex-col gap-3 items-center justify-center">
+               <div className="min-h-screen flex flex-col gap-3 items-center justify-center text-center">
                   <h1 className="text-5xl font-bold  text-slate-100">
                      Forgot Your Password?
                   </h1>
                   <div className="flex flex-col items-center gap-4">
-                     <label className="mb-10">
+                     <label className="mb-4 sm:mb-10">
                         Enter your Email to receive a Link for resetting your
                         password
                      </label>

@@ -84,16 +84,17 @@ export default function MovieScrollerImage({
 
    return (
       <div>
-         <div className="group flex py-5">
+         <div className="group flex sm:py-5">
             <img
                src={src}
                alt="Movie Scroller Image"
                className="
                     rounded-xl 
                     object-cover 
-                    h-64
-                    w-44
-                    min-w-44
+                    h-44
+                    w-32
+                    sm:h-64
+                    sm:w-44
                     cursor-pointer 
                     transition-all 
                     duartion-500 
@@ -105,9 +106,9 @@ export default function MovieScrollerImage({
             <div
                className={`
                     absolute
-                    w-1
+                    hidden
                     sm:w-64 
-                    flex
+                    sm:flex
                     invisible
                     transition-all
                     scale-100
@@ -137,7 +138,6 @@ export default function MovieScrollerImage({
                         right-[5.5rem]
                         shadow-xl
                         h-64
-                        w-0
                         sm:w-44
                         min-w-44
                         rounded-l-md                        
@@ -148,7 +148,6 @@ export default function MovieScrollerImage({
                         bg-gray-950
                         z-10
                         h-64
-                        w-0
                         sm:w-52
                         min-w-52
                         relative

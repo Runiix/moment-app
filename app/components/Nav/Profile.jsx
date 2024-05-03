@@ -19,9 +19,7 @@ export default function Profile({ mobile = false, user }) {
       return () => {
          document.removeEventListener('mousedown', handler);
       };
-   });
-
-   const username = user.email.split('@')[0];
+   }, []);
 
    function toggleProfileNav() {
       setShowProfileNav(!showProfileNav);
@@ -31,10 +29,14 @@ export default function Profile({ mobile = false, user }) {
       <div ref={profileNavRef}>
          <div
             onClick={toggleProfileNav}
-            className="text-slate-100 flex hover:cursor-pointer p-2 z-10 hover:text-slate-400 hover:bg-opacity-50 rounded-full"
+            className={`${
+               showProfileNav && 'bg-green-700 text-zinc-900'
+            }text-slate-100 flex items-center justify-center hover:cursor-pointer gap-2 p-2 z-10 rounded-full`}
          >
-            <p className="hidden lg:flex">
-               {username === null ? 'loading...' : username}
+            <p className="flex">
+               {user.user_metadata.displayName === null
+                  ? 'loading...'
+                  : user.user_metadata.displayName}
             </p>
             <Person />
          </div>

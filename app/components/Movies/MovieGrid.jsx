@@ -115,7 +115,7 @@ export default function MovieGrid({
    }
 
    return (
-      <div className=" flex flex-col gap-10 w-[100vw] sm:w-[94vw] lg:w-[96vw] items-center absolute top-32">
+      <div className=" flex flex-col gap-10 items-center absolute top-32">
          {homepage === false && (
             <div className="flex w-screen flex-wrap justify-around">
                <div>
@@ -295,30 +295,28 @@ export default function MovieGrid({
                </div>
             </div>
          )}
-         <div className="flex flex-col">
-            <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-               {movies !== null &&
-                  movies !== undefined &&
-                  movies.map((movie, index) => (
-                     <MovieImage
-                        key={index}
-                        u={user}
-                        id={movie.id}
-                        genres={genres}
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                        src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                        title={movie.title}
-                        overview={movie.overview}
-                        rating={movie.vote_average.toFixed(1)}
-                        votecount={movie.vote_count}
-                        releasedate={movie.release_date}
-                        genre={movie.genre_ids}
-                        watchlist_titles={watchlist_titles}
-                        favorite_titles={favorite_titles}
-                        dislike_titles={dislike_titles}
-                     />
-                  ))}
-            </div>
+         <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+            {movies !== null &&
+               movies !== undefined &&
+               movies.map((movie, index) => (
+                  <MovieImage
+                     key={index}
+                     u={user}
+                     id={movie.id}
+                     genres={genres}
+                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                     src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                     title={movie.title}
+                     overview={movie.overview}
+                     rating={movie.vote_average.toFixed(1)}
+                     votecount={movie.vote_count}
+                     releasedate={movie.release_date}
+                     genre={movie.genre_ids}
+                     watchlist_titles={watchlist_titles}
+                     favorite_titles={favorite_titles}
+                     dislike_titles={dislike_titles}
+                  />
+               ))}
          </div>
          {loading && (
             <div className="" ref={ref}>

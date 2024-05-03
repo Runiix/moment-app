@@ -1,25 +1,26 @@
 # MoMent-App Documentation
 
--  The Goal
--  Development Stack
--  Workflow
--  Features
+#### 1. The Goal
 
-## The Goal
+#### 2. Chosing the Development Stack
+
+#### 3. Defining the Necessary Features
+
+#### 4. Desing
+
+#### 5. Implementation
+
+#### 6. Defining complementary features
+
+#### 7. Deploying the Website
+
+#### 8. Bug Fixing and Testing
+
+## 1.The Goal
 
 My goal during my 11 week internship was to create a full stack web-application. This Project would help me to solidify my current knowledge with the basics of Web-Development like HTML, CSS and classic Javascript, but also introduce more modern Versions of Front-End Development and also start using a Backend which i didnt have a lot of previous experience with. I decided on implementing a Movie/TV-Series Application, since it fits the all the before moentioned criteria and it is very easy to get data via an API.
 
-## Workflow
-
--  Chosing the Development Stack
--  Finding Desing Inspiratons
--  Defining the Necessary Features
--  Implementation
--  Defining complementary features
--  Deploying the Website
--  Bug Fixing and Testing
-
-### Chosing a Development Stack
+## 2.Chosing a Development Stack
 
 The First step was to choose a programming stack to learn for later development. I decided on the following components:
 
@@ -28,23 +29,31 @@ The First step was to choose a programming stack to learn for later development.
 -  Supabase
 -  Tailwind-CSS
 
-### Next-JS
+### 2.1.Next-JS
 
 Next-js is a Framwork for Javascript that includes various libraries and features. The main Porgramming Library is React, which is the most used component-based Javascript library. Next-JS also includes features like server-components, which allow data to be fetched and rendered by the server instead of the client. The NextJs-App router enables the use of dynamic layouts and routes for smooth and fast routing betwenn pages and dynamic content.
 
-### TMDB API
+### 2.2.TMDB API
 
 The TMDB API offers the biggest online collection of entertainment media with Millions of movies and TV-shows. The unsage is free to use without limitations which makes it a great api for private projects or begginers that dont want to invest anything right away.
 I first started by fetching all my data right from the Api. Later i wrote a script to fetch the MovieData and the safe it to a database. The Images would still be fetched from the Api.
 
-### Supabase
+### 2.3.Supabase
 
 Supabase is a relatively new open-source backend provider. It bascially offers a Development Interface for all the backend functionalities you could need. Supabase is based on PostGreSQL which makes it theoretically possible to export or import data as a regular SQL Database.
 There are feature for all kinds of Authentification, like E-mail verification and resetting Passwords. There are a lot of built in filters for fetching Data and even a Storage functionality for storing images and videos.
 
-### Tailwind-CSS
+### 2.4.Tailwind-CSS
 
 Tailwind-CSS offers preconfigured css styling that is written directly as an elements className. This removes the need to think of classNames for all html-components and creates consistency by providing standardized colorization and sizing. Responsiveness is also easily appliable. More complex stylings can still be defined in css files.
+
+## 3.Defining The Necessary Features
+
+After already thinking of this aspect during the selection of the Development Stack
+
+## 4.Design
+
+The Design process was quite short since the Porject focus should be placed more on the technical components. I took a lot of inspiration from popular Movie Platforms like Netflix, Amazon Prime and Disney Plus. I went through come color palettes online to find a color theme that i liked and wasnt used by any of the other major Movie Platforms jet. The selection of the title MoMent as a combination of Movie and entertainment came quite easily. After liking th title so much, i decided to focus the application on just Movies and not TV-Series. I also decided not to use a design software like figma and just made some rough sketches on paper of my main pages after i defined the necessary features.
 
 ## Technical Feature Description
 

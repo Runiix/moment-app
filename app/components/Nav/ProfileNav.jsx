@@ -12,10 +12,10 @@ export default function ProfileNav({ mobile = false, show = false, user }) {
          id="profileNav"
          className={
             !mobile
-               ? `z-50 fixed right-5 flex flex-col items-center text-right bg-gray-900 border border-slate-400 transition-all duration-500 ${
+               ? `z-50 fixed right-5 flex flex-col items-center text-right  bg-gray-900 border border-slate-400 transition-all duration-500 ${
                     show ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
                  }`
-               : `z-50 fixed right-0 flex flex-col w-[18.75rem] items-center bg-gray-900 border border-slate-400 p-10 px-16 transition-all duration-500 ${
+               : `z-50 fixed flex left-0 flex-col w-full items-center bg-gray-900 border rounded-lg border-slate-400 p-10 px-16 transition-all duration-500 ${
                     show ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
                  }`
          }

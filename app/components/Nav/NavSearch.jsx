@@ -30,9 +30,9 @@ export default function NavSearch({ show = false, mobile = false, id }) {
    /* Debouncing TODO doesnt work as intended */
 
    return (
-      <div className="flex">
+      <div className="flex justify-center py-2">
          <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ">
                <input
                   id={id}
                   value={query}

@@ -16,6 +16,7 @@ export default function MovieGrid({
    genres,
    homepage = false,
    genre,
+   genrename,
    sortby,
    sortorder,
    favorite_titles,
@@ -27,6 +28,7 @@ export default function MovieGrid({
    const [loading, setLoading] = useState(true);
    const [showSortBy, setShowSortBy] = useState(false);
    const [showGenreFilter, setShowGenreFilter] = useState(false);
+   const [genreFilter, setGenreFilter] = useState('Genre');
    const [movies, setMovies] = useState([]);
    const { ref, inView } = useInView();
 
@@ -66,6 +68,7 @@ export default function MovieGrid({
    };
 
    useEffect(() => {
+      console.log(genres);
       loadMovies(0);
    }, [query]);
 
@@ -114,8 +117,23 @@ export default function MovieGrid({
       return `/movies/${genre}/${sortby}/${newSortOrder}`;
    }
 
+   useEffect(() => {
+      const handleGenreFilter = () => {
+         for (let i = 0; i < genres.length; i++) {
+            if (genre === genres[i].id) {
+               setGenreFilter(genres[i].name);
+               return;
+            }
+         }
+         console.log('GenreFilter', genreFilter);
+
+         setGenreFilter('Genre');
+      };
+      handleGenreFilter();
+   }, [genre]);
+
    return (
-      <div className=" flex flex-col gap-10 items-center absolute top-32">
+      <div className=" flex flex-col gap-10 items-center absolute top-32 w-[96vw]">
          {homepage === false && (
             <div className="flex w-screen flex-wrap justify-around">
                <div>
@@ -126,7 +144,7 @@ export default function MovieGrid({
                            !showGenreFilter ? 'rounded-md' : 'rounded-t-md'
                         } `}
                      >
-                        {'Genre'}
+                        {genrename}
                         {showGenreFilter ? <ExpandLess /> : <ExpandMore />}
                      </button>
                   </div>

@@ -69,7 +69,7 @@ const calcAverageRating = async (supabaseServer, username) => {
    for (let i = 0; i < ratings.length; i++) {
       sum += ratings[i];
    }
-   return String(sum / ratings.length);
+   return String((sum / ratings.length).toFixed(1));
 };
 
 async function getReviewListWithTitles(supabaseServer, username) {

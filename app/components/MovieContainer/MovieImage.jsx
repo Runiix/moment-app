@@ -96,6 +96,7 @@ export default function MovieScrollerImage({
                     w-32
                     sm:h-64
                     sm:w-44
+                    sm:min-w-44
                     cursor-pointer 
                     transition-all 
                     duartion-500 

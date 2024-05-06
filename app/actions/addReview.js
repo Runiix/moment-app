@@ -49,31 +49,36 @@ export async function addReview(formData) {
       .from('reviews')
       .select('*')
       .match({ username: username, movie_id: movieId });
+   console.log('Review Data', data);
 
    if (reviewError) {
       return { success: false, error: 'Error getting reviews' };
    }
 
-   if (data !== null) {
+   if (data) {
       const { error } = await supabase
          .from('reviews')
-         .delete()
+         .update({
+            rating: rating,
+            content: content,
+         })
          .match({ username: username, movie_id: movieId });
       if (error) {
          console.error('Error deleting Review:', error);
          return { success: false, error: 'Error deleting Review' };
       }
-   }
-   console.log('Inserting', username, movieId, content, rating);
-   const { error } = await supabase.from('reviews').insert({
-      movie_id: movieId,
-      username: username,
-      rating: rating,
-      content: content,
-   });
-   if (error) {
-      console.error('Error inserting Review:', error);
-      return { success: false, error: 'Error inserting Review' };
+   } else {
+      console.log('Inserting', username, movieId, content, rating);
+      const { error } = await supabase.from('reviews').insert({
+         movie_id: movieId,
+         username: username,
+         rating: rating,
+         content: content,
+      });
+      if (error) {
+         console.error('Error inserting Review:', error);
+         return { success: false, error: 'Error inserting Review' };
+      }
    }
 
    revalidatePath(pathname);

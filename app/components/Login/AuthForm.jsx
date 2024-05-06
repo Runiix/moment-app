@@ -35,8 +35,20 @@ export default function AuthForm() {
       }
    }
 
+   function validatePassword(password) {
+      const passwordRegex =
+         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{10,}$/;
+      return passwordRegex.test(password);
+   }
+
    async function handleSignUp(e) {
       e.preventDefault();
+      if (!validatePassword(password)) {
+         alert(
+            'Password must be at least 10 characters long and contain at least one capital letter, one number, and one special symbol.'
+         );
+         return;
+      }
       const { data, error } = await supabase.auth.signUp({
          email,
          password,

@@ -21,6 +21,7 @@ export default function MovieGridFavorites({
    dislike_titles,
    watchlist_titles,
    mymovies,
+   genrename,
 }) {
    const [offset, setOffset] = useState(0);
    const [loadingMoreMovies, setLoadingMoreMovies] = useState(false);
@@ -127,7 +128,7 @@ export default function MovieGridFavorites({
                         !showGenreFilter ? 'rounded-md' : 'rounded-t-md'
                      } `}
                   >
-                     {'Genre'}
+                     {genrename}
                      {showGenreFilter ? <ExpandLess /> : <ExpandMore />}
                   </button>
                </div>

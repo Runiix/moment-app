@@ -30,17 +30,18 @@ export default function ReviewForm({ movie_id }) {
                onSubmit={() => resetForm()}
             >
                <input type="hidden" name="movieId" value={movie_id} />
-               <div className="flex items-center">
+               <div className="flex items-center gap-4">
                   <label className="text-xl">Rating:</label>
                   <input
-                     type="number"
+                     type="range"
                      name="rating"
                      value={rating}
                      min="0"
                      max="10"
-                     className="ml-4 md:px-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer p-2 rounded-lg"
+                     className=" h-2 ml-4 w-full accent-green-600 rounded-lg bg-green-600 cursor-pointer "
                      onChange={(e) => setRating(e.target.value)}
                   />
+                  <label>{rating}</label>
                   <input type="hidden" name="pathname" value={pathname} />
 
                   <Star className="text-green-600" />

@@ -5,6 +5,7 @@ import { createServerClient } from '@supabase/ssr';
 import { revalidatePath } from 'next/cache';
 
 export async function addOrRemoveFromDislikes(formData) {
+   const pathName = formData.get('pathname');
    const movieTitle = formData.get('title');
    const isDisliked = formData.get('isDisliked');
    const cookieStore = cookies();
@@ -36,6 +37,8 @@ export async function addOrRemoveFromDislikes(formData) {
    }
    console.log(movieTitle, user.id, 'isDisliked:', isDisliked);
 
+   let updatedDislike;
+
    if (isDisliked === 'true') {
       console.log('removed from dislike', isDisliked);
       const { error } = await supabase
@@ -46,6 +49,7 @@ export async function addOrRemoveFromDislikes(formData) {
       if (error) {
          return { success: false, error };
       }
+      updatedDislike = false;
    } else {
       console.log(movieTitle, user.id, 'isDisliked:', isDisliked);
       const { error } = await supabase
@@ -54,10 +58,9 @@ export async function addOrRemoveFromDislikes(formData) {
       if (error) {
          console.error('error inserting Movie', error);
       }
+      updatedDislike = true;
    }
-   revalidatePath('/home');
-   revalidatePath('/movies');
-   revalidatePath('/mymovies');
+   revalidatePath(pathName);
 
-   return { success: true };
+   return { success: true, isDisliked: updatedDislike };
 }

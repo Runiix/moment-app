@@ -5,6 +5,7 @@ import { createServerClient } from '@supabase/ssr';
 import { revalidatePath } from 'next/cache';
 
 export async function addOrRemoveFromWatchlist(formData) {
+   const pathName = formData.get('pathname');
    const movieTitle = formData.get('title');
    const isOnWatchList = formData.get('isOnWatchlist');
    const cookieStore = cookies();
@@ -36,6 +37,8 @@ export async function addOrRemoveFromWatchlist(formData) {
    }
    console.log(movieTitle, user.id, 'isOnWatchlist:', isOnWatchList);
 
+   let updatedWatchlist;
+
    if (isOnWatchList === 'true') {
       console.log('removed', isOnWatchList);
       const { error } = await supabase
@@ -46,6 +49,7 @@ export async function addOrRemoveFromWatchlist(formData) {
       if (error) {
          return { success: false, error };
       }
+      updatedWatchlist = false;
    } else {
       console.log(movieTitle, user.id, 'isOnWatchlist:', isOnWatchList);
       const { error } = await supabase
@@ -54,10 +58,9 @@ export async function addOrRemoveFromWatchlist(formData) {
       if (error) {
          console.error('error inserting Movie', error);
       }
+      updatedWatchlist = true;
    }
-   revalidatePath('/home');
-   revalidatePath('/movies');
-   revalidatePath('/mymovies');
+   revalidatePath(pathName);
 
-   return { success: true };
+   return { success: true, isOnWatchlist: updatedWatchlist };
 }

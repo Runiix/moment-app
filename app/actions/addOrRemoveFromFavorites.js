@@ -36,6 +36,9 @@ export async function addOrRemoveFromFavorites(formData) {
       return { success: false, error: 'User is not authenticated!' };
    }
    console.log(movieTitle, user.id, 'isFavorited:', isFavorited);
+
+   let updatedfavorites;
+
    if (isFavorited === 'true') {
       console.log('removed from favorites', isFavorited);
       const { error } = await supabase
@@ -46,6 +49,7 @@ export async function addOrRemoveFromFavorites(formData) {
       if (error) {
          return { success: false, error };
       }
+      updatedfavorites = false;
    } else {
       console.log(movieTitle, user.id, 'isFavorited:', isFavorited);
       const { error } = await supabase
@@ -54,9 +58,10 @@ export async function addOrRemoveFromFavorites(formData) {
       if (error) {
          console.error('error inserting Movie', error);
       }
+      updatedfavorites = true;
    }
 
    revalidatePath(pathName);
 
-   return { success: true };
+   return { success: true, isFavorited: updatedfavorites };
 }

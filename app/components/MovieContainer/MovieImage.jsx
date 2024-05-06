@@ -62,7 +62,7 @@ export default function MovieScrollerImage({
          }
       };
       checkForFavorites();
-   }, []);
+   }, [showModal]);
 
    const populateGenreList = () => {
       const genreList = new Set();
@@ -179,7 +179,19 @@ export default function MovieScrollerImage({
                               {!isDisliked && (
                                  <form
                                     id="favoriteForm"
-                                    action={addOrRemoveFromFavorites}
+                                    onSubmit={async (e) => {
+                                       e.preventDefault();
+                                       const response =
+                                          await addOrRemoveFromFavorites(
+                                             new FormData(e.target)
+                                          );
+                                       if (response.success) {
+                                          setIsFavorited(response.isFavorited);
+                                       } else {
+                                          // Handle error
+                                          console.error(response.error);
+                                       }
+                                    }}
                                  >
                                     <input
                                        type="hidden"
@@ -216,7 +228,19 @@ export default function MovieScrollerImage({
                               {!isFavorited && (
                                  <form
                                     id="dislikeForm"
-                                    action={addOrRemoveFromDislikes}
+                                    onSubmit={async (e) => {
+                                       e.preventDefault();
+                                       const response =
+                                          await addOrRemoveFromDislikes(
+                                             new FormData(e.target)
+                                          );
+                                       if (response.success) {
+                                          setIsDisliked(response.isDisliked);
+                                       } else {
+                                          // Handle error
+                                          console.error(response.error);
+                                       }
+                                    }}
                                  >
                                     <input
                                        type="hidden"
@@ -252,7 +276,19 @@ export default function MovieScrollerImage({
 
                               <form
                                  id="watchlistForm"
-                                 action={addOrRemoveFromWatchlist}
+                                 onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    const response =
+                                       await addOrRemoveFromWatchlist(
+                                          new FormData(e.target)
+                                       );
+                                    if (response.success) {
+                                       setIsOnWatchlist(response.isOnWatchlist);
+                                    } else {
+                                       // Handle error
+                                       console.error(response.error);
+                                    }
+                                 }}
                               >
                                  <input
                                     type="hidden"
@@ -303,9 +339,9 @@ export default function MovieScrollerImage({
                releasedate={releasedate}
                genre={genre}
                onClose={toggleModal}
-               isfavorited={isFavorited}
-               isdisliked={isDisliked}
-               isonwatchlist={isOnWatchlist}
+               favorite_titles={favorite_titles}
+               watchlist_titles={watchlist_titles}
+               dislike_titles={dislike_titles}
             />
          )}
       </div>

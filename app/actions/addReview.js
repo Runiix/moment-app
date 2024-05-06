@@ -10,6 +10,7 @@ export async function addReview(formData) {
    const rating = formData.get('rating');
    const content = formData.get('content');
    const cookieStore = cookies();
+   console.log('movieId', movieId, 'Rating', rating, 'content', content);
 
    const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -55,7 +56,7 @@ export async function addReview(formData) {
       return { success: false, error: 'Error getting reviews' };
    }
 
-   if (data) {
+   if (data[0] !== undefined) {
       const { error } = await supabase
          .from('reviews')
          .update({
@@ -63,6 +64,7 @@ export async function addReview(formData) {
             content: content,
          })
          .match({ username: username, movie_id: movieId });
+      console.log('updating');
       if (error) {
          console.error('Error deleting Review:', error);
          return { success: false, error: 'Error deleting Review' };

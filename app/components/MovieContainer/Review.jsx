@@ -9,7 +9,7 @@ export default function Review({
    profile,
 }) {
    return (
-      <div className="flex flex-col w-11/12 border border-slate-400 rounded-lg p-4">
+      <div className="flex flex-col w-full max-w-[40rem] border border-slate-400 rounded-lg p-4">
          <div
             className={`flex gap-5 items-center mb-5 ${profile ? 'ml-5' : ''}`}
          >
@@ -51,7 +51,9 @@ export default function Review({
             </div>
          </div>
          <div>
-            <p className="text-xs text-left tex">{content}</p>
+            <p className="text-xs text-left max-w-full overflow-wrap text-wrap break-words">
+               {content}
+            </p>
          </div>
       </div>
    );

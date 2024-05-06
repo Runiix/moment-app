@@ -17,6 +17,7 @@ import '../../../assets/css/scrollbar.css';
 import { useState, useEffect } from 'react';
 import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';
+import { usePathname } from 'next/navigation';
 
 export default function MovieModal({
    id,
@@ -31,11 +32,15 @@ export default function MovieModal({
    releasedate,
    onClose,
    genre,
-   isfavorite,
-   isdisliked,
-   isonwatchlist,
+   favorite_titles,
+   watchlist_titles,
+   dislike_titles,
 }) {
    const [similarOrReviews, setSimilarOrReviews] = useState(false);
+   const [isFavorited, setIsFavorited] = useState(false);
+   const [isOnWatchlist, setIsOnWatchlist] = useState(false);
+   const [isDisliked, setIsDisliked] = useState(false);
+   const pathname = usePathname();
 
    const titleLength = title.length;
    const getTitleStyle = () => {
@@ -52,9 +57,25 @@ export default function MovieModal({
       e.stopPropagation();
    };
    useEffect(() => {
-      document.body.style.overflow = 'hidden';
+      const checkForFavorites = () => {
+         if (favorite_titles !== undefined) {
+            const isFavorited = favorite_titles.some((item) => item === title);
+            setIsFavorited(isFavorited);
+         }
 
-      // Reset body styling when modal unmounts
+         if (watchlist_titles !== undefined) {
+            const isOnWatchlist = watchlist_titles.some(
+               (item) => item === title
+            );
+            setIsOnWatchlist(isOnWatchlist);
+         }
+         if (dislike_titles !== undefined) {
+            const isDisliked = dislike_titles.some((item) => item === title);
+            setIsDisliked(isDisliked);
+         }
+      };
+      checkForFavorites();
+      document.body.style.overflow = 'hidden';
       return () => {
          document.body.style.overflow = 'auto';
       };
@@ -86,16 +107,32 @@ export default function MovieModal({
                      <h3 className="text-4xl sm:text-5xl">{title}</h3>
                   </div>
                   <div className="flex flex-col sm:flex-row items-center bg-gray-900 rounded-full bg-opacity-50 p-2">
-                     {!isdisliked && (
+                     {!isDisliked && (
                         <form
                            id="favoriteForm"
-                           action={addOrRemoveFromFavorites}
+                           onSubmit={async (e) => {
+                              e.preventDefault();
+                              const response = await addOrRemoveFromFavorites(
+                                 new FormData(e.target)
+                              );
+                              if (response.success) {
+                                 setIsFavorited(response.isFavorited);
+                              } else {
+                                 // Handle error
+                                 console.error(response.error);
+                              }
+                           }}
                         >
                            <input type="hidden" name="title" value={title} />
                            <input
                               type="hidden"
                               name="isFavorited"
-                              value={isfavorite}
+                              value={isFavorited}
+                           />
+                           <input
+                              type="hidden"
+                              name="pathname"
+                              value={pathname}
                            />
 
                            <button
@@ -103,7 +140,7 @@ export default function MovieModal({
                               className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-green-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
-                              {isfavorite ? (
+                              {isFavorited ? (
                                  <Favorite className="text-green-600" />
                               ) : (
                                  <FavoriteBorder />
@@ -112,13 +149,32 @@ export default function MovieModal({
                         </form>
                      )}
 
-                     {!isfavorite && (
-                        <form id="dislikeForm" action={addOrRemoveFromDislikes}>
+                     {!isFavorited && (
+                        <form
+                           id="dislikeForm"
+                           onSubmit={async (e) => {
+                              e.preventDefault();
+                              const response = await addOrRemoveFromDislikes(
+                                 new FormData(e.target)
+                              );
+                              if (response.success) {
+                                 setIsDisliked(response.isDisliked);
+                              } else {
+                                 // Handle error
+                                 console.error(response.error);
+                              }
+                           }}
+                        >
                            <input type="hidden" name="title" value={title} />
                            <input
                               type="hidden"
                               name="isDisliked"
-                              value={isdisliked}
+                              value={isDisliked}
+                           />
+                           <input
+                              type="hidden"
+                              name="pathname"
+                              value={pathname}
                            />
 
                            <button
@@ -126,7 +182,7 @@ export default function MovieModal({
                               className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-red-600 hover:scale-110 transition duration-300"
                               onClick={(e) => handleChildElementClick(e)}
                            >
-                              {isdisliked ? (
+                              {isDisliked ? (
                                  <HeartBroken className="text-red-600" />
                               ) : (
                                  <HeartBrokenOutlined />
@@ -135,20 +191,35 @@ export default function MovieModal({
                         </form>
                      )}
 
-                     <form id="watchlistForm" action={addOrRemoveFromWatchlist}>
+                     <form
+                        id="watchlistForm"
+                        onSubmit={async (e) => {
+                           e.preventDefault();
+                           const response = await addOrRemoveFromWatchlist(
+                              new FormData(e.target)
+                           );
+                           if (response.success) {
+                              setIsOnWatchlist(response.isOnWatchlist);
+                           } else {
+                              // Handle error
+                              console.error(response.error);
+                           }
+                        }}
+                     >
                         <input type="hidden" name="title" value={title} />
                         <input
                            type="hidden"
                            name="isOnWatchlist"
-                           value={isonwatchlist}
+                           value={isOnWatchlist}
                         />
+                        <input type="hidden" name="pathname" value={pathname} />
 
                         <button
                            type="submit"
                            className="bg-transparent border-none text-slate-400 cursor-pointer hover:text-slate-100 hover:scale-110 transition duration-300"
                            onClick={(e) => handleChildElementClick(e)}
                         >
-                           {isonwatchlist ? (
+                           {isOnWatchlist ? (
                               <CheckCircle className="text-slate-100" />
                            ) : (
                               <AddCircleOutline />

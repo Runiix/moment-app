@@ -70,6 +70,15 @@ async function getGenres() {
    }
 }
 
+const getGenreName = (genre, genres) => {
+   for (let i = 0; i < 19; i++) {
+      if (String(genres.genres[i].id) === genre) {
+         return genres.genres[i].name;
+      }
+   }
+   return 'Genres';
+};
+
 export default async function Favorites({ params, searchParams }) {
    const cookieStore = cookies();
 
@@ -91,6 +100,7 @@ export default async function Favorites({ params, searchParams }) {
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
    const myMovies = getFilteredTitles();
+   const genreName = await getGenreName(params.favoritefilters[1], genres);
 
    function getFilteredTitles() {
       const filteredTitles = favoriteMovies
@@ -109,6 +119,7 @@ export default async function Favorites({ params, searchParams }) {
                query={query}
                favorites={true}
                params={params}
+               genrename={genreName}
                favoritetype={params.favoritefilters[0]}
                genre={params.favoritefilters[1]}
                sortby={params.favoritefilters[2]}

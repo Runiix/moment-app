@@ -1,11 +1,17 @@
 'use client';
 
-import { AddCircleOutline, CheckCircle, StarHalf } from '@mui/icons-material';
+import {
+   AddCircleOutline,
+   CheckBoxOutlined,
+   StarHalf,
+} from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import addMovieToMovieList from '@/app/actions/addMovieToMovieList';
+import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
 
 export default function BasicMovieImage({
    id,
+   movieList,
    src,
    title,
    overview,
@@ -15,10 +21,20 @@ export default function BasicMovieImage({
    movielistid,
 }) {
    const [genreList, setGenreList] = useState(' - ');
+   const [isInMovieList, setIsInMovieList] = useState(false);
 
    useEffect(() => {
       populateGenreList();
+      checkMovieList();
    }, []);
+
+   const checkMovieList = () => {
+      for (let i = 0; i < movieList.length; i++) {
+         if (movieList[i].id === id) {
+            setIsInMovieList(true);
+         }
+      }
+   };
 
    const populateGenreList = () => {
       for (let i = 0; i < genres.genres.length; i++) {
@@ -86,14 +102,59 @@ export default function BasicMovieImage({
                                                
                         "
                   />
-                  <form action={addMovieToMovieList}>
-                     <input type="hidden" name="movie_id" value={id} />
-                     <input type="hidden" name="list_id" value={movielistid} />
+                  {!isInMovieList ? (
+                     <form
+                        onSubmit={async (e) => {
+                           e.preventDefault();
+                           const response = await addMovieToMovieList(
+                              new FormData(e.target)
+                           );
+                           if (response.success) {
+                              setIsInMovieList(response.isInList);
+                           } else {
+                              // Handle error
+                              console.error(response.error);
+                           }
+                        }}
+                     >
+                        <input type="hidden" name="movie_id" value={id} />
+                        <input
+                           type="hidden"
+                           name="list_id"
+                           value={movielistid}
+                        />
 
-                     <button type="submit">
-                        <AddCircleOutline className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer hover:text-green-600 bg-gray-900/80" />
-                     </button>
-                  </form>
+                        <button type="submit">
+                           <AddCircleOutline className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer hover:text-green-600 bg-gray-900/80" />
+                        </button>
+                     </form>
+                  ) : (
+                     <form
+                        onSubmit={async (e) => {
+                           e.preventDefault();
+                           const response = await removeMovieFromMovieList(
+                              new FormData(e.target)
+                           );
+                           if (response.success) {
+                              setIsInMovieList(response.isInList);
+                           } else {
+                              // Handle error
+                              console.error(response.error);
+                           }
+                        }}
+                     >
+                        <input type="hidden" name="movie_id" value={id} />
+                        <input
+                           type="hidden"
+                           name="list_id"
+                           value={movielistid}
+                        />
+
+                        <button type="submit">
+                           <CheckBoxOutlined className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
+                        </button>
+                     </form>
+                  )}
                </div>
 
                <div
@@ -112,8 +173,16 @@ export default function BasicMovieImage({
                   <div className="p-4">
                      <div className="flex flex-col justify-between">
                         <div className="flex flex-col gap-2">
-                           <h3 className="text-xl">{title}</h3>
-                           <p className="text-[8px]">{overview}</p>
+                           <h3 className="text-xl">
+                              {title.length < 30
+                                 ? title
+                                 : title.slice(0, 29) + '...'}
+                           </h3>
+                           <p className="text-[8px]">
+                              {overview.length < 300
+                                 ? overview
+                                 : overview.slice(0, 299) + '...'}
+                           </p>
                            <p className="text-xs">{genreList}</p>
                         </div>
                         <div className="flex gap-12 absolute bottom-2">

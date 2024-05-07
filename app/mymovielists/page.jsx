@@ -1,9 +1,9 @@
-import DiscoverSlider from '../components/Discover/DiscoverSlider';
-import { createServerClient } from '@supabase/ssr';
+'use server';
+
 import { cookies } from 'next/headers';
-import Nav from '../components/Nav/Nav';
-import moviegrid from '../../assets/images/MovieGrid.png';
-import Image from 'next/image';
+import { createServerClient } from '@supabase/ssr';
+import Nav from '@/app/components/Nav/Nav';
+import MovieLists from '@/app/components/Profile/MovieLists';
 import MovieGrid from '../components/Movies/MovieGrid';
 
 async function getUser(supabaseServer) {
@@ -18,6 +18,7 @@ async function getUser(supabaseServer) {
 
    return user;
 }
+
 async function getFavoriteData(supabaseServer, u) {
    const { data: favoritesData, error: favoritesError } = await supabaseServer
       .from('favorites')
@@ -51,6 +52,33 @@ async function getDislikeData(supabaseServer, u) {
 
    return dislikeTitles;
 }
+
+async function getMovieLists(supabaseServer, userId) {
+   const { data: movieLists, error } = await supabaseServer
+      .from('MovieLists')
+      .select('*')
+      .eq('user_id', userId);
+   if (error) console.error('Error getting MovieLists');
+   return movieLists;
+}
+async function getMovieIds(supabaseServer, movieListId) {
+   const { data: movieIds, error: idError } = await supabaseServer
+      .from('MovieListItems')
+      .select('movie_id')
+      .eq('list_id', movieListId);
+   if (idError) console.error('Error getting Movie IDs', idError);
+   return movieIds;
+}
+
+async function getMovieImage(supabaseServer, movieIds) {
+   const { data: movieImageUrls, error: urlError } = await supabaseServer
+      .from('Movies')
+      .select('poster_path')
+      .in('id', movieIds);
+   if (urlError) console.error('Error getting Image Urls', urlError);
+   return movieImageUrls;
+}
+
 async function getGenres() {
    try {
       const response = await fetch(
@@ -60,13 +88,14 @@ async function getGenres() {
          throw new Error('Failed to fetch genres');
       }
       const data = await response.json();
+      // Update movie list state with fetched data
       return data;
    } catch (error) {
       console.error('Error fetching genres:', error);
    }
 }
 
-export default async function Discover({ searchParams }) {
+export default async function MyMovieLists({ params, searchParams }) {
    const cookieStore = cookies();
 
    const supabaseServer = createServerClient(
@@ -80,29 +109,44 @@ export default async function Discover({ searchParams }) {
          },
       }
    );
-
-   const user = await getUser(supabaseServer);
    const query = searchParams?.query || '';
+   const user = await getUser(supabaseServer);
+   const username = user.user_metadata.displayName;
+   const userId = user.id;
    const genres = await getGenres();
+
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
    const watchlistMovies = await getWatchlistData(supabaseServer, user);
    const dislikeMovies = await getDislikeData(supabaseServer, user);
 
+   const movieLists = await getMovieLists(supabaseServer, userId);
+   const listIds = movieLists.map((item) => item.id);
+   const allMovieIds = [];
+   for (const listId of listIds) {
+      const movieIdData = await getMovieIds(supabaseServer, listId);
+      const movieIds = movieIdData.map((item) => item.movie_id);
+      allMovieIds.push(movieIds);
+   }
+
+   const allMovieImages = [];
+   for (const idlist of allMovieIds) {
+      const imageData = await getMovieImage(supabaseServer, idlist);
+      const movieImages = imageData.map((item) => item.poster_path);
+      allMovieImages.push(movieImages);
+   }
    return (
-      <main className="bg-gray-900 text-slate-100 font-doppio max-h-screen max-w-screen">
+      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
          <Nav user={user} />
          {query === '' ? (
-            <div>
-               <DiscoverSlider user={user} />
-               <div>
-                  <Image
-                     src={moviegrid}
-                     className="absolute w-full object-cover h-full left-0 top-0 opacity-10 z-0"
-                  />
-               </div>
-            </div>
+            <section className="flex mt-20">
+               <MovieLists
+                  username={username}
+                  movielists={movieLists}
+                  movieimages={allMovieImages}
+               />
+            </section>
          ) : (
-            <div>
+            <section>
                <MovieGrid
                   user={user}
                   genres={genres}
@@ -112,7 +156,7 @@ export default async function Discover({ searchParams }) {
                   dislike_titles={dislikeMovies}
                   watchlist_titles={watchlistMovies}
                />
-            </div>
+            </section>
          )}
       </main>
    );

@@ -1,6 +1,12 @@
 import BasicMovieImage from './BasicMovieImage';
 
-export default function BasicMovieGrid({ data, user, genres, movielistid }) {
+export default function BasicMovieGrid({
+   data,
+   user,
+   genres,
+   movielistid,
+   movieList,
+}) {
    return (
       <div className=" flex flex-wrap gap-5 pl-20 pr-20">
          {data !== null &&
@@ -8,6 +14,7 @@ export default function BasicMovieGrid({ data, user, genres, movielistid }) {
             data.map((movie, index) => (
                <BasicMovieImage
                   key={index}
+                  movieList={movieList}
                   movielistid={movielistid}
                   u={user}
                   id={movie.id}

@@ -61,6 +61,14 @@ export default function Nav({ user, search = true }) {
                </li>
                <li>
                   <Link
+                     href="/mymovielists"
+                     className="text-slate-100 hover:text-slate-300"
+                  >
+                     Movie Lists
+                  </Link>
+               </li>
+               <li>
+                  <Link
                      href="/discover"
                      className="text-slate-100 hover:text-slate-300"
                   >

@@ -52,6 +52,7 @@ export default function ReviewForm({ movie_id }) {
                   <textarea
                      type="text"
                      name="content"
+                     maxLength="2000"
                      value={content}
                      className="hide-scrollbar ml-4 w-80 h-32 p-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer  rounded-lg"
                      onChange={(e) => setContent(e.target.value)}

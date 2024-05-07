@@ -3,7 +3,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-export default async function addMovieToMovieList(formData) {
+export default async function removeMovieFromMovieList(formData) {
    const movieId = formData.get('movie_id');
    const listId = formData.get('list_id');
    const cookieStore = cookies();
@@ -42,20 +42,18 @@ export default async function addMovieToMovieList(formData) {
       .select('*')
       .match({ movie_id: movieId, list_id: listId });
    if (error) console.error('Error fetching mOvieListItem Data', error);
-   console.log(data);
-   if (data[0] === undefined) {
-      console.log('inserting');
-      const { error: insertionError } = await supabaseServer
+   console.log('removing', data);
+   if (data[0] !== undefined) {
+      console.log('inner remove');
+      const { error: deletionError } = await supabaseServer
          .from('MovieListItems')
-         .insert({
-            list_id: listId,
-            movie_id: movieId,
-         });
-      if (insertionError) {
-         console.error('Error inserting Movie into List:', insertionError);
-         return { success: false, error: 'Error inserting Movie into List' };
+         .delete()
+         .match({ movie_id: movieId, list_id: listId });
+      if (deletionError) {
+         console.error('Error deleting Movie List Entry:', deletionError);
+         return { success: false, error: 'Error deleting Movie List Entry' };
       }
-      updatedList = true;
+      updatedList = false;
       return { success: true, isInList: updatedList };
    } else {
       return { success: false };

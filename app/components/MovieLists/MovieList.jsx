@@ -69,12 +69,14 @@ export default function MovieList({
 
          {addMovie && (
             <MovieListSearchGrid
+               movieList={movieList}
                movielistid={movielistid}
                addMovie={addMovie}
                data={data}
                user={user}
                genres={genres}
                onClose={toggleAdd}
+               query={query}
             />
          )}
       </div>

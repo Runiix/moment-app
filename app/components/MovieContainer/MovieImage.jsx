@@ -162,7 +162,11 @@ export default function MovieScrollerImage({
                   <div className="p-4">
                      <div className="flex flex-col justify-between">
                         <div className="flex flex-col gap-2">
-                           <h3 className="text-xl">{title}</h3>
+                           <h3 className="text-xl">
+                              {title.length < 30
+                                 ? title
+                                 : title.slice(0, 29) + '...'}
+                           </h3>
                            <p className="text-[8px]">
                               {overview.length < 300
                                  ? overview

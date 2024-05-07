@@ -37,6 +37,7 @@ export default function MovieLists({ username, movielists, movieimages }) {
                            movielist_title={movielist.name}
                            movielist_description={movielist.description}
                            movielist_images={movieimages[index]}
+                           movielist_id={movielist.id}
                         />
                      ))}
                   <button

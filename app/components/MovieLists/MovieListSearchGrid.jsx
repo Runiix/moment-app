@@ -4,17 +4,19 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import BasicMovieGrid from './BasicMovieGrid';
 
 export default function MovieListSearchGrid({
+   movieList,
    addMovie,
    data,
    user,
    genres,
    onClose,
    movielistid,
+   query,
 }) {
    const searchParams = useSearchParams();
    const pathName = usePathname();
    const { replace } = useRouter();
-   const [currQuery, setCurrQuery] = useState('');
+   const [currQuery, setCurrQuery] = useState(query);
 
    const handleSearch = (term) => {
       const params = new URLSearchParams(searchParams);
@@ -66,6 +68,7 @@ export default function MovieListSearchGrid({
             <div>
                {addMovie && (
                   <BasicMovieGrid
+                     movieList={movieList}
                      movielistid={movielistid}
                      user={user}
                      genres={genres}

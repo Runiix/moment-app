@@ -9,7 +9,7 @@ export default function Review({
    profile,
 }) {
    return (
-      <div className="flex flex-col w-full max-w-[40rem] border border-slate-400 rounded-lg p-4">
+      <div className="flex flex-col w-full max-w-[40rem] border border-slate-400 rounded-lg p-4 shadow-lg shadow-black">
          <div
             className={`flex gap-5 items-center mb-5 ${profile ? 'ml-5' : ''}`}
          >
@@ -34,7 +34,13 @@ export default function Review({
                      {username}
                   </Link>
                ) : (
-                  <h2 className="text-xl">{movie_title}</h2>
+                  <Link
+                     href={`../../movies/1/vote_average/false?query=${movie_title}`}
+                  >
+                     <h2 className="text-xl hover:text-green-600">
+                        {movie_title}
+                     </h2>
+                  </Link>
                )}
 
                {rating === 10 ? (

@@ -200,6 +200,7 @@ export default async function ProfilePage({ params }) {
 
                <MovieLists
                   username={username}
+                  paramusername={paramUserName}
                   movielists={movieLists}
                   movieimages={allMovieImages}
                />

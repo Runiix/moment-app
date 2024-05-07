@@ -140,6 +140,16 @@ Allows for the sortgin of Movies by Rating, Name and Popularity in ascending and
 Same Concept as the Movies page but only displays Movies in the current users Likes, Dislikes or Watchlist.
 Allows filtering between My Movies, Favorites, Dislikes and Watchlist
 
+### Movie Lists
+
+![Movie Lists](Doc-Images/Movie-Lists.png)
+
+Allows users to create, edit and delete custom Movie Lists.
+
+![Movie List](Doc-Images/MovieList.png)
+
+Clicking on a list leads to a seperate Page where the List Creator can add or Remove Movies from the list. The unique list link makes it possible to share lists with friends.
+
 ### Discover
 
 ![Discover](Doc-Images/Discover.png)
@@ -159,12 +169,7 @@ By exchangeing the username in the pathurl or clicking on the username on a revi
 
 ![Movie Lists](Doc-Images/MovieLists.png)
 
-Enables users to create custom Movie Lists to be displayed on the Profile.
-A Movie List can also be shared with other users by using its unique link.
-
-![Movie List](Doc-Images/MovieList.png)
-
-Click on the + on the MoveiList Page to search through all available Movies and add them to the List
+The users Movie Lists cann also be accessed via the Profile.
 
 ### User Authentification
 

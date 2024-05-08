@@ -29,16 +29,16 @@ export default function MovieListContainer({
    };
 
    return (
-      <div className="border border-slate-400 min-w-96 w-full rounded-lg group flex shadow-lg shadow-black">
-         <Link href={movielist_link}>
-            <div className="flex h-52 w-full min-w-[34rem] hover:bg-gray-800 hover:rounded-l-lg ">
+      <div className="border border-slate-400 rounded-lg group grid grid-cols-12 shadow-lg shadow-black">
+         <Link href={movielist_link} className="col-span-11">
+            <div className="hover:bg-gray-800 hover:rounded-l-lg flex">
                {!movielist_images || movielist_images.length < 4 ? (
                   <div>
                      <Image
                         priority={true}
                         src={MovieGrid}
                         alt="MovieListImage 1"
-                        className="object-cover w-32 min-w-32 h-full rounded-l-lg"
+                        className="object-cover w-32 min-w-32 h-52 rounded-l-lg"
                      />
                   </div>
                ) : (
@@ -68,12 +68,12 @@ export default function MovieListContainer({
 
                <div className="m-3 ml-5 flex flex-col gap-4 max-w-96 min-w-">
                   <h2 className="text-xl">{movielist_title}</h2>
-                  <p>{movielist_description}</p>
+                  <p className="hidden sm:flex">{movielist_description}</p>
                </div>
             </div>
          </Link>
          {username === paramusername && (
-            <div className="flex-col p-2 pl-6 w-10 max-w-10 border-l border-slate-400">
+            <div className="flex-col border-l border-slate-400 col-span-1 sm:pl-2 pt-2">
                <div>
                   <Edit
                      className="hover:text-green-600 hover:cursor-pointer"

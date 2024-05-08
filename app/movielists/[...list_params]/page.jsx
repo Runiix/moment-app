@@ -133,6 +133,8 @@ export default async function movielists({ params, searchParams }) {
    );
 
    const user = await getUser(supabaseServer);
+   const username = user.user_metadata.displayName;
+   const paramUsername = params.list_params[0];
    const query = searchParams?.query || '';
    const MovieListId = params.list_params[1];
    const favoriteMovies = await getFavoriteData(supabaseServer, user);
@@ -163,6 +165,8 @@ export default async function movielists({ params, searchParams }) {
                favorite_titles={favoriteMovies}
                dislike_titles={dislikeMovies}
                watchlist_titles={watchlistMovies}
+               username={username}
+               paramusername={paramUsername}
             />
          </div>
       </main>

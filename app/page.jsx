@@ -45,10 +45,11 @@ export default function LandingPage() {
                Get Started
             </Link>
          </div>
-
-         <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
-            <ExpandMore />
-         </div>
+         <Link href="#second-section">
+            <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
+               <ExpandMore />
+            </div>
+         </Link>
          <div className="flex  items-center gap-5 mx-5 text-sm sm:text-lg my-10 opacity-50">
             <Image src={tmdb} alt="tmdb-logo" className="w-14" />
             <p>
@@ -57,7 +58,7 @@ export default function LandingPage() {
             </p>
          </div>
 
-         <div className="flex flex-col items-center">
+         <div className="flex flex-col items-center" id="second-section">
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg">
                <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Explore over 2000 Movies!

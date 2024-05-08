@@ -17,6 +17,8 @@ export default function MovieList({
    favorite_titles,
    dislike_titles,
    watchlist_titles,
+   username,
+   paramusername,
 }) {
    const [addMovie, setAddMovie] = useState(false);
 
@@ -30,7 +32,7 @@ export default function MovieList({
             <h2 className=" text-6xl ">{movielisttitle}</h2>
             <p className="text-xs">{movielistdescription}</p>
          </div>
-         <div className="absolute top-28 flex flex-col w-screen gap-5 items-center ">
+         <div className="absolute top-28 flex flex-col w-full gap-5 items-center ">
             <div>
                {params.list_params[0] === user.user_metadata.displayName && (
                   <button
@@ -42,7 +44,7 @@ export default function MovieList({
                   </button>
                )}
             </div>
-            <div className=" mx-10 mt-10 grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+            <div className="mt-10 grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 ">
                {movieList !== null &&
                   movieList !== undefined &&
                   movieList.map((movie, index) => (
@@ -62,6 +64,10 @@ export default function MovieList({
                         watchlist_titles={watchlist_titles}
                         favorite_titles={favorite_titles}
                         dislike_titles={dislike_titles}
+                        list={true}
+                        movielistid={movielistid}
+                        username={username}
+                        paramusername={paramusername}
                      />
                   ))}
             </div>

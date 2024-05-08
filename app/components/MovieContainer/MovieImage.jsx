@@ -16,6 +16,7 @@ import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist
 import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
 
 export default function MovieScrollerImage({
    id,
@@ -33,6 +34,10 @@ export default function MovieScrollerImage({
    favorite_titles,
    watchlist_titles,
    dislike_titles,
+   list = false,
+   movielistid,
+   username,
+   paramusername,
 }) {
    const [isFavorited, setIsFavorited] = useState(false);
    const [isOnWatchlist, setIsOnWatchlist] = useState(false);
@@ -125,6 +130,7 @@ export default function MovieScrollerImage({
                     sm:group-hover:visible
                     sm:group-hover:translate-y-1
                     ${isFirst ? 'group-hover:translate-x-28' : ''}
+                    
                     hover:cursor-pointer
                     `}
                onClick={() => setShowModal(true)}
@@ -146,6 +152,26 @@ export default function MovieScrollerImage({
                         rounded-l-md                        
                         "
                />
+               {list && username === paramusername && (
+                  <form
+                     onSubmit={async (e) => {
+                        e.preventDefault();
+                        const response = await removeMovieFromMovieList(
+                           new FormData(e.target)
+                        );
+                        if (response.error) {
+                           console.error(response.error);
+                        }
+                     }}
+                  >
+                     <input type="hidden" name="movie_id" value={id} />
+                     <input type="hidden" name="list_id" value={movielistid} />
+
+                     <button type="submit">
+                        <CheckCircle className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
+                     </button>
+                  </form>
+               )}
                <div
                   className="
                         bg-gray-950

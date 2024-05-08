@@ -3,6 +3,7 @@
 import {
    AddCircleOutline,
    CheckBoxOutlined,
+   CheckCircle,
    StarHalf,
 } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
@@ -151,7 +152,7 @@ export default function BasicMovieImage({
                         />
 
                         <button type="submit">
-                           <CheckBoxOutlined className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
+                           <CheckCircle className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
                         </button>
                      </form>
                   )}

@@ -3,9 +3,9 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 async function fetchMovies() {
-   const totalPages = 100;
+   const totalPages = 200;
    const requests = [];
-   for (let page = 1; page <= totalPages; page++) {
+   for (let page = 101; page <= totalPages; page++) {
       requests.push(
          fetch(
             `https://api.themoviedb.org/3/discover/movie?api_key=77ea84f8c960e9d8d7e658a914bd428b&include_adult=false&include_video=false&language=en-US&page=${page}&vote_count.gte=200&sort_by=vote_count.desc`

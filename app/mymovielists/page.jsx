@@ -141,6 +141,7 @@ export default async function MyMovieLists({ params, searchParams }) {
             <section className="flex mt-20">
                <MovieLists
                   username={username}
+                  paramusername={username}
                   movielists={movieLists}
                   movieimages={allMovieImages}
                />

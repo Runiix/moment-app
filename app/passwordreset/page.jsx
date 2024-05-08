@@ -14,6 +14,7 @@ export default function PasswordReset() {
 
    const confirmPasswords = async () => {
       const { password, confirmPassword } = data;
+      console.log(password, confirmPassword);
       if (password !== confirmPassword) {
          return alert('Passwords are different!');
       }
@@ -22,7 +23,9 @@ export default function PasswordReset() {
       });
       if (error) console.error(error);
       alert('Password changed successfully');
-      router.replace('/home');
+      /* if (resetData) {
+         router.replace('/home');
+      } */
    };
 
    const handlePasswordChange = (e) => {

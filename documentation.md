@@ -49,11 +49,73 @@ Tailwind-CSS offers preconfigured css styling that is written directly as an ele
 
 ## 3.Defining The Necessary Features
 
-After already thinking of this aspect during the selection of the Development Stack
+After already thinking of this aspect during the selection of the Development Stack i took a lot of inspiration from other popular Movie Providers.
+The Main Features that i decided on were the following:
+
+-  Account creation and management
+-  Search, filter and view movie data
+-  Add Movies to Favorites
+-  Landing Page with Favorites and Movies filtered by genre
+-  Profile Page
 
 ## 4.Design
 
-The Design process was quite short since the Porject focus should be placed more on the technical components. I took a lot of inspiration from popular Movie Platforms like Netflix, Amazon Prime and Disney Plus. I went through come color palettes online to find a color theme that i liked and wasnt used by any of the other major Movie Platforms jet. The selection of the title MoMent as a combination of Movie and entertainment came quite easily. After liking th title so much, i decided to focus the application on just Movies and not TV-Series. I also decided not to use a design software like figma and just made some rough sketches on paper of my main pages after i defined the necessary features.
+The Design process was quite short since the Project focus should be placed more on the technical components. I took a lot of inspiration from popular Movie Platforms like Netflix, Amazon Prime and Disney Plus. I went through eome color palettes online to find a color-theme that i liked and wasn't used by any of the other major Movie Platforms jet. The selection of the title MoMent as a combination of Movie and entertainment came quite easily. After liking the title so much, i decided to focus the application on just Movies and not TV-Series. I also decided not to use a design software like figma and just made some rough sketches on paper of my main pages after i defined the necessary features.
+
+## 5.Implementation
+
+### 5.1 Setting up the Project
+
+#### 5.1.1 Next-JS Project
+
+I used Visual Studio code for the Project, to start a new NextJS Project with supabase follow these steps:
+
+-  `npx create-next-app@latest` creates a new NextJS Project, after choosing a project name, i selected the options:
+   -  Typescript? No
+   -  ESLInt? No
+   -  Tailwind CSS? Yes
+   -  `src/` Directory? No
+   -  App Router? Yes
+   -  import alias? No
+
+#### 5.1.2 Supabase
+
+-  First i installed the packages `npm install @supabase/supabase-js` and `npm install @supabase/ssr`
+-  they provide all the necessary fcuntionality to interact with supabase
+
+#### 5.1.2 Supabase Local Setup with Docker
+
+### 5.2 User Authentification
+
+User Authentification was the first feature i started to implement.
+Necessary Components:
+
+-  Landing Page
+-  Sign IN/UP Page
+-  Password Resetting Page
+-  not Logged in users get to landing Page first
+-  click on Button to get to Sign In/Up
+-  change between signing up and signing out by clicking on button
+-
+
+#### 5.2.1 Pages and Components
+
+```
+app
+page.jsx
+    loginpage
+        page.jsx
+    passwordreset
+        page.jsx
+components
+    Login
+        AuthForm.jsx
+auth
+    confirm
+        route.js
+    signout
+        route.js
+```
 
 ## Technical Feature Description
 
@@ -170,16 +232,3 @@ By exchangeing the username in the pathurl or clicking on the username on a revi
 ![Movie Lists](Doc-Images/MovieLists.png)
 
 The users Movie Lists cann also be accessed via the Profile.
-
-### User Authentification
-
-User Authentification was the first feature i started to implement.
-Necessary Components:
-
--  Landing Page
--  Sign IN/UP Page
--  Password Resetting Page
-
--  not Logged in users get to landing Page first
--  click on Button to get to Sign In/Up
--  change between signing up and signing out by clicking on button

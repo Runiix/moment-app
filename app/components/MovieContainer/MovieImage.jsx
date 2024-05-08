@@ -48,7 +48,6 @@ export default function MovieScrollerImage({
    const router = useRouter();
 
    useEffect(() => {
-      populateGenreList();
       const checkForFavorites = () => {
          if (favorite_titles !== undefined) {
             const isFavorited = favorite_titles.some((item) => item === title);
@@ -68,6 +67,9 @@ export default function MovieScrollerImage({
       };
       checkForFavorites();
    }, [showModal]);
+   useEffect(() => {
+      populateGenreList();
+   }, []);
 
    const populateGenreList = () => {
       const genreList = new Set();

@@ -117,26 +117,50 @@ export default function ProfileBanner({
    }
 
    async function getProfilePictureUrl(userId) {
-      const { data, error } = await supabase.storage
+      const { data: listData, error: listError } = await supabase.storage
          .from('profileimages')
-         .createSignedUrl(`${userId}/ProfilePicture/ProfilePic.jpg`, 60 * 60);
-      if (error) {
-         console.error('Error generating signed URL', error);
-         return null;
-      } else {
-         setProfilePicUrl(data.signedUrl);
+         .list(user?.id + '/ProfilePicture', {
+            limit: 1,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+         });
+      if (listData.length !== 0) {
+         const { data, error } = await supabase.storage
+            .from('profileimages')
+            .createSignedUrl(
+               `${userId}/ProfilePicture/ProfilePic.jpg`,
+               60 * 60
+            );
+         if (error) {
+            console.error('Error generating signed URL', error);
+            return null;
+         } else {
+            setProfilePicUrl(data.signedUrl);
+         }
       }
    }
 
    async function getProfileBannerUrl(userId) {
-      const { data, error } = await supabase.storage
+      const { data: listData, error: listError } = await supabase.storage
          .from('profileimages')
-         .createSignedUrl(`${userId}/ProfileBanner/ProfileBanner.jpg`, 60 * 60);
-      if (error) {
-         console.error('Error generating signed URL', error);
-         return null;
-      } else {
-         setBannerUrl(data.signedUrl);
+         .list(user?.id + '/ProfileBanner', {
+            limit: 1,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+         });
+      if (listData.length !== 0) {
+         const { data, error } = await supabase.storage
+            .from('profileimages')
+            .createSignedUrl(
+               `${userId}/ProfileBanner/ProfileBanner.jpg`,
+               60 * 60
+            );
+         if (error) {
+            console.error('Error generating signed URL', error);
+            return null;
+         } else {
+            setBannerUrl(data.signedUrl);
+         }
       }
    }
 

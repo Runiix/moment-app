@@ -45,8 +45,11 @@ export default function LandingPage() {
                Get Started
             </Link>
          </div>
-         <Link href="#second-section">
-            <div className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer">
+         <Link
+            href="#second-section"
+            className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer"
+         >
+            <div className=" ">
                <ExpandMore />
             </div>
          </Link>

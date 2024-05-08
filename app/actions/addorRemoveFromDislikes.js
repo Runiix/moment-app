@@ -35,12 +35,10 @@ export async function addOrRemoveFromDislikes(formData) {
    if (!user) {
       return { success: false, error: 'User is not authenticated!' };
    }
-   console.log(movieTitle, user.id, 'isDisliked:', isDisliked);
 
    let updatedDislike;
 
    if (isDisliked === 'true') {
-      console.log('removed from dislike', isDisliked);
       const { error } = await supabase
          .from('dislikes')
          .delete()
@@ -51,7 +49,6 @@ export async function addOrRemoveFromDislikes(formData) {
       }
       updatedDislike = false;
    } else {
-      console.log(movieTitle, user.id, 'isDisliked:', isDisliked);
       const { error } = await supabase
          .from('dislikes')
          .insert({ user_id: user.id, movie_title: movieTitle });

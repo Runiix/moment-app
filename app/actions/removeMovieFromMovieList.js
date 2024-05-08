@@ -42,9 +42,7 @@ export default async function removeMovieFromMovieList(formData) {
       .select('*')
       .match({ movie_id: movieId, list_id: listId });
    if (error) console.error('Error fetching mOvieListItem Data', error);
-   console.log('removing', data);
    if (data[0] !== undefined) {
-      console.log('inner remove');
       const { error: deletionError } = await supabaseServer
          .from('MovieListItems')
          .delete()

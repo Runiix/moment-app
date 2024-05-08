@@ -35,12 +35,11 @@ export async function addOrRemoveFromWatchlist(formData) {
    if (!user) {
       return { success: false, error: 'User is not authenticated!' };
    }
-   console.log(movieTitle, user.id, 'isOnWatchlist:', isOnWatchList);
+   movieTitle, user.id, 'isOnWatchlist:', isOnWatchList;
 
    let updatedWatchlist;
 
    if (isOnWatchList === 'true') {
-      console.log('removed', isOnWatchList);
       const { error } = await supabase
          .from('watchlist')
          .delete()
@@ -51,7 +50,6 @@ export async function addOrRemoveFromWatchlist(formData) {
       }
       updatedWatchlist = false;
    } else {
-      console.log(movieTitle, user.id, 'isOnWatchlist:', isOnWatchList);
       const { error } = await supabase
          .from('watchlist')
          .insert({ user_id: user.id, movie_title: movieTitle });

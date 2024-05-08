@@ -27,7 +27,6 @@ export default async function getFavoriteData(
          },
       }
    );
-   console.log(params.favoritefilters[0]);
    let list = null;
    if (params.favoritefilters[0] === 'Movies') {
       list = myMovies;
@@ -54,8 +53,6 @@ export default async function getFavoriteData(
          .ilike('title', `%${query}%`)
          .range(from, to);
       if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
          throw new Error('Failed to fetch data');
       }
 
@@ -72,8 +69,6 @@ export default async function getFavoriteData(
          .ilike('title', `%${query}%`)
          .range(from, to);
       if (error) {
-         // This will activate the closest `error.js` Error Boundary
-         console.log(params);
          throw new Error('Failed to fetch data');
       }
 

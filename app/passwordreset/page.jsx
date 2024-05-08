@@ -14,7 +14,6 @@ export default function PasswordReset() {
 
    const confirmPasswords = async () => {
       const { password, confirmPassword } = data;
-      console.log(password, confirmPassword);
       if (password !== confirmPassword) {
          return alert('Passwords are different!');
       }

@@ -68,7 +68,6 @@ export default function MovieGrid({
    };
 
    useEffect(() => {
-      console.log(genres);
       loadMovies(0);
    }, [query]);
 
@@ -125,7 +124,6 @@ export default function MovieGrid({
                return;
             }
          }
-         console.log('GenreFilter', genreFilter);
 
          setGenreFilter('Genre');
       };

@@ -85,6 +85,34 @@ I used Visual Studio code for the Project, to start a new NextJS Project with su
 
 #### 5.1.2 Supabase Local Setup with Docker
 
+Local Development allows for faster development, working offline and allows for free usage since the regular free plan only includes two Projects.
+First install Docker Desktop and Git, then run the following commands in your terminal.
+
+```
+#Get the code
+git clone --depth 1 https://github.com/supabase/supabase
+
+# Go to the docker folder
+cd supabase/docker
+
+# Copy the fake env vars
+cp .env.example .env
+
+# Pull the latest images
+docker compose pull
+
+# Start the services (in detached mode)
+docker compose up -d
+
+#initialise a new supabase
+supabase init
+
+#start supabase
+supabase start
+```
+
+After starting supabase you get access to personal access tokens to include in your projext env.local file to connect your Project. The local configuration also offers a local studio platform similar to the online version, but with some less features.
+
 ### 5.2 User Authentification
 
 User Authentification was the first feature i started to implement.
@@ -96,7 +124,6 @@ Necessary Components:
 -  not Logged in users get to landing Page first
 -  click on Button to get to Sign In/Up
 -  change between signing up and signing out by clicking on button
--
 
 #### 5.2.1 Pages and Components
 

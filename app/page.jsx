@@ -61,8 +61,8 @@ export default function LandingPage() {
             </p>
          </div>
 
-         <div className="flex flex-col items-center" id="second-section">
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg">
+         <div className="flex flex-col items-center mx-2" id="second-section">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border-y border-y-slate-400 rounded-lg">
                <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Explore over 2000 Movies!
                </h2>
@@ -72,7 +72,7 @@ export default function LandingPage() {
                   className="rounded-full object-cover w-10/12 sm:w-1/2 h-auto shadow-inner border"
                />
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border-y border-y-slate-400 rounded-lg">
                <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Read reviews and discuss with other users
                </h2>
@@ -82,7 +82,7 @@ export default function LandingPage() {
                   alt="Reviews and Comments"
                />
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border border-slate-400 rounded-lg mb-20">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border-y border-y-slate-400 rounded-lg mb-20">
                <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
                   Avaialable for your Phone and PC
                </h2>

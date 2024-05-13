@@ -37,8 +37,8 @@ export default function NavSearch({ show = false, mobile = false, id }) {
                   id={id}
                   value={query}
                   className={`${
-                     showSearch ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-                  } sm:pr-48 md:px-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer p-2 rounded-lg`}
+                     showSearch ? 'flex opacity-100' : 'hidden opacity-0'
+                  }  md:px-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer p-2 rounded-lg`}
                   type="text"
                   placeholder="Search a Movie"
                   onChange={(e) => {

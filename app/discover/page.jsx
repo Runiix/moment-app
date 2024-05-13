@@ -94,12 +94,11 @@ export default async function Discover({ searchParams }) {
          {query === '' ? (
             <div>
                <DiscoverSlider user={user} />
-               <div>
-                  <Image
-                     src={moviegrid}
-                     className="absolute w-full object-cover h-full left-0 top-0 opacity-10 z-0"
-                  />
-               </div>
+               <Image
+                  src={moviegrid}
+                  className="absolute w-full object-cover h-full left-0 top-0 opacity-10"
+                  alt="movies"
+               />
             </div>
          ) : (
             <div>

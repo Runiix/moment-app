@@ -25,56 +25,50 @@ export default function Nav({ user, search = true }) {
       <nav
          className={
             navbarBackground
-               ? 'fixed w-screen top-0 left-0 p-4 z-50 flex lg:justify-between items-center bg-gray-900'
-               : 'fixed w-screen top-0 left-0 p-4 z-50 flex lg:justify-between items-center bg-gradient-to-b from-gray-900 via-gray-900/80 to-gray-900/0'
+               ? 'fixed w-screen top-0 left-0 p-4 z-50 flex md:justify-between items-center bg-gray-900'
+               : 'fixed w-screen top-0 left-0 p-4 z-50 flex md:justify-between items-center bg-gradient-to-b from-gray-900 via-gray-900/80 to-gray-900/0'
          }
       >
-         <div className=" flex items-center gap-10 ">
+         <div className=" flex items-center gap-2 sm:gap-10 ">
             <Link href="/home" className="hover:cursor-pointer">
                <h1 className="text-4xl font-bold text-green-600">MoMent</h1>
                <p className="text-xs">Movie-Entertainment</p>
             </Link>
-            <ul className="hidden sm:flex gap-4 lg:gap-10">
-               <li>
-                  <Link
-                     href="/home"
-                     className="text-slate-100 hover:text-slate-300"
-                  >
-                     Homepage
-                  </Link>
-               </li>
-               <li>
-                  <Link
-                     href="/movies/1/vote_average/false"
-                     className="text-slate-100 hover:text-slate-300"
-                  >
-                     Movies
-                  </Link>
-               </li>
-               <li>
-                  <Link
-                     href="/mymovies/Movies/1/vote_average/false"
-                     className="text-slate-100 hover:text-slate-300"
-                  >
-                     My Movies
-                  </Link>
-               </li>
-               <li>
-                  <Link
-                     href="/mymovielists"
-                     className="text-slate-100 hover:text-slate-300"
-                  >
-                     Movie Lists
-                  </Link>
-               </li>
-               <li>
-                  <Link
-                     href="/discover"
-                     className="text-slate-100 hover:text-slate-300"
-                  >
-                     Discover
-                  </Link>
-               </li>
+            <ul className="hidden sm:flex text-xs md:text-base gap-4 xl:gap-10 text-nowrap">
+               <Link
+                  href="/home"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>Homepage</li>
+               </Link>
+
+               <Link
+                  href="/movies/1/vote_average/false"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>Movies</li>
+               </Link>
+
+               <Link
+                  href="/mymovies/Movies/1/vote_average/false"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>My Movies</li>
+               </Link>
+
+               <Link
+                  href="/mymovielists"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>Movie Lists</li>
+               </Link>
+
+               <Link
+                  href="/discover"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>Discover</li>
+               </Link>
             </ul>
          </div>
          <div className="flex items-center gap-5 absolute lg:static right-8">
@@ -143,6 +137,13 @@ export default function Nav({ user, search = true }) {
                   <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
                      My Movies
                   </li>
+               </Link>
+
+               <Link
+                  href="/mymovielists"
+                  className="text-slate-100 hover:text-slate-300"
+               >
+                  <li>Movie Lists</li>
                </Link>
 
                <Link

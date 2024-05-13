@@ -72,109 +72,116 @@ export default function DiscoverSlider({ user }) {
    }; */
 
    return (
-      <div className="mt-28 sm:mt-24 z-20">
+      <div className=" ">
          {randomMovie && (
-            <div
-               ref={parentRef}
-               className="flex flex-col gap-4 items-center justify-center z-20"
-            >
-               <div className="group z-50 ">
-                  <form action={addOrRemoveFromFavorites}>
-                     <input
-                        type="hidden"
-                        name="title"
-                        value={randomMovie[0].title}
-                     />
-                     <input type="hidden" name="isFavorited" value={false} />
-                     <input type="hidden" name="pathname" value={pathname} />
-                     <button
-                        type="submit"
-                        className="absolute sm:static z-20 scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300 flex flex-col items-center"
-                        onClick={() => getRandomId()}
-                     >
-                        <KeyboardArrowUp />
-                        <p className=" text-[5px] invisible group-hover:visible bg-opacity-0">
-                           {' '}
-                           Add To favorites
-                        </p>
-                        <Favorite />
-                     </button>
-                  </form>
+            <div>
+               {/*                   <Draggable bounds={parentRef}>
+                */}
+               <div className="">
+                  <MovieDiscoverImage
+                     id={randomMovie[0].id}
+                     u={user}
+                     src={`https://image.tmdb.org/t/p/w500${randomMovie[0].poster_path}`}
+                     src2={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
+                     title={randomMovie[0].title}
+                     overview={randomMovie[0].overview}
+                     rating={randomMovie[0].vote_average.toFixed(1)}
+                     votecount={randomMovie[0].vote_count}
+                     releasedate={randomMovie[0].release_date}
+                     genre={randomMovie[0].genre_ids}
+                  />
                </div>
-               <div className="flex items-center sm:gap-16 z-20">
-                  <div
-                     onClick={() => getRandomId()}
-                     className="absolute sm:static z-10 flex group scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 items-center"
-                  >
-                     <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[-90deg] relative left-9">
-                        Next Movie
-                     </p>
-                     <KeyboardArrowLeft />
-                     <NotInterested />
+               {/*                   </Draggable>
+                */}{' '}
+               <div
+                  ref={parentRef}
+                  className="bg-opacity-0 flex flex-col w-screen h-[62vh] max-h-[500px] sm:max-h-screen justify-between sm:justify-around items-center mt-20"
+               >
+                  <div className="group z-40">
+                     <form action={addOrRemoveFromFavorites}>
+                        <input
+                           type="hidden"
+                           name="title"
+                           value={randomMovie[0].title}
+                        />
+                        <input type="hidden" name="isFavorited" value={false} />
+                        <input type="hidden" name="pathname" value={pathname} />
+                        <button
+                           type="submit"
+                           className="scale-[2] flex flex-col items-center hover:text-green-600"
+                           onClick={() => getRandomId()}
+                        >
+                           <KeyboardArrowUp />
+                           <Favorite />
+                           <p className=" text-[5px] invisible group-hover:visible bg-opacity-0">
+                              {' '}
+                              Add To favorites
+                           </p>
+                        </button>
+                     </form>
                   </div>
-                  {/*                   <Draggable bounds={parentRef}>
-                   */}{' '}
-                  <div className="handle scale-[1.6] sm:scale-100 z-0">
-                     <MovieDiscoverImage
-                        id={randomMovie[0].id}
-                        u={user}
-                        src={`https://image.tmdb.org/t/p/w500${randomMovie[0].poster_path}`}
-                        src2={`https://image.tmdb.org/t/p/original${randomMovie[0].backdrop_path}`}
-                        title={randomMovie[0].title}
-                        overview={randomMovie[0].overview}
-                        rating={randomMovie[0].vote_average.toFixed(1)}
-                        votecount={randomMovie[0].vote_count}
-                        releasedate={randomMovie[0].release_date}
-                        genre={randomMovie[0].genre_ids}
-                     />
-                  </div>
-                  {/*                   </Draggable>
-                   */}{' '}
-                  <form action={addOrRemoveFromWatchlist}>
-                     <input
-                        type="hidden"
-                        name="title"
-                        value={randomMovie[0].title}
-                     />
-                     <input type="hidden" name="isOnWatchlist" value={false} />
-                     <input type="hidden" name="pathname" value={pathname} />
-                     <button
-                        type="submit"
-                        className=" absolute sm:static group flex items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-green-600 hover:scale-[2.2] transition duration-300"
+                  <div className="flex justify-between sm:justify-around w-[75vw] z-40">
+                     <div
                         onClick={() => getRandomId()}
+                        className="scale-[2] flex items-center hover:cursor-pointer hover:text-red-600 group"
                      >
-                        <AddCircleOutline />
-                        <KeyboardArrowRight />
-                        <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[90deg] relative right-10">
-                           {' '}
-                           Add To Watchlist
+                        <KeyboardArrowLeft />
+                        <NotInterested />
+                        <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[-90deg] relative right-10">
+                           Next Movie
                         </p>
-                     </button>
-                  </form>
-               </div>
-               <div className="group z-20 ">
-                  <form
-                     action={addOrRemoveFromDislikes}
-                     onSubmit={() => getRandomId()}
-                  >
-                     <input
-                        type="hidden"
-                        name="title"
-                        value={randomMovie[0].title}
-                     />
-                     <input type="hidden" name="isDisliked" value={false} />
-                     <input type="hidden" name="pathname" value={pathname} />
-                     <button
-                        type="submit"
-                        className="absolute sm:static z-20 group items-center scale-[2] bg-transparent border-none text-slate-100 cursor-pointer hover:text-red-600 hover:scale-[2.2] transition duration-300 flex flex-col"
+                     </div>
+                     <form action={addOrRemoveFromWatchlist}>
+                        <input
+                           type="hidden"
+                           name="title"
+                           value={randomMovie[0].title}
+                        />
+                        <input
+                           type="hidden"
+                           name="isOnWatchlist"
+                           value={false}
+                        />
+                        <input type="hidden" name="pathname" value={pathname} />
+                        <button
+                           type="submit"
+                           className="scale-[2] flex items-center hover:text-green-600 group"
+                           onClick={() => getRandomId()}
+                        >
+                           <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[90deg] relative left-12">
+                              {' '}
+                              Add To Watchlist
+                           </p>
+                           <AddCircleOutline />
+                           <KeyboardArrowRight />
+                        </button>
+                     </form>
+                  </div>
+                  <div className="group z-20 ">
+                     <form
+                        action={addOrRemoveFromDislikes}
+                        onSubmit={() => getRandomId()}
                      >
-                        <HeartBroken />
-                        <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">
-                           Add to Dislikes
-                        </p>
-                        <KeyboardArrowDown />
-                     </button>
-                  </form>
+                        <input
+                           type="hidden"
+                           name="title"
+                           value={randomMovie[0].title}
+                        />
+                        <input type="hidden" name="isDisliked" value={false} />
+                        <input type="hidden" name="pathname" value={pathname} />
+                        <button
+                           type="submit"
+                           className="scale-[2] flex flex-col items-center hover:text-red-600"
+                        >
+                           <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">
+                              Add to Dislikes
+                           </p>
+                           <HeartBroken />
+
+                           <KeyboardArrowDown />
+                        </button>
+                     </form>
+                  </div>
                </div>
             </div>
          )}

@@ -12,7 +12,6 @@ async function getUser(supabaseServer) {
    } = await supabaseServer.auth.getUser();
 
    if (error) {
-      // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data');
    }
 

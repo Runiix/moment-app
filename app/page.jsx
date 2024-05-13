@@ -84,7 +84,7 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-around py-2 w-11/12 sm:w-full shadow-xl shadow-black my-6 border-y border-y-slate-400 rounded-lg mb-20">
                <h2 className="text-3xl sm:text-5xl mx-4 text-center sm:text-left w-80">
-                  Avaialable for your Phone and PC
+                  Available for your Phone and PC
                </h2>
                <Image
                   className="rounded-full object-cover w-10/12 sm:w-1/3 h-auto shadow-inner border"

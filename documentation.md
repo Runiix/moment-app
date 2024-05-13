@@ -16,6 +16,8 @@
 
 #### 8. Bug Fixing and Testing
 
+#### 9. Usage and Features
+
 ## 1.The Goal
 
 My goal during my 11 week internship was to create a full stack web-application. This Project would help me to solidify my current knowledge with the basics of Web-Development like HTML, CSS and classic Javascript, but also introduce more modern Versions of Front-End Development and also start using a Backend which i didnt have a lot of previous experience with. I decided on implementing a Movie/TV-Series Application, since it fits the all the before moentioned criteria and it is very easy to get data via an API.
@@ -81,7 +83,7 @@ I used Visual Studio code for the Project, to start a new NextJS Project with su
 #### 5.1.2 Supabase
 
 -  First i installed the packages `npm install @supabase/supabase-js` and `npm install @supabase/ssr`
--  they provide all the necessary fcuntionality to interact with supabase
+-  they provide all the necessary fcuntionality to interact with supabase in vs-code
 
 #### 5.1.2 Supabase Local Setup with Docker
 
@@ -113,17 +115,43 @@ supabase start
 
 After starting supabase you get access to personal access tokens to include in your projext env.local file to connect your Project. The local configuration also offers a local studio platform similar to the online version, but with some less features.
 
-### 5.2 User Authentification
+### 5.1.3 Creating Tables in Supabase
 
-User Authentification was the first feature i started to implement.
-Necessary Components:
+Supabase already offers an existing special table for users from the start, so there is no need to create a users table.
+I only created a seperate one because you cant access specific
 
--  Landing Page
--  Sign IN/UP Page
--  Password Resetting Page
--  not Logged in users get to landing Page first
--  click on Button to get to Sign In/Up
--  change between signing up and signing out by clicking on button
+![UML of SQL Tables](Doc-Images/UML.png)
+
+##### Movies:
+
+Stores all the available Movies and their data.
+
+##### users:
+
+A copy of the auth.users table. This one is necessary for some filtered data fetching, since the auth.users table cant be filtered.
+
+##### MovieLists:
+
+Stores all the Movie Lists created by users
+
+##### MovieListItems:
+
+Stores all MovieListItems with Foreign-Keys to MovieLists.id and Movies.id
+
+##### reviews:
+
+Independent table that stores all Review Data.
+
+##### favorites, dislikes, watchlist:
+
+Allows for users to add Movies to one or multiple of the three tables.
+
+#### Row Level Security:
+
+Supabase offers Row Level Security which restricts all acces to tables unless certain policies are met. Row Level Security should always be enabled on all tables to restrict unwanted operations and changes to tables.
+Supabase allows for adding predefined or custom policies for all user actions on tables like SELECT, INSERT, DELETE and UPDATE. For example its possible to only allow data selection by authentificated users or only allow updating or deletion if the current user-id is equal to the user-id in the table row.
+
+#### 5.2 User Authentification
 
 #### 5.2.1 Pages and Components
 
@@ -143,6 +171,8 @@ auth
     signout
         route.js
 ```
+
+Every user that is not logged in gets redirected to the landing page, which gives access to the login page and some basic information about the page.This page is the page.jsx file that is right inside the app directory.
 
 ## Technical Feature Description
 
@@ -175,7 +205,7 @@ The Page components import all the Necessary other components. This makes it pos
 
 Server actions are a very helpfull feature. They are Functions that run as server components, but can be imported and called inside client components. A server action has to be marked with `'use server'` at the start of the file.
 
-## Functionality
+## 9. Usage and Features
 
 ### Landing Page
 

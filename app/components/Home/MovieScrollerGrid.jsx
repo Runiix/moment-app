@@ -13,7 +13,7 @@ export default function MovieScrollerGrid({
    thrillerdata,
 }) {
    return (
-      <div className=" flex flex-col gap-10 sm:gap-[16vh] absolute top-[12vh] sm:top-[15vh] lg:top-[25vh] ">
+      <div className=" flex flex-col gap-10 sm:gap-[18vh] absolute top-[12vh] sm:top-[15vh] lg:top-[25vh] ">
          <div className="flex flex-col">
             <MovieScroller
                user={user}

@@ -72,12 +72,10 @@ export default function DiscoverSlider({ user }) {
    }; */
 
    return (
-      <div className=" ">
+      <div>
          {randomMovie && (
             <div>
-               {/*                   <Draggable bounds={parentRef}>
-                */}
-               <div className="">
+               <div>
                   <MovieDiscoverImage
                      id={randomMovie[0].id}
                      u={user}
@@ -91,8 +89,6 @@ export default function DiscoverSlider({ user }) {
                      genre={randomMovie[0].genre_ids}
                   />
                </div>
-               {/*                   </Draggable>
-                */}{' '}
                <div
                   ref={parentRef}
                   className="bg-opacity-0 flex flex-col w-screen h-[62vh] max-h-[500px] sm:max-h-screen justify-between sm:justify-around items-center mt-20"

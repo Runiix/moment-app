@@ -29,8 +29,8 @@ export default function MovieLists({
    }, [movielists]);
 
    return (
-      <div className="w-full mt-20 mb-10">
-         <div className=" flex flex-col m-auto mx-2 sm:w-3/4 border-y border-slate-400 shadow-xl shadow-black rounded-lg">
+      <div className="w-full mt-20 mb-10 ">
+         <div className=" flex flex-col mx-2 sm:mx-auto sm:w-3/4 border-y border-slate-400 shadow-xl shadow-black rounded-lg">
             <h2 className=" text-3xl lg:text-5xl m-10 ">Movie Lists: </h2>
             {!isLoading ? (
                <div className="grid grid-cols-1 2xl:grid-cols-2 gap-6 m-auto sm:w-11/12 items-center mb-20">

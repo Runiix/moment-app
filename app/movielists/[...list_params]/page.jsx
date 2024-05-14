@@ -148,7 +148,7 @@ export default async function movielists({ params, searchParams }) {
    const MovieListDescription = MovieListItem.description;
 
    return (
-      <main className="font-doppio bg-gray-900">
+      <main className="font-doppio bg-gray-900 text-slate-100">
          <Nav user={user} />
          <div>
             <MovieList

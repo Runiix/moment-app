@@ -18,6 +18,8 @@ import { useState, useEffect } from 'react';
 import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';
 import { usePathname } from 'next/navigation';
+import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
+import addMovieToMovieList from '@/app/actions/addMovieToMovieList';
 
 export default function MovieModal({
    id,
@@ -35,6 +37,10 @@ export default function MovieModal({
    favorite_titles,
    watchlist_titles,
    dislike_titles,
+   list,
+   movielistid,
+   username,
+   paramusername,
 }) {
    const [similarOrReviews, setSimilarOrReviews] = useState(false);
    const [isFavorited, setIsFavorited] = useState(false);
@@ -87,7 +93,7 @@ export default function MovieModal({
          onClick={onClose}
       >
          <div
-            className="bg-gray-900 h-screen w-[300px] sm:w-[800px] rounded-lg relative mt-20 pb-14 sm:pb-20 overflow-y-scroll overflow-x-hidden hide-scrollbar"
+            className="bg-gray-900 h-screen w-[300px] sm:w-[800px] rounded-lg relative mt-20 pb-16 overflow-y-scroll overflow-x-hidden hide-scrollbar"
             onClick={(e) => handleChildElementClick(e)}
          >
             <div className="relative w-full h-1/3 sm:h-1/2 hover:opacity-90 hover:cursor-pointer">
@@ -100,6 +106,26 @@ export default function MovieModal({
                   onClick={onClose}
                   className=" text-4xl absolute text-slate-100 left-5 top-5  hover:text-slate-400 z-50 bg-gray-900 bg-opacity-80 rounded-full hover:cursor-pointer hover:bg-opacity-70"
                />
+               {list && username === paramusername && (
+                  <form
+                     onSubmit={async (e) => {
+                        e.preventDefault();
+                        const response = await removeMovieFromMovieList(
+                           new FormData(e.target)
+                        );
+                        if (response.error) {
+                           console.error(response.error);
+                        }
+                     }}
+                  >
+                     <input type="hidden" name="movie_id" value={id} />
+                     <input type="hidden" name="list_id" value={movielistid} />
+
+                     <button type="submit">
+                        <CheckCircle className=" rounded-full absolute bottom-28 sm:bottom-44 left-[40%]  sm:left-[47%] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
+                     </button>
+                  </form>
+               )}
                <div
                   className={`flex justify-between items-center relative ${getTitleStyle()} bg-gray-900 bg-opacity-40 px-5 pb-5`}
                >

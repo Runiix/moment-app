@@ -29,8 +29,10 @@ export default function MovieList({
    return (
       <div className="flex flex-col items-center">
          <div className="absolute top-20 flex flex-col gap-4 items-center justify-center">
-            <h2 className=" text-6xl ">{movielisttitle}</h2>
-            <p className="text-xs">{movielistdescription}</p>
+            <h2 className=" text-center sm:text-left text-3xl sm:text-6xl ">
+               {movielisttitle}
+            </h2>
+            <p className="text-xs text-center">{movielistdescription}</p>
          </div>
          <div className="absolute top-28 flex flex-col w-full gap-5 items-center ">
             <div>
@@ -44,7 +46,7 @@ export default function MovieList({
                   </button>
                )}
             </div>
-            <div className="mt-10 grid grid-cols-1 gap-x-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 ">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 ">
                {movieList !== null &&
                   movieList !== undefined &&
                   movieList.map((movie, index) => (

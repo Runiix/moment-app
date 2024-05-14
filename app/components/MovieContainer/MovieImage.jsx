@@ -374,6 +374,10 @@ export default function MovieScrollerImage({
                favorite_titles={favorite_titles}
                watchlist_titles={watchlist_titles}
                dislike_titles={dislike_titles}
+               list={list}
+               movielistid={movielistid}
+               username={username}
+               paramusername={paramusername}
             />
          )}
       </div>

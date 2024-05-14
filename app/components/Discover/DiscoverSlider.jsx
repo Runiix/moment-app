@@ -91,7 +91,7 @@ export default function DiscoverSlider({ user }) {
                </div>
                <div
                   ref={parentRef}
-                  className="bg-opacity-0 flex flex-col w-screen h-[62vh] max-h-[500px] sm:max-h-screen justify-between sm:justify-around items-center mt-20"
+                  className="flex flex-col w-screen h-[54vh] sm:h-[74vh] max-h-[500px] sm:max-h-screen justify-between items-center mt-16"
                >
                   <div className="group z-40">
                      <form action={addOrRemoveFromFavorites}>
@@ -153,7 +153,7 @@ export default function DiscoverSlider({ user }) {
                         </button>
                      </form>
                   </div>
-                  <div className="group z-20 ">
+                  <div className="group z-40 ">
                      <form
                         action={addOrRemoveFromDislikes}
                         onSubmit={() => getRandomId()}

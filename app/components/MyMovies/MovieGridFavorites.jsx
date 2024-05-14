@@ -134,7 +134,7 @@ export default function MovieGridFavorites({
                </div>
                {showGenreFilter && (
                   <div>
-                     <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center sm:flex-col grid grid-cols-2 sm:flex divide-y-2 divide-x-2 divide-gray-950">
+                     <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center grid grid-cols-2 divide-y-2 divide-x-2 divide-gray-950">
                         <Link href={changeGenre('1')}>
                            <li className="hover:bg-green-600 py-2 w-24 sm:w-32 hover:pointer hover:text-zinc-900">
                               All Movies

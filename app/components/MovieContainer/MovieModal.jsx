@@ -120,6 +120,7 @@ export default function MovieModal({
                   >
                      <input type="hidden" name="movie_id" value={id} />
                      <input type="hidden" name="list_id" value={movielistid} />
+                     <input type="hidden" name="pathname" value={pathname} />
 
                      <button type="submit">
                         <CheckCircle className=" rounded-full absolute bottom-28 sm:bottom-44 left-[40%]  sm:left-[47%] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />

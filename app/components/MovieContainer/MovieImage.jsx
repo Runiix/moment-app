@@ -168,8 +168,12 @@ export default function MovieScrollerImage({
                   >
                      <input type="hidden" name="movie_id" value={id} />
                      <input type="hidden" name="list_id" value={movielistid} />
+                     <input type="hidden" name="pathname" value={pathname} />
 
-                     <button type="submit">
+                     <button
+                        type="submit"
+                        onClick={(e) => handleChildElementClick(e)}
+                     >
                         <CheckCircle className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
                      </button>
                   </form>

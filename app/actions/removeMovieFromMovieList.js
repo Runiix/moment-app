@@ -2,8 +2,10 @@
 
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 
 export default async function removeMovieFromMovieList(formData) {
+   const pathName = formData.get('pathname');
    const movieId = formData.get('movie_id');
    const listId = formData.get('list_id');
    const cookieStore = cookies();
@@ -52,6 +54,7 @@ export default async function removeMovieFromMovieList(formData) {
          return { success: false, error: 'Error deleting Movie List Entry' };
       }
       updatedList = false;
+      revalidatePath(pathName);
       return { success: true, isInList: updatedList };
    } else {
       return { success: false };

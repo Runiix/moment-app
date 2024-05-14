@@ -77,6 +77,7 @@ export default function AuthForm() {
       }
       alert('Email sent successfully');
    };
+
    const handleEmailChange = (e) => {
       setEmailData(e.target.value);
    };

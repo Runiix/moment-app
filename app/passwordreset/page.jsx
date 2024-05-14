@@ -10,21 +10,17 @@ import Image from 'next/image';
 export default function PasswordReset() {
    const [data, setData] = useState({ password: '', confirmPassword: '' });
    const [showPassword, setShowPassword] = useState(false);
-   const router = useRouter();
 
    const confirmPasswords = async () => {
       const { password, confirmPassword } = data;
       if (password !== confirmPassword) {
          return alert('Passwords are different!');
       }
-      const { resetData, error } = await supabase.auth.updateUser({
+      const { error } = await supabase.auth.updateUser({
          password: data.password,
       });
       if (error) console.error(error);
       alert('Password changed successfully');
-      /* if (resetData) {
-         router.replace('/home');
-      } */
    };
 
    const handlePasswordChange = (e) => {

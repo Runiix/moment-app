@@ -70,7 +70,6 @@ export const config = {
    matcher: [
       '/',
       '/home',
-      '/loginpage',
       '/movies/:path*',
       '/mymovies/:path*',
       '/Discover',

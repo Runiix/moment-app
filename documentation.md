@@ -156,23 +156,85 @@ Supabase allows for adding predefined or custom policies for all user actions on
 #### 5.2.1 Pages and Components
 
 ```
+middleware.js
 app
-page.jsx
+    page.jsx
     loginpage
         page.jsx
     passwordreset
         page.jsx
-components
-    Login
+    components
+        Login
         AuthForm.jsx
-auth
-    confirm
-        route.js
-    signout
-        route.js
+    auth
+        confirm
+            route.js
+        signout
+            route.js
 ```
 
+The file middleware.js handles rerouting betwenn page navigation.For example, it is possible to reroute not logged in users if they try to access pages, that should only be accessible for logged in users.
+
 Every user that is not logged in gets redirected to the landing page, which gives access to the login page and some basic information about the page.This page is the page.jsx file that is right inside the app directory.
+
+Then there are the login page which allows for user sign up and sign in and the passwordreset page which can only be accessed after being send a special link or already being logged in.
+
+There is only one component used for this section. The auth form is the client component since it handlse several onClick events that allow the user to log in or sign up and switch between the two options.
+
+Thr two route.js files handle the routing whenever a user logs in our out respectively.
+
+#### 5.2.2 Functionality
+
+The Main functionality for user authentification is located inside the AuthForm.jsx component:
+
+##### Login function
+
+```
+async function handleLogin(e) {
+    e.preventDefault();
+    setIsSigningIn(true);
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    });
+    if (!error) {
+        router.push('/home');
+    } else {
+        alert('Email or Password not correct');
+        setIsSigningIn(false);
+    }
+}
+```
+
+When clicking on the Sign in button this function is called which sets the isSigning in state to true and calls the signInWithPassword function provided by supabase with the input email and password data. If the login is successfull the user is rerouted to the homepage
+
+##### Sign UP function
+
+```
+async function handleSignUp(e) {
+    e.preventDefault();
+    if (!validatePassword(password)) {
+        alert(
+        'Password must be at least 10 characters long and contain at least one capital letter, one number, and one special symbol.'
+        );
+        return;
+    }
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+        data: {
+            displayName: displayName,
+        },
+        },
+    });
+    if (!error) {
+        setIsSigningUp(true);
+    }
+}
+```
+
+This fucntion is called whe the user clicks on the sign up button. First the entered password is matched with some predefined passsword requirements with validatePassword. If the validation is successfull the supabase signUp function is called with the input data. A username/displayname is automatically created based on the email. If everything was successfull a success mesaage appears that informs the user about a confirmation email being sent to to provide email adress. After clicking on the confirmation link the user is rerouted to the login page and can login with the newly created account.
 
 ## Technical Feature Description
 

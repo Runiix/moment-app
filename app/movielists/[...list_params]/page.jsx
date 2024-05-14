@@ -81,7 +81,6 @@ async function getData(supabaseServer, query) {
          .select('*')
          .ilike('title', `%${query}%`);
       if (error) {
-         // This will activate the closest `error.js` Error Boundary
          throw new Error('Failed to fetch data');
       }
 
@@ -98,7 +97,6 @@ async function getGenres() {
          throw new Error('Failed to fetch genres');
       }
       const data = await response.json();
-      // Update movie list state with fetched data
       return data;
    } catch (error) {
       console.error('Error fetching genres:', error);

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../utils/supabaseClient';
 import { useRouter } from 'next/navigation';
 import '../../../assets/css/fonts.css';
+import { GridLoader } from 'react-spinners';
 
 export default function AuthForm() {
    const [isNewUser, setIsNewUser] = useState(false);
@@ -122,9 +123,19 @@ export default function AuthForm() {
                   />
                   <button
                      type="submit"
-                     className="bg-green-600 text-zinc-900 py-3 px-20 text-2xl rounded-2xl hover:text-slate-100 hover:bg-green-700"
+                     className="bg-green-600 text-zinc-900 py-3 flex gap-4 justify-around items-center px-20  rounded-2xl hover:text-slate-100 hover:bg-green-700"
                   >
-                     {signInMessage}
+                     <p className="text-2xl">{signInMessage} </p>
+                     {isSigningIn && (
+                        <div className="">
+                           <GridLoader
+                              color="#000000"
+                              margin={0}
+                              size={12}
+                              padding={0}
+                           />{' '}
+                        </div>
+                     )}
                   </button>
                   <div>
                      {isNewUser ? (

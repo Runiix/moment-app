@@ -46,7 +46,7 @@ export default function MovieList({
                   </button>
                )}
             </div>
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 ">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-x-6  lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 ">
                {movieList !== null &&
                   movieList !== undefined &&
                   movieList.map((movie, index) => (

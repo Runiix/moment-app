@@ -14,7 +14,7 @@ export default function ProfileReviews({ reviewListWithTitles }) {
             reviewListWithTitles.length <= 4) ||
          expandReviews ? (
             <div className="flex flex-col items-center justify-center text-center gap-4">
-               <div className="flex flex-col items-center gap-10 relative right-4">
+               <div className="flex flex-col items-center gap-10 ">
                   {reviewListWithTitles.map((review, index) => (
                      <Review
                         key={index}
@@ -38,7 +38,7 @@ export default function ProfileReviews({ reviewListWithTitles }) {
             </div>
          ) : (
             <div className="flex flex-col items-center justify-center text-center gap-4">
-               <div className="flex flex-col items-center gap-10 relative right-4">
+               <div className="flex flex-col items-center gap-10">
                   {reviewListWithTitles.slice(0, 3).map((review, index) => (
                      <Review
                         key={index}

@@ -141,9 +141,11 @@ export default function Nav({ user, search = true }) {
 
                <Link
                   href="/mymovielists"
-                  className="text-slate-100 hover:text-slate-300"
+                  className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
                >
-                  <li>Movie Lists</li>
+                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                     Movie Lists
+                  </li>
                </Link>
 
                <Link

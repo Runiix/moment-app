@@ -189,30 +189,12 @@ export default function ProfileBanner({
 
                <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-t from-gray-900 via-gray-900/0 to-gray-900/0"></div>
                <div
-                  className={`relative bottom-36 items-end flex ${
+                  className={`relative bottom-36 items-center sm:items-end flex mx-10 ${
                      changeprofile ? 'justify-around' : 'justify-center w-3/4'
                   }`}
                >
                   <div>
-                     {changeprofile && (
-                        <div>
-                           <label className="group flex flex-col items-center absolute left-4 top-10 gap-2">
-                              <p className="invisible group-hover:visible relative text-xs z-20 text-slate-100">
-                                 {' '}
-                                 change Profile Banner
-                              </p>
-                              <Cameraswitch className="relative  z-20 hover:cursor-pointer text-slate-100 hover:text-slate-400" />
-
-                              <input
-                                 type="file"
-                                 id="banner-upload"
-                                 onChange={addOrChangeProfileBanner}
-                                 className="hidden"
-                              />
-                           </label>
-                        </div>
-                     )}
-                     <div className="text-5xl flex items-center gap-4">
+                     <div className="text-5xl flex items-center gap-2 sm:gap-4">
                         {changeprofile ? (
                            <label className="group">
                               {profilePicUrl === '' ? (
@@ -224,7 +206,7 @@ export default function ProfileBanner({
                                     className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 hover:cursor-pointer group-hover:opacity-90 h-20"
                                  />
                               )}
-                              <p className="hidden group-hover:flex absolute bottom-14 ml-5 text-xs hover:cursor-pointer">
+                              <p className="hidden group-hover:flex absolute bottom-8 sm:bottom-14 ml-4 sm:ml-5 text-xs hover:cursor-pointer">
                                  change
                               </p>
                               <input
@@ -240,21 +222,48 @@ export default function ProfileBanner({
                            <img
                               src={profilePicUrl}
                               alt="profileBanner"
-                              className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 h-20"
+                              className="z-10 object-cover rounded-full w-20 min-w-20 border-2 bg-gray-900 h-20"
                            />
                         )}
-
-                        <h2> {userName}</h2>
+                        <div className="flex flex-col">
+                           <h2 className="text-xl sm:text-4xl"> {userName}</h2>
+                           <p className="text-[0.5rem] sm:text-xl">
+                              Member since: {joinDate}
+                           </p>
+                        </div>
                      </div>
-                     <p>Member since: {joinDate}</p>
                   </div>
-                  {paramusername === username && (
+                  <div className="flex items-center">
                      <div>
-                        <Link href="/account">
-                           <Settings className="text-4xl hover:text-slate-400 hover:cursor-pointer" />
-                        </Link>
+                        {changeprofile && (
+                           <div>
+                              <label className="group flex flex-col items-center relative bottom-2 sm:left-4 sm:bottom-3 gap-2">
+                                 <p className="invisible group-hover:visible relative  text-[6px] sm:text-xs text-center z-20 text-slate-100">
+                                    {' '}
+                                    change Profile Banner
+                                 </p>
+                                 <Cameraswitch className="relative z-20 hover:cursor-pointer text-slate-100 hover:text-slate-400" />
+                              </label>
+
+                              <input
+                                 type="file"
+                                 id="banner-upload"
+                                 onChange={addOrChangeProfileBanner}
+                                 className="hidden"
+                              />
+                           </div>
+                        )}
                      </div>
-                  )}
+                     <div>
+                        {paramusername === username && (
+                           <div>
+                              <Link href="/account">
+                                 <Settings className="text-4xl hover:text-slate-400 hover:cursor-pointer" />
+                              </Link>
+                           </div>
+                        )}
+                     </div>
+                  </div>
                </div>
             </div>
          )}{' '}

@@ -9,7 +9,7 @@ export default function Review({
    profile,
 }) {
    return (
-      <div className="flex flex-col w-full max-w-[40rem] border border-slate-400 rounded-lg p-4 shadow-lg shadow-black">
+      <div className="flex flex-col w-full max-w-[40rem] text-wrap break-all border-y border-slate-400 rounded-lg p-4 shadow-lg shadow-black">
          <div
             className={`flex gap-5 items-center mb-5 ${profile ? 'ml-5' : ''}`}
          >

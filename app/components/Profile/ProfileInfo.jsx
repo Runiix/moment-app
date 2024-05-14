@@ -12,7 +12,7 @@ export default async function ProfileInfo({
    reviewListWithTitles,
 }) {
    return (
-      <div className="z-10 flex flex-col 2xl:flex-row gap-20 2xl:gap-0 p-10  sm:w-2/3 mx-2 sm:mx-0 border border-slate-400 shadow-xl shadow-black rounded-lg">
+      <div className="z-10 flex flex-col 2xl:flex-row gap-20 2xl:gap-0 p-10  sm:w-2/3 mx-2 sm:mx-0 border-y border-slate-400 shadow-xl shadow-black rounded-lg">
          <div className="">
             <h2 className=" text-3xl lg:text-5xl mb-10">Stats:</h2>
             <ul className=" lg:text-3xl 2xl:w-full sm:flex sm:flex-wrap items-center gap-10 grid grid-cols-2">

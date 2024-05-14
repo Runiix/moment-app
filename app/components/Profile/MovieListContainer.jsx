@@ -29,7 +29,7 @@ export default function MovieListContainer({
    };
 
    return (
-      <div className="border border-slate-400 rounded-lg group grid grid-cols-12 shadow-lg shadow-black">
+      <div className="border-y border-slate-400 rounded-lg group grid grid-cols-12 shadow-lg shadow-black">
          <Link href={movielist_link} className="col-span-11">
             <div className="hover:bg-gray-800 hover:rounded-l-lg flex">
                {!movielist_images || movielist_images.length < 4 ? (

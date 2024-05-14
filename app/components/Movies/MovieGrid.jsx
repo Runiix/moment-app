@@ -148,7 +148,7 @@ export default function MovieGrid({
                   </div>
                   {showGenreFilter && (
                      <div>
-                        <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
+                        <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center sm:flex-col grid grid-cols-2 sm:flex divide-y-2 divide-x-2 divide-gray-950">
                            <Link href={changeGenre('1')}>
                               <li className="hover:bg-green-600 py-2 w-32 hover:pointer hover:text-zinc-900">
                                  All Movies
@@ -274,7 +274,7 @@ export default function MovieGrid({
                         </button>
                      </div>
                      {showSortBy && (
-                        <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center">
+                        <ul className="absolute z-10 bg-zinc-900 border border-slate-100 rounded-b-md text-center flex flex-col divide-y-2 divide-gray-950 ">
                            <Link href={changeSortBy('vote_average')}>
                               <li className="hover:bg-green-600 py-2 w-32 hover:cursor-pointer hover:text-zinc-900">
                                  Rating

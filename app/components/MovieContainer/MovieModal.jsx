@@ -47,7 +47,7 @@ export default function MovieModal({
       if (titleLength > 30) {
          return 'bottom-32';
       } else if (titleLength > 20) {
-         return 'bottom-32 sm:bottom-20';
+         return 'bottom-24 sm:bottom-20';
       } else {
          return 'bottom-28 sm:bottom-16';
       }
@@ -104,7 +104,7 @@ export default function MovieModal({
                   className={`flex justify-between items-center relative ${getTitleStyle()} bg-gray-900 bg-opacity-40 px-5 pb-5`}
                >
                   <div className="flex items-center gap-2">
-                     <h3 className="text-4xl sm:text-5xl">{title}</h3>
+                     <h3 className="text-3xl sm:text-5xl">{title}</h3>
                   </div>
                   <div className="flex flex-col sm:flex-row items-center bg-gray-900 rounded-full bg-opacity-50 p-2">
                      {!isDisliked && (
@@ -230,8 +230,8 @@ export default function MovieModal({
                </div>
             </div>
             <div className="flex flex-col gap-20 items-center">
-               <div className="mx-4 mt-4 flex gap-5">
-                  <div className="w-1/2">
+               <div className="mx-4 mt-4 flex flex-col sm:flex-row gap-5">
+                  <div className="sm:w-1/2">
                      <h3 className="text-2xl">Overview:</h3>
                      <p className="text-xs sm:text-base">{overview}</p>
                   </div>

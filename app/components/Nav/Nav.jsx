@@ -71,13 +71,13 @@ export default function Nav({ user, search = true }) {
                </Link>
             </ul>
          </div>
-         <div className="flex items-center gap-5 absolute lg:static right-8">
+         <div className="flex items-center gap-5 absolute lg:static right-8 ">
             {search && (
                <div className="hidden sm:flex">
                   <NavSearch id="webSearch" />
                </div>
             )}
-            <div className="hidden sm:flex lg:mr-5">
+            <div className="hidden sm:flex lg:mr-5 hover:text-slate-400">
                <Profile user={user} />
             </div>
          </div>

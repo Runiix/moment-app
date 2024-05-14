@@ -236,6 +236,77 @@ async function handleSignUp(e) {
 
 This fucntion is called whe the user clicks on the sign up button. First the entered password is matched with some predefined passsword requirements with validatePassword. If the validation is successfull the supabase signUp function is called with the input data. A username/displayname is automatically created based on the email. If everything was successfull a success mesaage appears that informs the user about a confirmation email being sent to to provide email adress. After clicking on the confirmation link the user is rerouted to the login page and can login with the newly created account.
 
+##### Password Resetting function
+
+```
+const sendResetPassword = async () => {
+    try {
+        const { data, error } = await supabase.auth.resetPasswordForEmail(
+        emailData,
+        {
+            redirectTo: 'https://moment-app-8mtl.vercel.app/passwordreset',
+        }
+        );
+    } catch (error) {
+        console.error(error);
+    }
+    alert('Email sent successfully');
+};
+```
+
+The sentResetPassword function utilizes the resetPasswordForEmail function from supabase to send a link for resetting the password to the provided email. After clicking on the link the user is redirected to the passwordreset page where a new password can be entered.
+
+```
+const confirmPasswords = async () => {
+    const { password, confirmPassword } = data;
+    if (password !== confirmPassword) {
+        return alert('Passwords are different!');
+    }
+    const { error } = await supabase.auth.updateUser({
+        password: data.password,
+    });
+    if (error) console.error(error);
+    alert('Password changed successfully');
+};
+```
+
+On the resetPassword page the user has to input a new password twice to avoid mistyping it. After compoaring the two passwords, the updateUser function provided by supabase can be used to update the user that is linked to the email, that the reset link was sent to.
+
+### 5.3 The MovieImage Component
+
+The MovieImage component is used on a lot of different pages and has quite a few child components.
+
+```
+app
+    components
+        MovieContainer
+            MovieImage.jsx
+            MovieModal.jsx
+            ReviewList.jsx
+            ReviewForm.jsx
+            Review.jsx
+            SimilarMovieGrid.jsx
+```
+
+The MovieImage component displays all the information about one Movie. Regularily it only displays the movies poster. When hovering over a poster some additional information like title, overview, rating, genres and in which user list it is included. After clicking on the component the MovieModal becomes visible and displays some more aditional information. It also displays either the SimilarMovieGird, which displays MovieImages with the same genres as the current Movie. Alternatively it is possible to view the Review list with a ReviewForm for adding Reviews and a list of all Reviews for the current Movie.
+
+The MovieData
+
+### 5.4 Homepage
+
+### 5.4.1 Pages and Components
+
+```
+app
+    home
+        page.jsx
+    components
+        Home
+            HomeHero.jsx
+            MovieScroller.jsx
+            MovieScrollerGrid.jsx
+```
+
 ## Technical Feature Description
 
 ### Next-JS App-Router

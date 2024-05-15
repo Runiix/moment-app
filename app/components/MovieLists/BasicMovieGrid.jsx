@@ -19,7 +19,7 @@ export default function BasicMovieGrid({
                   u={user}
                   id={movie.id}
                   genres={genres}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                   title={movie.title}
                   overview={movie.overview}
                   rating={movie.vote_average.toFixed(1)}

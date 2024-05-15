@@ -55,7 +55,7 @@ export default function MovieList({
                         u={user}
                         id={movie.id}
                         genres={genres}
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                         src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         title={movie.title}
                         overview={movie.overview}

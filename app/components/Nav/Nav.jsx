@@ -34,42 +34,42 @@ export default function Nav({ user, search = true }) {
                <h1 className="text-4xl font-bold text-green-600">MoMent</h1>
                <p className="text-xs">Movie-Entertainment</p>
             </Link>
-            <ul className="hidden sm:flex text-xs md:text-base gap-4 xl:gap-10 text-nowrap">
+            <div className="hidden sm:flex text-xs md:text-base gap-4 xl:gap-10 text-nowrap">
                <Link
                   href="/home"
                   className="text-slate-100 hover:text-slate-300"
                >
-                  <li>Homepage</li>
+                  <div>Homepage</div>
                </Link>
 
                <Link
                   href="/movies/1/vote_average/false"
                   className="text-slate-100 hover:text-slate-300"
                >
-                  <li>Movies</li>
+                  <div>Movies</div>
                </Link>
 
                <Link
                   href="/mymovies/Movies/1/vote_average/false"
                   className="text-slate-100 hover:text-slate-300"
                >
-                  <li>My Movies</li>
+                  <div>My Movies</div>
                </Link>
 
                <Link
                   href="/mymovielists"
                   className="text-slate-100 hover:text-slate-300"
                >
-                  <li>Movie Lists</li>
+                  <div>Movie Lists</div>
                </Link>
 
                <Link
                   href="/discover"
                   className="text-slate-100 hover:text-slate-300"
                >
-                  <li>Discover</li>
+                  <div>Discover</div>
                </Link>
-            </ul>
+            </div>
          </div>
          <div className="flex items-center gap-5 absolute lg:static right-8 ">
             {search && (
@@ -99,64 +99,64 @@ export default function Nav({ user, search = true }) {
             )}
          </div>
          <div
-            className={`shadow-xl shadow-black transition-all items-center duration-500 fixed left-0 top-20 text-xl w-full rounded-lg flex flex-col gap-3 text-center bg-gray-900 border border-slate-400  ${
+            className={`shadow-xl shadow-black transition-all items-center duration-500 fixed left-0 top-20 text-xl w-fdivl rounded-lg flex flex-col gap-3 text-center bg-gray-900 border border-slate-400  ${
                toggleMenu ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
             } `}
          >
-            <ul className="">
-               <li className="border-b w-screen rounded-t-lg border-slate-400 p-2">
+            <div className="">
+               <div className="border-b w-screen rounded-t-lg border-slate-400 p-2">
                   <Profile mobile={true} user={user} />
-               </li>
+               </div>
                {search && (
-                  <li className="border-b w-screen  border-slate-400 p-2">
+                  <div className="border-b w-screen  border-slate-400 p-2">
                      <NavSearch show={true} mobile={true} id="mobileSearch" />
-                  </li>
+                  </div>
                )}
                <Link
                   href="/home"
                   className="text-slate-100 hover:text-zinc-900   border-b border-slate-400"
                >
-                  <li className="border-b w-screen  border-slate-400 hover:bg-green-600 active:bg-green-600 p-4">
+                  <div className="border-b w-screen  border-slate-400 hover:bg-green-600 active:bg-green-600 p-4">
                      Homepage
-                  </li>
+                  </div>
                </Link>
 
                <Link
                   href="/movies/1/vote_average/false"
                   className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
                >
-                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                  <div className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
                      Movies
-                  </li>
+                  </div>
                </Link>
 
                <Link
                   href="/mymovies/Movies/1/vote_average/false"
                   className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
                >
-                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                  <div className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
                      My Movies
-                  </li>
+                  </div>
                </Link>
 
                <Link
                   href="/mymovielists"
                   className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
                >
-                  <li className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
+                  <div className="border-b w-screen hover:bg-green-600 active:bg-green-600  border-slate-400 p-4">
                      Movie Lists
-                  </li>
+                  </div>
                </Link>
 
                <Link
                   href="/discover"
                   className="text-slate-100 hover:text-zinc-900 border-b border-slate-400"
                >
-                  <li className=" w-screen hover:bg-green-600 active:bg-green-600te-400 p-4">
+                  <div className=" w-screen hover:bg-green-600 active:bg-green-600te-400 p-4">
                      Discover
-                  </li>
+                  </div>
                </Link>
-            </ul>
+            </div>
          </div>
       </nav>
    );

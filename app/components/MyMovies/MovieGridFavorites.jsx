@@ -325,11 +325,11 @@ export default function MovieGridFavorites({
                   )}
                </div>
                {sortorder === 'false' ? (
-                  <div>
+                  <button className="hover:bg-green-600p" name="change_order">
                      <Link href={changeSortOrder('true')}>
                         <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
                      </Link>
-                  </div>
+                  </button>
                ) : (
                   <div>
                      <Link href={changeSortOrder('false')}>
@@ -349,7 +349,7 @@ export default function MovieGridFavorites({
                         u={user}
                         id={movie.id}
                         genres={genres}
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                         src2={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         title={movie.title}
                         overview={movie.overview}

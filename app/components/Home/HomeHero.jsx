@@ -15,7 +15,6 @@ export default function HomeHero({ data, genres }) {
 
    useEffect(() => {
       populateGenreList();
-      console.log(data);
    }, []);
 
    const populateGenreList = () => {

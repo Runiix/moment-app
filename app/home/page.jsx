@@ -1,5 +1,3 @@
-'use server';
-
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import HomeHero from '../components/Home/HomeHero';
@@ -52,36 +50,6 @@ async function getDislikeData(supabaseServer, u) {
    const dislikeTitles = dislikeData.map((dislike) => dislike.movie_title);
 
    return dislikeTitles;
-}
-
-async function getData(supabaseServer, titles = null, genre = null) {
-   const from = 0;
-   const to = 19;
-   if (genre !== null) {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .contains('genre_ids', [genre])
-         .range(from, to);
-      if (error) {
-         throw new Error('Failed to fetch data');
-      }
-      const shuffledMovies = [...data].sort(() => Math.random() - 0.5);
-      const selectedMovies = shuffledMovies.slice(0, 20);
-
-      return selectedMovies;
-   } else {
-      const { data, error } = await supabaseServer
-         .from('Movies')
-         .select('*')
-         .in('title', titles)
-         .range(from, to);
-      if (error) {
-         throw new Error('Failed to fetch data');
-      }
-
-      return data;
-   }
 }
 
 const getRandomId = async (supabaseServer) => {
@@ -155,16 +123,7 @@ export default async function Home({ searchParams }) {
 
    if (query === '') {
       const homeHeroData = await getHomeHero(supabaseServer);
-      /* 
-      const favoriteData = await getData(supabaseServer, favoriteMovies, null);
-      const watchlistData = await getData(
-         supabaseServer,
-         watchlistMovies,
-         null
-      );
-      const actionData = await getData(supabaseServer, null, '28');
-      const animationData = await getData(supabaseServer, null, '16');
-      const thrillerData = await getData(supabaseServer, null, '53'); */
+
       return (
          <main className="bg-gray-900 text-slate-100">
             <Nav user={user} />

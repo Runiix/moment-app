@@ -33,7 +33,6 @@ export default function MovieScroller({
          } else {
             pageSize = 5;
          }
-         console.log('Loading Movies');
 
          const data = await getScrollerData(
             offset,
@@ -41,7 +40,6 @@ export default function MovieScroller({
             favoritetype,
             genre
          );
-         console.log('First Data', data);
          setLoading(false);
 
          if (data.length < pageSize) {
@@ -57,16 +55,6 @@ export default function MovieScroller({
    };
 
    useEffect(() => {
-      console.log(
-         'link',
-         link,
-         'scrollertitle',
-         scrollertitle,
-         'Favortietype',
-         favoritetype,
-         'genre',
-         genre
-      );
       loadMovies();
    }, []);
 

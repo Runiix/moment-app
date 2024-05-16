@@ -325,14 +325,20 @@ export default function MovieGridFavorites({
                   )}
                </div>
                {sortorder === 'false' ? (
-                  <button className="hover:bg-green-600p" name="change_order">
+                  <button
+                     className="hover:bg-green-600p"
+                     aria-label="change_order"
+                  >
                      <Link href={changeSortOrder('true')}>
                         <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
                      </Link>
                   </button>
                ) : (
                   <div>
-                     <Link href={changeSortOrder('false')}>
+                     <Link
+                        href={changeSortOrder('false')}
+                        aria-label="change_order"
+                     >
                         <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all duration-300 rotate-180 border border-slate-100 rounded-md" />
                      </Link>
                   </div>

@@ -97,7 +97,7 @@ export default function AuthForm() {
    );
 
    return (
-      <div className="font-doppio z-10">
+      <div className=" z-10">
          {!resetPassword && (
             <div>
                <div className="flex gap-4 mb-6 sm:mb-10 text-5xl sm:text-6xl font-bold ">

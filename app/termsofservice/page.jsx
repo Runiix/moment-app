@@ -33,7 +33,7 @@ export default async function TermsOfService() {
 
    const user = await getUser(supabaseServer);
    return (
-      <main className="bg-gray-900 text-slate-100 font-doppio ">
+      <main className="bg-gray-900 text-slate-100">
          <Nav search={false} user={user} />
          <h1 className="absolute left-1/2 text-4xl top-20">Terms Of Service</h1>
       </main>

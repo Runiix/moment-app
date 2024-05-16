@@ -14,6 +14,7 @@ export default function HomeHero({ data, genres }) {
 
    useEffect(() => {
       populateGenreList();
+      console.log(data);
    }, []);
 
    const populateGenreList = () => {
@@ -34,9 +35,10 @@ export default function HomeHero({ data, genres }) {
             >
                {' '}
                <img
-                  src={`https://image.tmdb.org/t/p/original${data[0].backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/w1280${data[0].backdrop_path}`}
                   alt="Hero Image"
                   className=" object-cover h-full w-full opacity-90"
+                  fetchPriority="high"
                />
                <div className="absolute w-full h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/0 to-gray-900/0"></div>
                <div className="relative bottom-2/3 lg:bottom-[30vh] w-1/2 ml-10 sm:ml-20 flex flex-col gap-3">
@@ -52,7 +54,7 @@ export default function HomeHero({ data, genres }) {
          )}
          {showModal && (
             <MovieModal
-               src={`https://image.tmdb.org/t/p/original${data[0].backdrop_path}`}
+               src={`https://image.tmdb.org/t/p/w500${data[0].backdrop_path}`}
                alt={data[0].title}
                title={data[0].title}
                overview={data[0].overview}

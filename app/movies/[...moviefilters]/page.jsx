@@ -101,7 +101,7 @@ export default async function Movies({ params, searchParams }) {
    const genreName = await getGenreName(params.moviefilters[0], genres);
 
    return (
-      <main className="w-screen bg-gray-900 text-white font-doppio">
+      <main className="w-screen bg-gray-900 text-white">
          <Nav user={user} />
          <section>
             <MovieGrid

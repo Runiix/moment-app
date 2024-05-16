@@ -109,7 +109,7 @@ export default async function Favorites({ params, searchParams }) {
    }
 
    return (
-      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+      <main className="min-h-screen bg-gray-900 text-white relative">
          <Nav user={user} />
          <section>
             <MovieGridFavorites

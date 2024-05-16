@@ -10,7 +10,7 @@ import tmdb from '/assets/images/tmdb-logo.png';
 
 export default function LandingPage() {
    return (
-      <main className="flex flex-col w-full bg-gray-900 items-center justify-center font-doppio text-slate-100 overflow-x-hidden">
+      <main className="flex flex-col w-full bg-gray-900 items-center justify-center text-slate-100 overflow-x-hidden">
          <div>
             <Image
                src={heroBanner}

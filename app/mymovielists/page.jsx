@@ -135,7 +135,7 @@ export default async function MyMovieLists({ params, searchParams }) {
       allMovieImages.push(movieImages);
    }
    return (
-      <main className="min-h-screen bg-gray-900 text-white relative  font-doppio">
+      <main className="min-h-screen bg-gray-900 text-white relative ">
          <Nav user={user} />
          {query === '' ? (
             <section className="flex mt-20">

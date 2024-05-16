@@ -166,7 +166,7 @@ export default async function Home({ searchParams }) {
       const animationData = await getData(supabaseServer, null, '16');
       const thrillerData = await getData(supabaseServer, null, '53');
       return (
-         <main className="bg-gray-900 text-slate-100 font-doppio ">
+         <main className="bg-gray-900 text-slate-100">
             <Nav user={user} />
             <div>
                <HomeHero data={homeHeroData} genres={genres} />
@@ -187,7 +187,7 @@ export default async function Home({ searchParams }) {
       );
    } else {
       return (
-         <main className="bg-gray-900 text-slate-100 font-doppio ">
+         <main className="bg-gray-900 text-slate-100 ">
             <Nav user={user} />
             <section className="">
                <MovieGrid

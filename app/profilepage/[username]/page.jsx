@@ -177,9 +177,9 @@ export default async function ProfilePage({ params }) {
       const createdat = user.created_at.split('T')[0];
 
       return (
-         <main className="font-doppio bg-gray-900 text-slate-100">
+         <main className=" bg-gray-900 text-slate-100">
             <Nav user={user} />
-            <section className="font-doppio">
+            <section>
                <ProfileBanner
                   paramusername={params.username}
                   paramuserid={paramUserId}
@@ -249,7 +249,7 @@ export default async function ProfilePage({ params }) {
       const createdat = user.created_at.split('T')[0];
 
       return (
-         <main className="font-doppio text-slate-100 w-screen">
+         <main className="text-slate-100 w-screen">
             <Nav user={user} username={paramUserName} createdat={createdat} />
             <section className="">
                <ProfileBanner

@@ -23,7 +23,7 @@ export default async function Account() {
    } = await supabaseServer.auth.getUser();
 
    return (
-      <main className="min-h-screen bg-gray-900 text-slate-100 relative p-10 flex flex-col items-center font-doppio">
+      <main className="min-h-screen bg-gray-900 text-slate-100 relative p-10 flex flex-col items-center ">
          <Nav user={user} />
          <div className="flex flex-col items-left bg-gray-900 shadow-xl shadow-black border border-slate-400 rounded-xl w-4/6 p-20 mt-40">
             <h1 className="text-5xl font-bold text-slate-100 pb-10 overflow-hidden">

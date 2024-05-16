@@ -37,7 +37,7 @@ export default function PasswordReset() {
    };
 
    return (
-      <main className="font-doppio flex">
+      <main className="flex">
          <Image
             src={heroBanner}
             alt="hero banner"

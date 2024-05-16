@@ -7,7 +7,11 @@ import Link from 'next/link';
 export default function LoginPage() {
    return (
       <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-slate-100">
-         <Link className="absolute left-5 top-5 z-10" href="/">
+         <Link
+            className="absolute left-5 top-5 z-10"
+            href="/"
+            aria-label="navigate back to landing page"
+         >
             <ArrowBack className="text-slate-100 text-4xl hover:text-green-600 bg-gray-900 bg-opacity-50 rounded-full" />
          </Link>
          <div>

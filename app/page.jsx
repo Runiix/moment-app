@@ -47,6 +47,7 @@ export default function LandingPage() {
          </div>
          <Link
             href="#second-section"
+            aria-label="navigate to second section"
             className="absolute z-50 flex text-center bottom-5 p-3 hover:text-green-600 hover:bg-gray-950 hover:bg-opacity-25 rounded-full hover:cursor-pointer"
          >
             <div className=" ">
@@ -94,6 +95,7 @@ export default function LandingPage() {
                <a
                   href="https://www.freepik.com/free-vector/realistic-laptop-with-smartphone_35202611.htm#query=computer%20phone&position=0&from_view=keyword&track=ais&uuid=a4491061-6236-4f2c-bf0e-e7bb957bda1a"
                   className=" absolute w-1/3 h-auto hover:cursor-pointer"
+                  aria-label="navigate to freepic image location"
                ></a>
             </div>
          </div>

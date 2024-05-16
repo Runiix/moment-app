@@ -3,6 +3,7 @@
 import { StarHalf } from '@mui/icons-material';
 import MovieModal from '../MovieContainer/MovieModal';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function HomeHero({ data, genres }) {
    const [showModal, setShowModal] = useState(false);
@@ -34,11 +35,14 @@ export default function HomeHero({ data, genres }) {
                onClick={() => setShowModal(!showModal)}
             >
                {' '}
-               <img
+               <Image
                   src={`https://image.tmdb.org/t/p/w1280${data[0].backdrop_path}`}
                   alt="Hero Image"
                   className=" object-cover h-full w-full opacity-90"
                   fetchPriority="high"
+                  height={540}
+                  width={1280}
+                  priority
                />
                <div className="absolute w-full h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/0 to-gray-900/0"></div>
                <div className="relative bottom-2/3 lg:bottom-[30vh] w-1/2 ml-10 sm:ml-20 flex flex-col gap-3">

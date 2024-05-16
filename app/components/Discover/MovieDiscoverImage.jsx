@@ -3,6 +3,7 @@
 import { StarHalf } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../utils/supabaseClient';
+import Image from 'next/image';
 
 export default function MoviDiscoverImage({
    u,
@@ -44,7 +45,7 @@ export default function MoviDiscoverImage({
 
    return (
       <div className="group flex py-5 justify-center">
-         <img
+         <Image
             src={src}
             alt="Movie Scroller Image"
             className="
@@ -67,6 +68,8 @@ export default function MoviDiscoverImage({
                     sm:group-hover:opacity-90 
 
                     "
+            height={600}
+            width={400}
          />
          <div
             className="

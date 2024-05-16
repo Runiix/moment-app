@@ -17,6 +17,7 @@ import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
+import Image from 'next/image';
 
 export default function MovieScrollerImage({
    id,
@@ -92,7 +93,7 @@ export default function MovieScrollerImage({
    return (
       <div>
          <div className="group flex sm:py-5">
-            <img
+            <Image
                src={src}
                alt="Movie Scroller Image"
                className="
@@ -109,7 +110,10 @@ export default function MovieScrollerImage({
                     duartion-500 
                     shadow-xl 
                     delay-200
+                    
                     "
+               width={200}
+               height={300}
                onClick={() => setShowModal(true)}
             />
             <div
@@ -137,7 +141,7 @@ export default function MovieScrollerImage({
                     `}
                onClick={() => setShowModal(true)}
             >
-               <img
+               <Image
                   src={src}
                   alt={`${title} Poster`}
                   className="
@@ -153,6 +157,8 @@ export default function MovieScrollerImage({
                         min-w-44
                         rounded-l-md                        
                         "
+                  width={200}
+                  height={300}
                />
                {list && username === paramusername && (
                   <form

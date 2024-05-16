@@ -39,29 +39,39 @@ export default function MovieListContainer({
                         src={MovieGrid}
                         alt="MovieListImage 1"
                         className="object-cover w-32 min-w-32 h-52 rounded-l-lg"
+                        height={300}
+                        width={200}
                      />
                   </div>
                ) : (
                   <div className="grid grid-cols-2 w-32 min-w-32 h-full object-cover rounded-lg">
-                     <img
+                     <Image
                         src={`https://image.tmdb.org/t/p/w500${movielist_images[0]}`}
                         alt="MovieListImage 1"
                         className="object-cover w-full h-full rounded-tl-lg"
+                        height={60}
+                        width={40}
                      />
-                     <img
+                     <Image
                         src={`https://image.tmdb.org/t/p/w500${movielist_images[1]}`}
                         alt="MovieListImage 2"
                         className="object-cover w-full h-full "
+                        height={60}
+                        width={40}
                      />
-                     <img
+                     <Image
                         src={`https://image.tmdb.org/t/p/w500${movielist_images[2]}`}
                         alt="MovieListImage 3"
                         className="object-cover w-full h-full rounded-bl-lg"
+                        height={60}
+                        width={40}
                      />
-                     <img
+                     <Image
                         src={`https://image.tmdb.org/t/p/w500${movielist_images[3]}`}
                         alt="MovieListImage 4"
                         className="object-cover w-full h-full"
+                        height={60}
+                        width={40}
                      />
                   </div>
                )}

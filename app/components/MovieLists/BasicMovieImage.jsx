@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import addMovieToMovieList from '@/app/actions/addMovieToMovieList';
 import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function BasicMovieImage({
    id,
@@ -47,7 +48,7 @@ export default function BasicMovieImage({
    return (
       <div>
          <div className="group flex py-2 sm:py-5">
-            <img
+            <Image
                src={src}
                alt="Movie Scroller Image"
                className="
@@ -64,6 +65,8 @@ export default function BasicMovieImage({
                     shadow-xl 
                     delay-200
                     "
+               height={300}
+               width={200}
                onClick={() => setShowInfo(true)}
             />
             <div
@@ -91,7 +94,7 @@ export default function BasicMovieImage({
                onClick={() => setShowInfo(false)}
             >
                <div className="group">
-                  <img
+                  <Image
                      src={src}
                      alt={`${title} Poster`}
                      className="
@@ -107,6 +110,8 @@ export default function BasicMovieImage({
                         rounded-l-md 
                                                
                         "
+                     height={300}
+                     width={200}
                   />
                   {!isInMovieList ? (
                      <form

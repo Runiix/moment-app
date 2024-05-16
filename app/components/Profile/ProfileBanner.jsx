@@ -180,10 +180,12 @@ export default function ProfileBanner({
                      className="z-0 object-cover w-full h-96"
                   />
                ) : (
-                  <img
+                  <Image
                      src={bannerUrl}
                      alt="profileBanner"
                      className="z-0 object-cover w-full h-96"
+                     height={500}
+                     width={1920}
                   />
                )}
 
@@ -200,10 +202,12 @@ export default function ProfileBanner({
                               {profilePicUrl === '' ? (
                                  <Person className="text-5xl hover:cursor-pointer border-2 group-hover:text-slate-400 rounded-full w-20 h-20" />
                               ) : (
-                                 <img
+                                 <Image
                                     src={profilePicUrl}
                                     alt="profileBanner"
                                     className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 hover:cursor-pointer group-hover:opacity-90 h-20"
+                                    height={40}
+                                    width={40}
                                  />
                               )}
                               <p className="hidden group-hover:flex absolute bottom-8 sm:bottom-14 ml-4 sm:ml-5 text-xs hover:cursor-pointer">
@@ -219,10 +223,12 @@ export default function ProfileBanner({
                         ) : profilePicUrl === '' ? (
                            <Person className="text-5xl hover:cursor-pointer border-2 hover:text-slate-400 rounded-full " />
                         ) : (
-                           <img
+                           <Image
                               src={profilePicUrl}
                               alt="profileBanner"
                               className="z-10 object-cover rounded-full w-20 min-w-20 border-2 bg-gray-900 h-20"
+                              height={40}
+                              width={40}
                            />
                         )}
                         <div className="flex flex-col">

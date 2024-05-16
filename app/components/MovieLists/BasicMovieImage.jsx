@@ -1,14 +1,10 @@
 'use client';
 
-import {
-   AddCircleOutline,
-   CheckBoxOutlined,
-   CheckCircle,
-   StarHalf,
-} from '@mui/icons-material';
+import { AddCircleOutline, CheckCircle, StarHalf } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import addMovieToMovieList from '@/app/actions/addMovieToMovieList';
 import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
+import { usePathname } from 'next/navigation';
 
 export default function BasicMovieImage({
    id,
@@ -23,6 +19,8 @@ export default function BasicMovieImage({
 }) {
    const [genreList, setGenreList] = useState(' - ');
    const [isInMovieList, setIsInMovieList] = useState(false);
+   const [showInfo, setShowInfo] = useState(false);
+   const pathname = usePathname();
 
    useEffect(() => {
       populateGenreList();
@@ -48,21 +46,25 @@ export default function BasicMovieImage({
 
    return (
       <div>
-         <div className="group flex py-5">
+         <div className="group flex py-2 sm:py-5">
             <img
                src={src}
                alt="Movie Scroller Image"
                className="
                     rounded-xl 
                     object-cover 
-                    h-64
-                    w-44
-                    min-w-44
+                    h-44
+                    min-w-32
+                    w-32
+                    sm:h-64
+                    sm:w-44
+                    sm:min-w-44
                     transition-all 
                     duartion-500 
                     shadow-xl 
                     delay-200
                     "
+               onClick={() => setShowInfo(true)}
             />
             <div
                className={`
@@ -70,20 +72,23 @@ export default function BasicMovieImage({
                     w-1
                     sm:w-64 
                     flex
-                    invisible
                     transition-all
-                    scale-100
-                    sm:scale-0
+                    scale-0
                     opacity-100
                     sm:opacity-0
                     delay-300
                     duration-500
-                    sm:group:scale-100
                     sm:group-hover:scale-[1.15]
                     sm:group-hover:opacity-100
                     sm:group-hover:visible
                     sm:group-hover:translate-y-1
+                    ${
+                       showInfo
+                          ? 'visible scale-[0.8] -translate-x-4 -translate-y-8'
+                          : 'invisible'
+                    }
                     `}
+               onClick={() => setShowInfo(false)}
             >
                <div className="group">
                   <img
@@ -124,9 +129,10 @@ export default function BasicMovieImage({
                            name="list_id"
                            value={movielistid}
                         />
+                        <input type="hidden" name="pathname" value={pathname} />
 
                         <button type="submit">
-                           <AddCircleOutline className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer hover:text-green-600 bg-gray-900/80" />
+                           <AddCircleOutline className=" rounded-full absolute bottom-28 -right-4 sm:right-[14.3rem] z-50 text-6xl hover:cursor-pointer hover:text-green-600 bg-gray-900/80" />
                         </button>
                      </form>
                   ) : (
@@ -150,9 +156,10 @@ export default function BasicMovieImage({
                            name="list_id"
                            value={movielistid}
                         />
+                        <input type="hidden" name="pathname" value={pathname} />
 
                         <button type="submit">
-                           <CheckCircle className=" rounded-full absolute bottom-28 right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
+                           <CheckCircle className=" rounded-full absolute bottom-28 -right-4 sm:right-[14.3rem] z-50 text-6xl hover:cursor-pointer text-green-600 hover:text-red-600 bg-gray-900/80" />
                         </button>
                      </form>
                   )}

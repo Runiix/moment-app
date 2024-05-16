@@ -99,7 +99,7 @@ export default function Nav({ user, search = true }) {
             )}
          </div>
          <div
-            className={`shadow-xl shadow-black transition-all items-center duration-500 fixed left-0 top-20 text-xl w-fdivl rounded-lg flex flex-col gap-3 text-center bg-gray-900 border border-slate-400  ${
+            className={`shadow-xl shadow-black transition-all items-center duration-500 fixed left-0 top-20 text-xl w-fdivl rounded-lg flex flex-col gap-3 text-center bg-gray-900 border-y border-slate-400  ${
                toggleMenu ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
             } `}
          >

@@ -41,7 +41,7 @@ export default function MovieListSearchGrid({
          onClick={onClose}
       >
          <div
-            className="p-10 bg-gray-900 h-screen w-2/3  rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar flex flex-col items-center text-center"
+            className="p-10 bg-gray-900 h-screen w-10/12 sm:w-2/3  rounded-lg relative mt-20 overflow-y-scroll overflow-x-hidden hide-scrollbar flex flex-col items-center text-center"
             onClick={(e) => handleChildElementClick(e)}
          >
             <div>

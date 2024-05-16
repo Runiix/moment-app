@@ -8,7 +8,7 @@ export default function BasicMovieGrid({
    movieList,
 }) {
    return (
-      <div className=" flex flex-wrap gap-5 pl-20 pr-20">
+      <div className=" grid grid-cols-1   sm:flex sm:flex-wrap sm:gap-5 sm:pl-20 sm:pr-20">
          {data !== null &&
             data !== undefined &&
             data.map((movie, index) => (

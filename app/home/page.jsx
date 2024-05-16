@@ -155,7 +155,7 @@ export default async function Home({ searchParams }) {
 
    if (query === '') {
       const homeHeroData = await getHomeHero(supabaseServer);
-
+      /* 
       const favoriteData = await getData(supabaseServer, favoriteMovies, null);
       const watchlistData = await getData(
          supabaseServer,
@@ -164,7 +164,7 @@ export default async function Home({ searchParams }) {
       );
       const actionData = await getData(supabaseServer, null, '28');
       const animationData = await getData(supabaseServer, null, '16');
-      const thrillerData = await getData(supabaseServer, null, '53');
+      const thrillerData = await getData(supabaseServer, null, '53'); */
       return (
          <main className="bg-gray-900 text-slate-100">
             <Nav user={user} />
@@ -176,11 +176,6 @@ export default async function Home({ searchParams }) {
                   favoritemovies={favoriteMovies}
                   watchlistmovies={watchlistMovies}
                   dislikemovies={dislikeMovies}
-                  favoritedata={favoriteData}
-                  watchlistdata={watchlistData}
-                  actiondata={actionData}
-                  animationdata={animationData}
-                  thrillerdata={thrillerData}
                />
             </div>
          </main>

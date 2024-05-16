@@ -6,11 +6,6 @@ export default function MovieScrollerGrid({
    favoritemovies,
    watchlistmovies,
    dislikemovies,
-   favoritedata,
-   watchlistdata,
-   actiondata,
-   animationdata,
-   thrillerdata,
 }) {
    return (
       <div className=" flex flex-col gap-10 sm:gap-[18vh] absolute top-[12vh] sm:top-[15vh] lg:top-[25vh] ">
@@ -21,11 +16,11 @@ export default function MovieScrollerGrid({
                link="mymovies/Watchlist/1/vote_average/false"
                scrollertitle="My Watchlist"
                isfavorite={true}
-               favoritetype={'watchlist'}
+               favoritetype={watchlistmovies}
                favoritemovies={favoritemovies}
                watchlistmovies={watchlistmovies}
                dislikemovies={dislikemovies}
-               data={watchlistdata}
+               genre={null}
             />
          </div>
          <div className="flex flex-col">
@@ -35,11 +30,11 @@ export default function MovieScrollerGrid({
                link="mymovies/Favorites/1/vote_average/false"
                scrollertitle="My Favorites"
                isfavorite={true}
-               favoritetype={'favorites'}
+               favoritetype={favoritemovies}
                favoritemovies={favoritemovies}
                watchlistmovies={watchlistmovies}
                dislikemovies={dislikemovies}
-               data={favoritedata}
+               genre={null}
             />
          </div>
          <div className="flex flex-col">
@@ -48,11 +43,10 @@ export default function MovieScrollerGrid({
                genres={genres}
                link="movies/28/vote_average/false"
                scrollertitle="Action"
-               category="28"
+               genre="28"
                favoritemovies={favoritemovies}
                watchlistmovies={watchlistmovies}
                dislikemovies={dislikemovies}
-               data={actiondata}
             />
          </div>
          <div className="flex flex-col">
@@ -61,11 +55,10 @@ export default function MovieScrollerGrid({
                genres={genres}
                link="movies/16/vote_average/false"
                scrollertitle="Animation"
-               category="16"
+               genre="16"
                favoritemovies={favoritemovies}
                watchlistmovies={watchlistmovies}
                dislikemovies={dislikemovies}
-               data={animationdata}
             />
          </div>
          <div className="flex flex-col">
@@ -74,11 +67,10 @@ export default function MovieScrollerGrid({
                genres={genres}
                link="movies/53/vote_average/false"
                scrollertitle="Thriller"
-               category="53"
+               genre="53"
                favoritemovies={favoritemovies}
                watchlistmovies={watchlistmovies}
                dislikemovies={dislikemovies}
-               data={thrillerdata}
             />
          </div>
       </div>

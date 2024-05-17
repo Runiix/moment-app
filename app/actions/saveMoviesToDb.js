@@ -31,7 +31,6 @@ async function fetchMovies() {
             };
          })
       );
-      console.log(formattedMovies);
       return formattedMovies;
    } catch (error) {
       console.error('Error saving Movies', error);

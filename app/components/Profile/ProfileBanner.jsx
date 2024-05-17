@@ -129,7 +129,8 @@ export default function ProfileBanner({
             .from('profileimages')
             .createSignedUrl(
                `${userId}/ProfilePicture/ProfilePic.jpg`,
-               60 * 60
+               60 * 60,
+               { transform: { width: 40, height: 40, quality: 50 } }
             );
          if (error) {
             console.error('Error generating signed URL', error);
@@ -153,7 +154,8 @@ export default function ProfileBanner({
             .from('profileimages')
             .createSignedUrl(
                `${userId}/ProfileBanner/ProfileBanner.jpg`,
-               60 * 60
+               60 * 60,
+               { transform: { width: 1280, height: 720, quality: 50 } }
             );
          if (error) {
             console.error('Error generating signed URL', error);
@@ -186,6 +188,7 @@ export default function ProfileBanner({
                      className="z-0 object-cover w-full h-96"
                      height={500}
                      width={1920}
+                     priority
                   />
                )}
 

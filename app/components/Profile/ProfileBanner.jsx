@@ -252,14 +252,14 @@ export default function ProfileBanner({
                                     change Profile Banner
                                  </p>
                                  <Cameraswitch className="relative z-20 hover:cursor-pointer text-slate-100 hover:text-slate-400" />
-                              </label>
 
-                              <input
-                                 type="file"
-                                 id="banner-upload"
-                                 onChange={addOrChangeProfileBanner}
-                                 className="hidden"
-                              />
+                                 <input
+                                    type="file"
+                                    id="banner-upload"
+                                    onChange={addOrChangeProfileBanner}
+                                    className="hidden"
+                                 />
+                              </label>
                            </div>
                         )}
                      </div>

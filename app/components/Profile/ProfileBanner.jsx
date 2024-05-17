@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GridLoader } from 'react-spinners';
 import moviegrid from '/assets/images/MovieGrid.png';
+import { useRouter } from 'next/navigation';
 
 export default function ProfileBanner({
    paramusername,
@@ -20,6 +21,7 @@ export default function ProfileBanner({
    const [profilePicUrl, setProfilePicUrl] = useState('');
    const [bannerUrl, setBannerUrl] = useState('');
    const [loading, setLoading] = useState(true);
+   const router = useRouter();
 
    useEffect(() => {
       setLoading(true);
@@ -56,7 +58,7 @@ export default function ProfileBanner({
             const { error: insertError } = await supabase.storage
                .from('profileimages')
                .upload(filePath, file);
-
+            router.refresh;
             if (insertError) {
                console.error(insertError);
             }
@@ -97,7 +99,7 @@ export default function ProfileBanner({
             const { error: insertError } = await supabase.storage
                .from('profileimages')
                .upload(filePath, file);
-
+            router.refresh;
             if (insertError) {
                console.error(insertError);
             }
@@ -130,7 +132,7 @@ export default function ProfileBanner({
             .createSignedUrl(
                `${userId}/ProfilePicture/ProfilePic.jpg`,
                60 * 60,
-               { transform: { width: 40, height: 40, quality: 50 } }
+               { transform: { width: 100, height: 100, quality: 50 } }
             );
          if (error) {
             console.error('Error generating signed URL', error);
@@ -209,8 +211,8 @@ export default function ProfileBanner({
                                     src={profilePicUrl}
                                     alt="profileBanner"
                                     className="z-10 object-cover rounded-full w-20 border-2 bg-gray-900 hover:cursor-pointer group-hover:opacity-90 h-20"
-                                    height={40}
-                                    width={40}
+                                    height={100}
+                                    width={100}
                                  />
                               )}
                               <p className="hidden group-hover:flex absolute bottom-8 sm:bottom-14 ml-4 sm:ml-5 text-xs hover:cursor-pointer">

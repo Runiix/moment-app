@@ -31,7 +31,7 @@ export default function Profile({ mobile = false, user }) {
             onClick={toggleProfileNav}
             className={`${
                showProfileNav && 'bg-green-700 text-zinc-900'
-            }text-slate-100 flex items-center justify-center hover:cursor-pointer gap-2 p-2 z-10 rounded-full`}
+            }text-slate-100 flex items-center justify-center hover:cursor-pointer gap-2 p-2 z-10 rounded-full hover:text-slate-400`}
          >
             <p className="hidden lg:flex">
                {user.user_metadata.displayName === null

@@ -77,7 +77,7 @@ export default function Nav({ user, search = true }) {
                   <NavSearch id="webSearch" />
                </div>
             )}
-            <div className="hidden sm:flex lg:mr-5 hover:text-slate-400">
+            <div className="hidden sm:flex lg:mr-5">
                <Profile user={user} />
             </div>
          </div>

@@ -18,12 +18,6 @@ export async function addOrRemoveFromDislikes(formData) {
             get(name) {
                return cookieStore.get(name)?.value;
             },
-            set(name) {
-               cookieStore.set({ name, value, ...options });
-            },
-            remove(name, options) {
-               cookieStore.set({ name, value: '', ...options });
-            },
          },
       }
    );

@@ -89,14 +89,14 @@ export default async function Discover({ searchParams }) {
    const dislikeMovies = await getDislikeData(supabaseServer, user);
 
    return (
-      <main className="bg-gray-900 text-slate-100 max-h-screen max-w-screen">
+      <main className="text-slate-100 max-h-screen max-w-screen">
          <Nav user={user} />
          {query === '' ? (
             <div>
                <DiscoverSlider user={user} />
                <Image
                   src={moviegrid}
-                  className="absolute w-full object-cover h-full left-0 top-0 opacity-10"
+                  className="absolute w-full object-cover h-full left-0 top-0 opacity-10 -z-10"
                   alt="movies"
                />
             </div>

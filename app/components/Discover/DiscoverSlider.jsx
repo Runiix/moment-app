@@ -15,12 +15,14 @@ import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../utils/supabaseClient';
 import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
-import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
+import { addOrRemoveFromDislikes } from '../../actions/addOrRemoveFromDislikes';
 import Draggable from 'react-draggable';
 import { usePathname } from 'next/navigation';
 
 export default function DiscoverSlider({ user }) {
    const [randomMovie, setRandomMovie] = useState(null);
+   const [translate, setTranslate] = useState({ x: 0, y: 0 });
+
    const movieRef = useRef(null);
    const parentRef = useRef(null);
    const pathname = usePathname();
@@ -58,24 +60,40 @@ export default function DiscoverSlider({ user }) {
    useEffect(() => {
       getRandomId();
    }, []);
+   useEffect(() => {
+      setTranslate({ x: 0, y: 0 });
+   }, [randomMovie]);
 
-   /*    const calculateBounds = () => {
-      const parentBounds = parentRef.current.getBoundingClientRect();
-      const movieBounds = movieRef.current.getBoundingClientRect();
-
-      return {
-         left: parentBounds.left - movieBounds.left,
-         top: parentBounds.top - movieBounds.top,
-         right: parentBounds.right - movieBounds.right,
-         bottom: parentBounds.bottom - movieBounds.bottom,
-      
-   }; */
+   const handleArrowClick = (direction) => {
+      switch (direction) {
+         case 'up':
+            setTranslate({ x: 0, y: translate.y - 200 });
+            break;
+         case 'left':
+            setTranslate({ x: translate.x - 200, y: 0 });
+            break;
+         case 'right':
+            setTranslate({ x: translate.x + 200, y: 0 });
+            break;
+         case 'down':
+            setTranslate({ x: 0, y: translate.y + 200 });
+            break;
+         default:
+            break;
+      }
+      getRandomId();
+   };
 
    return (
-      <div>
+      <div className="max-w-screen">
          {randomMovie && (
             <div>
-               <div>
+               <div
+                  style={{
+                     transform: `translate(${translate.x}px, ${translate.y}px)`,
+                     transition: 'transform 0.5s ease',
+                  }}
+               >
                   <MovieDiscoverImage
                      id={randomMovie[0].id}
                      u={user}
@@ -105,7 +123,7 @@ export default function DiscoverSlider({ user }) {
                         <button
                            type="submit"
                            className="scale-[2] flex flex-col items-center hover:text-green-600"
-                           onClick={() => getRandomId()}
+                           onClick={() => handleArrowClick('up')}
                         >
                            <KeyboardArrowUp />
                            <Favorite />
@@ -118,7 +136,7 @@ export default function DiscoverSlider({ user }) {
                   </div>
                   <div className="flex justify-between sm:justify-around w-[75vw] z-40">
                      <div
-                        onClick={() => getRandomId()}
+                        onClick={() => handleArrowClick('left')}
                         className="scale-[2] flex items-center hover:cursor-pointer hover:text-red-600 group"
                      >
                         <KeyboardArrowLeft />
@@ -142,7 +160,7 @@ export default function DiscoverSlider({ user }) {
                         <button
                            type="submit"
                            className="scale-[2] flex items-center hover:text-green-600 group"
-                           onClick={() => getRandomId()}
+                           onClick={() => handleArrowClick('right')}
                         >
                            <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[90deg] relative left-12">
                               {' '}
@@ -156,7 +174,7 @@ export default function DiscoverSlider({ user }) {
                   <div className="group z-40 ">
                      <form
                         action={addOrRemoveFromDislikes}
-                        onSubmit={() => getRandomId()}
+                        onSubmit={() => handleArrowClick('down')}
                      >
                         <input
                            type="hidden"

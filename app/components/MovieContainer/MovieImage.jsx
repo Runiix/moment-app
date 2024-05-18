@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import MovieModal from './MovieModal';
 import { addOrRemoveFromFavorites } from '../../actions/addOrRemoveFromFavorites';
 import { addOrRemoveFromWatchlist } from '../../actions/addOrRemoveFromWatchlist';
-import { addOrRemoveFromDislikes } from '../../actions/addorRemoveFromDislikes';
+import { addOrRemoveFromDislikes } from '../../actions/addOrRemoveFromDislikes';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';

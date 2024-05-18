@@ -44,7 +44,7 @@ export default function MoviDiscoverImage({
    }, []);
 
    return (
-      <div className="group flex py-5 justify-center">
+      <div className="group flex py-5 justify-center bg-opacity-0 max-w-screen">
          <Image
             src={src}
             alt="Movie Scroller Image"
@@ -56,7 +56,7 @@ export default function MoviDiscoverImage({
                     max-w-[400px]
                     object-cover
                     top-20
-                    sm:top-1/4
+                    sm:top-48
                   mx-auto                    
                   sm:h-[25rem]
                     sm:w-72
@@ -70,6 +70,7 @@ export default function MoviDiscoverImage({
                     "
             height={600}
             width={400}
+            priority
          />
          <div
             className="
@@ -77,7 +78,7 @@ export default function MoviDiscoverImage({
                   max-w-[400px]
                   object-cover
                   top-20
-                  sm:top-1/4
+                  sm:top-48
                   z-30
                     border-y
                     border-slate-400

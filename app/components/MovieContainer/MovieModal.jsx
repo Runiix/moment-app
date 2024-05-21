@@ -97,7 +97,7 @@ export default function MovieModal({
             onClick={(e) => handleChildElementClick(e)}
          >
             <div className="relative w-full h-1/3 sm:h-1/2 hover:opacity-90 hover:cursor-pointer">
-               <Image
+               <img
                   src={src}
                   alt={alt}
                   className="rounded-t-lg h-full object-cover w-full"

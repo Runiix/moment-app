@@ -19,7 +19,6 @@ import SimilarMovieGrid from './SimilarMovieGrid';
 import ReviewList from './ReviewList';
 import { usePathname } from 'next/navigation';
 import removeMovieFromMovieList from '@/app/actions/removeMovieFromMovieList';
-import addMovieToMovieList from '@/app/actions/addMovieToMovieList';
 
 export default function MovieModal({
    id,

@@ -75,8 +75,5 @@ export const config = {
       '/Discover',
       '/movielists/:path*',
       '/profilepage/:path*',
-      '/termsofservice',
-      '/impressum',
-      '/help',
    ],
 };

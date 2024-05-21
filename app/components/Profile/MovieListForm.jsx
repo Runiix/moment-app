@@ -18,6 +18,7 @@ export default function MovieListForm({ onClose }) {
          title: 'Movie List added Successfully',
          icon: 'success',
       });
+      onClose();
       setTitle('');
       setDescription('');
    };

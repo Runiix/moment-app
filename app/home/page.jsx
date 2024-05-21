@@ -92,7 +92,6 @@ async function getGenres() {
          throw new Error('Failed to fetch genres');
       }
       const data = await response.json();
-      // Update movie list state with fetched data
       return data;
    } catch (error) {
       console.error('Error fetching genres:', error);

@@ -116,20 +116,6 @@ export default function MovieGrid({
       return `/movies/${genre}/${sortby}/${newSortOrder}`;
    }
 
-   useEffect(() => {
-      const handleGenreFilter = () => {
-         for (let i = 0; i < genres.length; i++) {
-            if (genre === genres[i].id) {
-               setGenreFilter(genres[i].name);
-               return;
-            }
-         }
-
-         setGenreFilter('Genre');
-      };
-      handleGenreFilter();
-   }, [genre]);
-
    return (
       <div className=" flex flex-col gap-10 items-center absolute top-32 w-[96vw]">
          {homepage === false && (

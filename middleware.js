@@ -60,7 +60,12 @@ export async function middleware(req) {
    ) {
       return NextResponse.redirect(new URL('/home', req.url));
    }
-   if (!user && req.nextUrl.pathname !== '/') {
+   if (
+      (!user && req.nextUrl.pathname !== '/') ||
+      (!user && req.nextUrl.pathname === '/help') ||
+      (!user && req.nextUrl.pathname === '/impressum') ||
+      (!user && req.nextUrl.pathname === '/termsofservice')
+   ) {
       return NextResponse.redirect(new URL('/loginpage', req.url));
    }
    return res;

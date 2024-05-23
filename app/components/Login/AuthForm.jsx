@@ -69,7 +69,7 @@ export default function AuthForm() {
          const { error } = await supabase.auth.resetPasswordForEmail(
             emailData,
             {
-               redirectTo: 'https://moment-app-8mtl.vercel.app/passwordreset',
+               redirectTo: 'https://moment-movies.vercel.app/passwordreset',
             }
          );
          if (error) console.error('Error sending reset Email');

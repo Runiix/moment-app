@@ -99,7 +99,6 @@ export default function LandingPage() {
                ></a>
             </div>
          </div>
-         <Footer />
       </main>
    );
 }

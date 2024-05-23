@@ -21,12 +21,12 @@ export default function ReviewForm({ movie_id }) {
    };
 
    return (
-      <div className="mb-10 border border-slate-400 rounded-lg p-4 sm:px-20 mx-2 sm:w-full">
+      <div className="mb-10 border border-slate-400 rounded-lg p-4 sm:px-20 mx-auto sm:w-[700px]">
          <h2 className="text-3xl text-center mb-4">Wirte your own Review: </h2>
-         <div className="flex felx-col w-full sm:justify-center ">
+         <div className="flex felx-col ">
             <form
                action={addReview}
-               className="flex flex-col items-center sm:items-center gap-5 w-full sm:w-full "
+               className="flex flex-col items-center sm:items-center gap-5 w-full sm:mx-4  "
                onSubmit={() => resetForm()}
             >
                <div className="flex flex-col gap-5 justify-start">
@@ -55,7 +55,7 @@ export default function ReviewForm({ movie_id }) {
                         name="content"
                         maxLength="2000"
                         value={content}
-                        className="hide-scrollbar sm:ml-4 sm:w-80 h-32 p-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer  rounded-lg"
+                        className="hide-scrollbar sm:ml-4 sm:w-64 h-32 p-2 z-0 transition-all duration-300 bg-zinc-900 lg:bg-opacity-70 border border-slate-100 hover:bg-zinc-800 hover:cursor-pointer  rounded-lg"
                         onChange={(e) => setContent(e.target.value)}
                      ></textarea>
                   </div>

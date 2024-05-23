@@ -24,7 +24,7 @@ export default function AuthForm() {
    async function handleLogin(e) {
       e.preventDefault();
       setIsSigningIn(true);
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
          email,
          password,
       });
@@ -50,7 +50,7 @@ export default function AuthForm() {
          );
          return;
       }
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
          email,
          password,
          options: {
@@ -66,12 +66,13 @@ export default function AuthForm() {
 
    const sendResetPassword = async () => {
       try {
-         const { data, error } = await supabase.auth.resetPasswordForEmail(
+         const { error } = await supabase.auth.resetPasswordForEmail(
             emailData,
             {
                redirectTo: 'https://moment-app-8mtl.vercel.app/passwordreset',
             }
          );
+         if (error) console.error('Error sending reset Email');
       } catch (error) {
          console.error(error);
       }

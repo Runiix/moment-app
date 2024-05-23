@@ -24,7 +24,7 @@ export default function ReviewList({ movie_id }) {
    }, []);
 
    return (
-      <div className="mt-5 mb-20 w-72 sm:w-96 mx-0">
+      <div className="mt-5 mb-20 flex flex-col items-center mx-2">
          <div>
             <ReviewForm movie_id={movie_id} />
          </div>

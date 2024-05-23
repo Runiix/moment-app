@@ -8,6 +8,7 @@ import { GridLoader } from 'react-spinners';
 import getData from '@/app/actions/getData';
 import getHomeData from '@/app/actions/getHomeData';
 import { useInView } from 'react-intersection-observer';
+import { useRouter } from 'next/navigation';
 
 export default function MovieGrid({
    user,
@@ -31,6 +32,7 @@ export default function MovieGrid({
    const [genreFilter, setGenreFilter] = useState('Genre');
    const [movies, setMovies] = useState([]);
    const { ref, inView } = useInView();
+   const router = useRouter();
 
    const loadMovies = async (offset) => {
       try {
@@ -63,6 +65,7 @@ export default function MovieGrid({
             setOffset(1);
          }
       } catch (error) {
+         router.replace('/movies/1/vote_average/false');
          console.error('Error loading movies:', error);
       }
    };

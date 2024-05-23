@@ -56,7 +56,7 @@ export async function addReview(formData) {
             content: content,
          })
          .match({ username: username, movie_id: movieId });
-      ('updating');
+      console.log('updating');
       if (error) {
          console.error('Error deleting Review:', error);
          return { success: false, error: 'Error deleting Review' };
@@ -68,6 +68,7 @@ export async function addReview(formData) {
          rating: rating,
          content: content,
       });
+      console.log('inserting');
       if (error) {
          console.error('Error inserting Review:', error);
          return { success: false, error: 'Error inserting Review' };

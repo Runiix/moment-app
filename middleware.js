@@ -60,12 +60,7 @@ export async function middleware(req) {
    ) {
       return NextResponse.redirect(new URL('/home', req.url));
    }
-   if (
-      (!user && req.nextUrl.pathname !== '/') ||
-      (!user && req.nextUrl.pathname === '/help') ||
-      (!user && req.nextUrl.pathname === '/impressum') ||
-      (!user && req.nextUrl.pathname === '/termsofservice')
-   ) {
+   if (!user && req.nextUrl.pathname !== '/') {
       return NextResponse.redirect(new URL('/loginpage', req.url));
    }
    return res;
@@ -80,5 +75,8 @@ export const config = {
       '/Discover',
       '/movielists/:path*',
       '/profilepage/:path*',
+      '/impressum',
+      '/help',
+      '/termsofservice',
    ],
 };

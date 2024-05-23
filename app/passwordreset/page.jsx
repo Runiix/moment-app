@@ -20,8 +20,8 @@ export default function PasswordReset() {
          password: data.password,
       });
       if (error) console.error(error);
-      alert('Password changed successfully');
       router.replace('/loginpage');
+      alert('Password changed successfully');
    };
 
    const handlePasswordChange = (e) => {

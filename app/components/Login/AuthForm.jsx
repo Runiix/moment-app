@@ -59,7 +59,9 @@ export default function AuthForm() {
             },
          },
       });
-      if (!error) {
+      if (error) {
+         console.error('Error Singning UP', error);
+      } else {
          setIsSigningUp(true);
       }
    }

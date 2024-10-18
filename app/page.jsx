@@ -4,7 +4,6 @@ import Image from 'next/image';
 import heroBanner from '/assets/images/dark-vip-cinema-studio-still-life.jpg';
 import moviegrid from '/assets/images/MovieGrid.png';
 import { ExpandMore } from '@mui/icons-material';
-import Footer from './components/Footer';
 import laptop from '/assets/images/realistic_laptop_with_smartphone.jpg';
 import tmdb from '/assets/images/tmdb-logo.png';
 

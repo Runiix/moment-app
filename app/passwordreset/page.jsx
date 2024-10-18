@@ -10,6 +10,7 @@ import Image from 'next/image';
 export default function PasswordReset() {
    const [data, setData] = useState({ password: '', confirmPassword: '' });
    const [showPassword, setShowPassword] = useState(false);
+   const router = useRouter();
 
    const confirmPasswords = async () => {
       const { password, confirmPassword } = data;

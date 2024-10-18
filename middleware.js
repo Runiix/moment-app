@@ -69,6 +69,7 @@ export async function middleware(req) {
 export const config = {
    matcher: [
       '/',
+      '/loginpage',
       '/home',
       '/movies/:path*',
       '/mymovies/:path*',

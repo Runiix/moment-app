@@ -60,7 +60,17 @@ export async function middleware(req) {
    ) {
       return NextResponse.redirect(new URL('/home', req.url));
    }
-   if (!user && req.nextUrl.pathname !== '/loginpage') {
+   if (
+      (!user && req.nextUrl.pathname === '/home') ||
+      (!user && req.nextUrl.pathname === '/movies/:path*') ||
+      (!user && req.nextUrl.pathname === '/mymovies/:path*') ||
+      (!user && req.nextUrl.pathname === '/Discover') ||
+      (!user && req.nextUrl.pathname === '/movielists/:path*') ||
+      (!user && req.nextUrl.pathname === '/profilepage/:path*') ||
+      (!user && req.nextUrl.pathname === '/impressum') ||
+      (!user && req.nextUrl.pathname === '/help') ||
+      (!user && req.nextUrl.pathname === '/termsofservice')
+   ) {
       return NextResponse.redirect(new URL('/loginpage', req.url));
    }
    return res;
@@ -68,6 +78,7 @@ export async function middleware(req) {
 
 export const config = {
    matcher: [
+      '/',
       '/loginpage',
       '/home',
       '/movies/:path*',

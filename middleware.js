@@ -60,7 +60,7 @@ export async function middleware(req) {
    ) {
       return NextResponse.redirect(new URL('/home', req.url));
    }
-   if (!user && req.nextUrl.pathname !== '/') {
+   if (!user && req.nextUrl.pathname !== '/loginpage') {
       return NextResponse.redirect(new URL('/loginpage', req.url));
    }
    return res;
@@ -68,7 +68,6 @@ export async function middleware(req) {
 
 export const config = {
    matcher: [
-      '/',
       '/loginpage',
       '/home',
       '/movies/:path*',

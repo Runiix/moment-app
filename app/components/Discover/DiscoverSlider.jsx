@@ -124,6 +124,7 @@ export default function DiscoverSlider({ user }) {
                            type="submit"
                            className="scale-[2] flex flex-col items-center hover:text-green-600"
                            onClick={() => handleArrowClick('up')}
+                           aria-label="Add Movie To Favorites"
                         >
                            <KeyboardArrowUp />
                            <Favorite />
@@ -161,6 +162,7 @@ export default function DiscoverSlider({ user }) {
                            type="submit"
                            className="scale-[2] flex items-center hover:text-green-600 group"
                            onClick={() => handleArrowClick('right')}
+                           aria-label="Add Movie To Watchlist"
                         >
                            <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 rotate-[90deg] relative left-12">
                               {' '}
@@ -186,6 +188,7 @@ export default function DiscoverSlider({ user }) {
                         <button
                            type="submit"
                            className="scale-[2] flex flex-col items-center hover:text-red-600"
+                           aria-label="Add Movie To Dislikes"
                         >
                            <p className=" text-[5px] invisible group-hover:visible bg-opacity-0 ">
                               Add to Dislikes

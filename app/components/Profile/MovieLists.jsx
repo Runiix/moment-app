@@ -51,6 +51,7 @@ export default function MovieLists({
                      <button
                         className="border  border-slate-400 rounded-lg py-14 w-1/3 text-center hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 hover:border-none "
                         onClick={() => setMovieListForm(true)}
+                        aria-label="open MovieList Form to add an new MovieList"
                      >
                         <Add className="text-6xl" />
                      </button>

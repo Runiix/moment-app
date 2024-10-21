@@ -288,14 +288,21 @@ export default function MovieGrid({
                      <button
                         className="hover:bg-green-600p"
                         name="change_order"
+                        id="sort_order_button"
                      >
-                        <Link href={changeSortOrder('true')}>
+                        <Link
+                           href={changeSortOrder('true')}
+                           aria-label="Change Sort Order to ascending"
+                        >
                            <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
                         </Link>
                      </button>
                   ) : (
                      <div>
-                        <Link href={changeSortOrder('false')}>
+                        <Link
+                           href={changeSortOrder('false')}
+                           aria-label="Change Sort Order to descending"
+                        >
                            <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all duration-300 rotate-180 border border-slate-100 rounded-md" />
                         </Link>
                      </div>

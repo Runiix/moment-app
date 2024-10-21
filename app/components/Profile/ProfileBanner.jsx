@@ -268,7 +268,10 @@ export default function ProfileBanner({
                      <div>
                         {paramusername === username && (
                            <div>
-                              <Link href="/account">
+                              <Link
+                                 href="/account"
+                                 aria-label="Go to Account Settings"
+                              >
                                  <Settings className="text-4xl hover:text-slate-400 hover:cursor-pointer" />
                               </Link>
                            </div>

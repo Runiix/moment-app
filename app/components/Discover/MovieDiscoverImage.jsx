@@ -104,7 +104,7 @@ export default function MoviDiscoverImage({
             <div className="p-4">
                <div className="flex flex-col justify-between">
                   <div className="flex flex-col gap-2">
-                     <h3 className="text-2xl">{title}</h3>
+                     <h2 className="text-2xl">{title}</h2>
                      <p className="text-xs">{overview}</p>
                   </div>
                   <div className="flex gap-24 absolute bottom-2">

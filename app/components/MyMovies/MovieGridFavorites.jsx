@@ -329,7 +329,10 @@ export default function MovieGridFavorites({
                      className="hover:bg-green-600p"
                      aria-label="change_order"
                   >
-                     <Link href={changeSortOrder('true')}>
+                     <Link
+                        href={changeSortOrder('true')}
+                        aria-label="change_order"
+                     >
                         <ArrowDownward className="hover:cursor-pointer hover:bg-green-600 hover:text-zinc-900 transition-all rotate-0 duration-300 border border-slate-100 rounded-md" />
                      </Link>
                   </button>

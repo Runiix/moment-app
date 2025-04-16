@@ -12,6 +12,13 @@ const nextConfig = {
             hostname: 'hgckvlxkvpdfxgmwpozr.supabase.co',
          },
       ],
+      unoptimized: true,
+      remotePatterns: [
+         {
+            protocol: 'https',
+            hostname: 'umvtbsrjbvivfkcmvtxk.supabase.co',
+         },
+      ],
    },
 };
 
